@@ -1,0 +1,47 @@
+<div class="peluquerias-container">
+    <header class="peluquerias-header">
+        <div class="title-section">
+            <h1>Explora nuestras Barberías</h1>
+            <p>Encuentra el estilo que mejor se adapta a ti</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()"
+                    placeholder="Buscar por nombre, zona o dirección...">
+                <button class="search-btn">
+                    <span>🔍</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="peluquerias-grid">
+        @if (loading) {
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Buscando las mejores tijeras...</p>
+        </div>
+        } @else {
+        @for (item of filteredPeluquerias; track item.id) {
+        <div class="barber-card">
+            <div class="image-wrapper">
+                <div class="barber-image" [style.backgroundImage]="'url(' + getRandomImage(item.id) + ')'">
+                    <div class="overlay"></div>
+                </div>
+                <span class="rating">⭐ 4.8</span>
+            </div>
+            <div class="barber-info">
+                <h3>{{ item.nombre }}</h3>
+                <p class="location"><span>📍</span> {{ item.municipio }} — {{ item.direccion }}</p>
+                <button class="btn-book" [routerLink]="['/peluqueria', item.id]">Reservar ahora</button>
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state">
+            <p>No se encontraron barberías que coincidan con tu búsqueda.</p>
+        </div>
+        }
+        }
+    </main>
+</div>

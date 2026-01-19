@@ -1,28 +1,43 @@
-<div class="form-wrapper">
-  <h2>
-    TheBarberHub <br />
-    Login
-  </h2>
-  <form (ngSubmit)="onSubmitLogin()" #f="ngForm">
-    <div class="form-group">
-      <input name="email" type="email" required [(ngModel)]="login.email" placeholder="Email" />
+<div class="login-page">
+  <div class="overlay"></div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <h1 [routerLink]="['/']">TheBarberHub</h1>
+      <p>Bienvenido de nuevo, accede a tu cuenta</p>
     </div>
-    <div class="form-group">
-      <input
-        name="contrasenya"
-        type="password"
-        required
-        [(ngModel)]="login.contrasenya"
-        placeholder="Contraseña"
-      />
-    </div>
-    <button
-      class="btn btn-primary bh--p-5 bh--color-fondo-azul-5 bh--w-10 bh--radio-4"
-      [disabled]="!f.form.valid"
-    >
-      Entrar
-    </button>
-  </form>
-  <br />
-  <div *ngIf="error" class="mt-2 alert alert-danger">Credenciales Incorrectas</div>
+
+    <form (ngSubmit)="onSubmitLogin()" #f="ngForm" class="login-form">
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <div class="input-container">
+          <input id="email" name="email" type="email" required [(ngModel)]="login.email" placeholder="tu@email.com" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <div class="input-container">
+          <input id="password" name="contrasenya" type="password" required [(ngModel)]="login.contrasenya"
+            placeholder="••••••••" />
+        </div>
+      </div>
+
+      @if (error) {
+      <div class="error-alert">
+        <i class="icon-error"></i>
+        <span>{{ error }}</span>
+      </div>
+      }
+
+      <button type="submit" class="btn-submit" [disabled]="!f.form.valid">
+        <span>Iniciar Sesión</span>
+        <i class="icon-arrow-right"></i>
+      </button>
+
+      <div class="form-footer">
+        <p>¿No tienes cuenta? <a href="#">Regístrate aquí</a></p>
+      </div>
+    </form>
+  </div>
 </div>

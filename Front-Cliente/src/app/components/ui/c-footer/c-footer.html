@@ -1,24 +1,35 @@
 <footer class="c-footer">
-  <p class="c-footer__copy">© <span id="year"></span> The BarberHub — Estilo para todos.</p>
+  <div class="c-footer__container">
+    <div class="c-footer__main">
+      <div class="c-footer__brand">
+        <h2 class="c-footer__brand-name">TheBarberHub</h2>
+        <p class="c-footer__tagline">Donde el estilo se encuentra con la brújula del éxito.</p>
+      </div>
 
-  <div class="c-footer__social">
-    <a href="#" class="c-footer__social-link">
-      <i class="bi bi-facebook"></i>
-    </a>
-    <a href="#" class="c-footer__social-link">
-      <i class="bi bi-instagram"></i>
-    </a>
-    <a href="#" class="c-footer__social-link">
-      <i class="bi bi-twitter"></i>
-    </a>
-    <a href="#" class="c-footer__social-link">
-      <i class="bi bi-whatsapp"></i>
-    </a>
+      <div class="c-footer__nav">
+        <div class="c-footer__nav-group">
+          <h3>Plataforma</h3>
+          <a routerLink="/inicio">Descubrir</a>
+          <a href="#">Cómo funciona</a>
+          <a href="#">Ayuda</a>
+        </div>
+        <div class="c-footer__nav-group">
+          <h3>Compañía</h3>
+          <a href="#">Acerca de</a>
+          <a href="#">Contacto</a>
+          <a href="#">Barberos</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="c-footer__bottom">
+      <p class="c-footer__copy">© <span id="year">{{ currentYear }}</span> TheBarberHub. Todos los derechos reservados.
+      </p>
+      <div class="c-footer__social">
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-twitter"></i></a>
+      </div>
+    </div>
   </div>
-
-  <p class="c-footer__links">
-    <a href="#" class="c-footer__link">Política de privacidad</a>
-    <a href="#" class="c-footer__link">Términos y condiciones</a>
-    <a href="#" class="c-footer__link">Contacto</a>
-  </p>
 </footer>

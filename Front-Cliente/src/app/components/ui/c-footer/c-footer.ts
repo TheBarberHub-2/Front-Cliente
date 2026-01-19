@@ -7,11 +7,6 @@ import { Component, AfterViewInit } from '@angular/core';
   templateUrl: './c-footer.html',
   styleUrl: './c-footer.scss',
 })
-export class CFooter implements AfterViewInit {
-  ngAfterViewInit() {
-    const yearElement = document.getElementById('year');
-    if (yearElement) {
-      yearElement.textContent = new Date().getFullYear().toString();
-    }
-  }
+export class CFooter {
+  currentYear: number = new Date().getFullYear();
 }

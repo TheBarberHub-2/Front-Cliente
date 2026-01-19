@@ -1,0 +1,259 @@
+.inicio-container {
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    color: #eee;
+}
+
+.inicio-header {
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+
+    .welcome {
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: #888;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .search-container {
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
+    }
+
+    .search-bar {
+        display: flex;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 12px 25px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:focus-within {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.03);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            background: transparent;
+            color: white;
+
+            &::placeholder {
+                color: #555;
+            }
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.categories {
+    margin-bottom: 60px;
+
+    .category-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+    }
+
+    .category-item {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 25px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+
+        &:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-8px);
+
+            .category-icon {
+                transform: scale(1.1);
+            }
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #ccc;
+        }
+    }
+}
+
+.featured {
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 35px;
+        border-left: 4px solid #d4af37;
+        padding-left: 20px;
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .view-all {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+
+            &:hover {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .barber-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+    }
+
+    .barber-card {
+        background: #111;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:hover {
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+
+            .barber-image {
+                transform: scale(1.05);
+            }
+        }
+
+        .image-wrapper {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .barber-image {
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+            .overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            }
+        }
+
+        .rating {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #d4af37;
+        }
+
+        .barber-info {
+            padding: 25px;
+
+            h3 {
+                margin-bottom: 8px;
+                font-size: 1.4rem;
+                font-weight: 700;
+            }
+
+            p {
+                color: #777;
+                font-size: 0.95rem;
+                margin-bottom: 25px;
+                line-height: 1.5;
+            }
+
+            .btn-book {
+                width: 100%;
+                padding: 14px;
+                border-radius: 14px;
+                border: 1px solid rgba(212, 175, 55, 0.3);
+                background: rgba(212, 175, 55, 0.05);
+                color: #d4af37;
+                font-weight: 700;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #d4af37;
+                    color: black;
+                    border-color: #d4af37;
+                    transform: translateY(-2px);
+                }
+            }
+        }
+    }
+}

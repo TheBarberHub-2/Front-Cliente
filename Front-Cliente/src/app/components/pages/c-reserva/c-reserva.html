@@ -1,0 +1,38 @@
+<div class="reserva-container" *ngIf="!loading">
+    <div class="reserva-hero" [style.backgroundImage]="'url(' + getRandomImage(peluqueria?.id) + ')'">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <a [routerLink]="['/inicio']" class="btn-back">← Volver</a>
+            <h1>{{ peluqueria?.nombre }}</h1>
+            <p class="location"><span>📍</span> {{ peluqueria?.municipio }} — {{ peluqueria?.direccion }}</p>
+        </div>
+    </div>
+
+    <main class="reserva-main">
+        <div class="services-header">
+            <h2>Servicios disponibles</h2>
+            <p>Selecciona un servicio para realizar tu reserva</p>
+        </div>
+
+        <div class="services-list">
+            @for (servicio of servicios; track servicio.id) {
+            <div class="service-card">
+                <div class="service-info">
+                    <h3>{{ servicio.nombre }}</h3>
+                    <p class="price">{{ servicio.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+                </div>
+                <button class="btn-reserve" (click)="confirmarReserva(servicio)">Reservar Cita</button>
+            </div>
+            } @empty {
+            <div class="empty-services">
+                <p>No hay servicios disponibles en este momento.</p>
+            </div>
+            }
+        </div>
+    </main>
+</div>
+
+<div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Cargando servicios...</p>
+</div>

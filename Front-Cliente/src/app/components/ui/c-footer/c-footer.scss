@@ -1,121 +1,116 @@
-// c-footer - Componente Footer
-// Siguiendo metodología BEM y usando variables globales
-
 .c-footer {
-    --c-footer-color-fondo: var(--bh-color-gris-4);
-    --c-footer-color-superficie: var(--bh-color-gris-1);
-    --c-footer-color-texto-primario: var(--bh-color-gris-9);
-    --c-footer-color-texto-secundario: var(--bh-color-gris-1);
+    background: #090909;
+    color: #ccc;
+    padding: 80px 20px 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: 'Inter', sans-serif;
 
-
-    background-color: var(--c-footer-color-superficie);
-    color: var(--c-footer-color-texto-primario);
-    padding: var(--bh-p-9) var(--bh-p-7);
-    text-align: center;
-    box-shadow: var(--bh-sombra-2);
-    margin-top: auto;
-
-    // Elemento: Copy (copyright)
-    &__copy {
-        font-size: var(--bh-texto-2);
-        color: var(--c-footer-color-texto-primario);
-        margin: 0 0 var(--bh-m-5) 0;
-        font-weight: var(--bh-peso-2);
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
-    // Elemento: Social (contenedor de redes sociales)
+    &__main {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 60px;
+        gap: 40px;
+    }
+
+    &__brand {
+        max-width: 300px;
+
+        &-name {
+            color: #d4af37;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .c-footer__tagline {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #888;
+        }
+    }
+
+    &__nav {
+        display: flex;
+        gap: 80px;
+
+        &-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            h3 {
+                color: white;
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            a {
+                color: #777;
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #d4af37;
+                }
+            }
+        }
+    }
+
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+        .c-footer__copy {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+    }
+
     &__social {
         display: flex;
-        justify-content: center;
-        gap: var(--bh-espacio-5);
-        margin-bottom: var(--bh-m-6);
-    }
+        gap: 20px;
 
-    // Elemento: Social Link
-    &__social-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: var(--bh-radio-8);
-        background-color: var(--bh-color-gris-3);
-        color: var(--c-footer-color-texto-primario);
-        text-decoration: none;
-        font-size: var(--bh-texto-5);
-        transition: all var(--bh-transicion-2);
+        a {
+            color: #777;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
 
-        // Hover effect
-        &:hover {
-            background-color: var(--bh-color-gris-9);
-            color: var(--bh-color-gris-1);
-            transform: translateY(-3px);
-            box-shadow: var(--bh-sombra-3);
-        }
-
-        // Active effect
-        &:active {
-            transform: translateY(-1px);
-        }
-    }
-
-    // Elemento: Links (contenedor de enlaces)
-    &__links {
-        display: flex;
-        justify-content: center;
-        gap: var(--bh-espacio-7);
-        flex-wrap: wrap;
-        margin: 0;
-        padding-top: var(--bh-p-5);
-        border-top: 1px solid var(--bh-color-gris-3);
-    }
-
-    // Elemento: Link
-    &__link {
-        color: var(--bh-color-gris-8);
-        text-decoration: none;
-        font-size: var(--bh-texto-2);
-        font-weight: var(--bh-peso-2);
-        transition: color var(--bh-transicion-1);
-        position: relative;
-
-        // Hover effect
-        &:hover {
-            color: var(--bh-color-blanco);
-        }
-
-        // Separador entre enlaces (excepto el último)
-        &:not(:last-child)::after {
-            content: '|';
-            position: absolute;
-            right: calc(var(--bh-espacio-7) / -2);
-            color: var(--bh-color-gris-3);
+            &:hover {
+                color: #d4af37;
+                transform: translateY(-3px);
+            }
         }
     }
 }
 
-// Responsive
 @media (max-width: 768px) {
-    .c-footer {
-        padding: var(--bh-p-7) var(--bh-p-5);
+    .c-footer__main {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
 
-        &__links {
-            flex-direction: column;
-            gap: var(--bh-espacio-5);
-        }
+    .c-footer__nav {
+        gap: 40px;
+    }
 
-        &__link:not(:last-child)::after {
-            display: none;
-        }
-
-        &__social {
-            gap: var(--bh-espacio-5);
-        }
-
-        &__social-link {
-            width: 36px;
-            height: 36px;
-            font-size: var(--bh-texto-4);
-        }
+    .c-footer__bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
     }
 }

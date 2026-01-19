@@ -1,28 +1,26 @@
-@if (isLoggedIn) {
 <nav class="c-header">
-  <h2 class="c-header__brand-name c-header__item--highlight" routerLink="/inicio">TheBarberHub</h2>
+  <div class="c-header__container">
+    @if (isLoggedIn) {
+    <a class="c-header__brand" [routerLink]="['/inicio']">
+      <h2 class="c-header__brand-name">TheBarberHub</h2>
+    </a>
+    } @else {
+    <a class="c-header__brand" [routerLink]="['/']">
+      <h2 class="c-header__brand-name">TheBarberHub</h2>
+    </a>
+    }
 
-  <ul class="c-header__nav">
-    <li class="c-header__item">
-      <a class="c-header__link" routerLink="/usuarios">Usuarios</a>
-    </li>
-
-    <li class="c-header__item">
-      <a class="c-header__link" routerLink="/categorias">Categorías</a>
-    </li>
-
-    <li class="c-header__item">
-      <a class="c-header__link" routerLink="/peluquerias">Peluquerías</a>
-    </li>
-
-    <li class="c-header__item">
-      <a class="c-header__link" routerLink="/productos">Productos</a>
-    </li>
-
-
-    <li class="c-header__item">
-      <a class="c-header__link" routerLink="/cerrar-sesion">Cerrar Sesión</a>
-    </li>
-  </ul>
+    @if (isLoggedIn) {
+    <ul class="c-header__nav">
+      <li><a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a></li>
+      <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
+      <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
+      <li><a class="c-header__link logout" [routerLink]="['/cerrar-sesion']">Salir</a></li>
+    </ul>
+    } @else {
+    <div class="c-header__actions">
+      <a [routerLink]="['/login']" class="btn-login">Iniciar Sesión</a>
+    </div>
+    }
+  </div>
 </nav>
-}

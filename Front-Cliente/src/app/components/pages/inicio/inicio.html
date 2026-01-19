@@ -1,0 +1,51 @@
+<div class="inicio-container">
+    <header class="inicio-header">
+        <div class="welcome">
+            <h1>Hola, bienvenido</h1>
+            <p>¿Qué estilo estás buscando hoy?</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar por nombre o dirección..." [(ngModel)]="searchTerm"
+                    (input)="onSearch()">
+                <button class="search-btn"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="categories">
+        <div class="category-list">
+            @for (cat of categorias; track cat.name) {
+            <div class="category-item">
+                <span class="category-icon">{{ cat.icon }}</span>
+                <span class="category-name">{{ cat.name }}</span>
+            </div>
+            }
+        </div>
+    </section>
+
+    <section class="featured">
+        <div class="section-header">
+            <h2>Barberías Recientes</h2>
+            <a href="#" class="view-all">Ver todas</a>
+        </div>
+        <div class="barber-grid">
+            @for (barberia of filteredBarberias; track barberia.id) {
+            <div class="barber-card">
+                <div class="image-wrapper">
+                    <div class="barber-image" [style.backgroundImage]="'url(' + getRandomImage(barberia.id) + ')'">
+                        <div class="overlay"></div>
+                    </div>
+                    <span class="rating">⭐ 4.8</span>
+                </div>
+                <div class="barber-info">
+                    <h3>{{ barberia.nombre }}</h3>
+                    <p>{{ barberia.municipio }} — {{ barberia.direccion }}</p>
+                    <button class="btn-book" [routerLink]="['/peluqueria', barberia.id]">Reservar ahora</button>
+                </div>
+            </div>
+            }
+        </div>
+    </section>
+</div>

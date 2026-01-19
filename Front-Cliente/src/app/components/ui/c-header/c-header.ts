@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-c-header',
@@ -12,7 +13,9 @@ import { CommonModule } from '@angular/common';
 export class CHeader {
   numeroPedidos: number = 0;
 
+  constructor(private loginService: LoginService) { }
+
   get isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.loginService.isLogged();
   }
 }

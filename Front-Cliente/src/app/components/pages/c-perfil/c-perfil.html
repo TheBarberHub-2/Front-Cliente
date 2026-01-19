@@ -1,0 +1,32 @@
+<div class="perfil-container">
+    <div class="perfil-card" *ngIf="!loading && usuario">
+        <div class="perfil-header">
+            <div class="avatar-placeholder">
+                {{ usuario.nombre.charAt(0).toUpperCase() }}
+            </div>
+            <h1>{{ usuario.nombre }}</h1>
+            <span class="role-badge">{{ usuario.rol }}</span>
+        </div>
+
+        <div class="perfil-body">
+            <div class="info-group">
+                <label>Correo Electrónico</label>
+                <p>{{ usuario.email }}</p>
+            </div>
+
+            <div class="info-group">
+                <label>Nombre Completo</label>
+                <p>{{ usuario.nombre }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-state" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Cargando información...</p>
+    </div>
+
+    <div class="error-state" *ngIf="error">
+        <p>{{ error }}</p>
+    </div>
+</div>

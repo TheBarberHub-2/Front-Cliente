@@ -1,103 +1,89 @@
 .c-header {
-
-    --c-header-color-fondo: var(--bh-color-gris-4);
-    --c-header-color-superficie: var(--bh-color-gris-1);
-    --c-header-color-texto-primario: var(--bh-color-gris-9);
-    --c-header-color-texto-secundario: var(--bh-color-gris-1);
-    --c-header-color-acento: var(--bh-color-gris-1);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--bh-espacio-4) var(--bh-espacio-8);
-    background-color: var(--c-header-color-superficie);
-    box-shadow: var(--bh-sombra-2);
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
-    z-index: var(--bh-z-3);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
-    // Elemento: Brand Name
-    &__brand-name {
-        font-size: var(--bh-texto-6);
-        font-weight: var(--bh-peso-5);
-        color: var(--c-header-color-texto-primario);
-        margin: 0;
-        letter-spacing: -0.5px;
-        cursor: pointer;
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    // Elemento: Nav (lista de navegación)
-    &__nav {
+    &__brand {
         display: flex;
         align-items: center;
-        gap: var(--bh-espacio-6);
+        gap: 10px;
+        cursor: pointer;
+        text-decoration: none;
+
+        &-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #d4af37;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+    }
+
+    &__nav {
+        display: flex;
+        gap: 30px;
         list-style: none;
         margin: 0;
         padding: 0;
+        align-items: center;
     }
 
-    // Elemento: Item (cada elemento de la lista)
-    &__item {
-
-        // Modificador: Highlight
-        &--highlight {
-            background-color: var(--bh-color-gris-3);
-            padding: var(--bh-espacio-3) var(--bh-espacio-5);
-            border-radius: var(--bh-radio-3);
-        }
-    }
-
-    // Elemento: Link
     &__link {
-        color: var(--c-header-color-texto-primario);
+        color: #aaa;
         text-decoration: none;
-        font-size: var(--bh-texto-3);
-        font-weight: var(--bh-peso-3);
-        transition: color var(--bh-transicion-1);
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
         position: relative;
 
-        // Efecto hover
-        &:hover {
-            color: var(--bh-color-gris-8);
+        &:hover,
+        &.active {
+            color: white;
         }
 
-        // Underline animado
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--bh-color-acento);
-            transition: width var(--bh-transicion-2);
-        }
+        &.logout {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 15px;
+            border-radius: 8px;
 
-        &:hover::after {
-            width: 100%;
+            &:hover {
+                background: rgba(212, 175, 55, 0.1);
+                color: #d4af37;
+            }
         }
     }
 
-    // Elemento: Highlight (span de pedidos)
-    &__highlight {
-        color: var(--bh-color-texto-primario);
-        font-size: var(--bh-texto-2);
-        font-weight: var(--bh-peso-4);
-        white-space: nowrap;
+    .btn-login {
+        background: #d4af37;
+        color: black;
+        padding: 10px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
     }
 }
 
-// Responsive
-@media (max-width: 1024px) {
-    .c-header {
-        flex-direction: column;
-        gap: var(--bh-espacio-4);
-        padding: var(--bh-espacio-4);
-
-        &__nav {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--bh-espacio-3);
-        }
+@media (max-width: 768px) {
+    .c-header__nav {
+        display: none; // You could add a hamburger menu later
     }
 }

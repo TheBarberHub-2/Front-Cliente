@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from './Auth.Service';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { LoginService } from './login.service';
@@ -11,19 +10,19 @@ import { Rol } from '../enums/rol.enum';
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private auth: AuthService,
     private router: Router,
     private loginService: LoginService
-  ) {}
+  ) { }
 
   canActivate(): Observable<boolean> | boolean {
-    if (!this.auth.isLogged()) {
-      alert('Sesion no iniciada');
+    if (!this.loginService.isLogged()) {
+      alert('Sesión no iniciada');
       this.router.navigate(['/login']);
       return false;
     }
-    this.loginService.getRol().subscribe({
-      next: (rol) => {
+
+    return this.loginService.getRol().pipe(
+      map((rol) => {
         if (rol === Rol.Admin) {
           return true;
         } else {
@@ -31,12 +30,12 @@ export class AuthGuard implements CanActivate {
           this.router.navigate(['/inicio']);
           return false;
         }
-      },
-      error: (err) => {
+      }),
+      catchError((err) => {
         console.error('Error al obtener el rol:', err);
-        return false;
-      },
-    });
-    return true;
+        this.router.navigate(['/inicio']);
+        return of(false);
+      })
+    );
   }
 }

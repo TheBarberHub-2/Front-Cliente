@@ -1,0 +1,8 @@
+// Utilities Index
+@forward 'functions';
+@forward 'mixins';
+@forward 'variables';
+
+body {
+    background-color: var(--bh-color-fondo);
+}

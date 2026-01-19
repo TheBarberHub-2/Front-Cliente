@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+:root {
+  @for $i from 1 through list.length(utilidades.$font-sizes) {
+    $font-size: list.nth(utilidades.$font-sizes, $i);
+    --bh-texto-#{$i}: #{$font-size};
+  }
+}
+
+@for $i from 1 through list.length(utilidades.$font-sizes) {
+  $font-size: list.nth(utilidades.$font-sizes, $i);
+
+  .bh--texto-#{$i} {
+    font-size: var(--bh-texto-#{$i});
+  }
+}

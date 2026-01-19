@@ -1,0 +1,45 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+
+:root {
+  @each $nombre, $tonalidades in utilidades.$colores {
+    @for $i from 1 through list.length($tonalidades) {
+      --bh-color-#{$nombre}-#{$i}: #{list.nth($tonalidades, $i)};
+    }
+  }
+}
+
+
+
+@each $nombre, $tonalidades in utilidades.$colores {
+  @for $i from 1 through list.length($tonalidades) {
+    .bh--color-#{$nombre}-#{$i} {
+      color: var(--bh-color-#{$nombre}-#{$i});
+    }
+
+    .bh--color-fondo-#{$nombre}-#{$i} {
+      background-color: var(--bh-color-#{$nombre}-#{$i});
+    }
+
+    .bh--color-superficie-#{$nombre}-#{$i} {
+      background-color: var(--bh-color-#{$nombre}-#{$i});
+    }
+  }
+}
+
+@each $nombre, $tonalidades in utilidades.$colores {
+  @for $i from 1 through list.length($tonalidades) {
+    .bh--color-texto-primario#{$nombre}-#{$i} {
+      color: var(--bh-color-#{$nombre}-#{$i});
+    }
+
+    .bh--color-texto-secundario#{$nombre}-#{$i} {
+      color: var(--bh-color-#{$nombre}-#{$i});
+    }
+
+    .bh--color-texto-acento#{$nombre}-#{$i} {
+      color: var(--bh-color-#{$nombre}-#{$i});
+    }
+  }
+}

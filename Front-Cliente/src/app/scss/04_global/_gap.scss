@@ -1,0 +1,14 @@
+@use "../01_utilities/index" as *;
+@use "sass:list";
+
+:root {
+    @for $i from 1 through list.length($gaps) {
+        --bh-espacio-#{$i}: #{list.nth($gaps, $i)};
+    }
+}
+
+@for $i from 1 through list.length($gaps) {
+    .bh--espacio-#{$i} {
+        gap: var(--bh-espacio-#{$i}) !important;
+    }
+}

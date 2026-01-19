@@ -1,0 +1,104 @@
+// Display utilities
+.bh-d-none {
+    display: none;
+}
+
+.bh-d-block {
+    display: block;
+}
+
+.bh-d-flex {
+    display: flex;
+}
+
+.bh-d-grid {
+    display: grid;
+}
+
+// Flex utilities
+.bh-flex-row {
+    flex-direction: row;
+}
+
+.bh-flex-column {
+    flex-direction: column;
+}
+
+.bh-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.bh-justify-center {
+    justify-content: center;
+}
+
+.bh-justify-between {
+    justify-content: space-between;
+}
+
+.bh-justify-start {
+    justify-content: flex-start;
+}
+
+.bh-justify-end {
+    justify-content: flex-end;
+}
+
+.bh-align-center {
+    align-items: center;
+}
+
+.bh-align-start {
+    align-items: flex-start;
+}
+
+.bh-align-end {
+    align-items: flex-end;
+}
+
+// Text utilities
+.bh-text-left {
+    text-align: left;
+}
+
+.bh-text-center {
+    text-align: center;
+}
+
+.bh-text-right {
+    text-align: right;
+}
+
+.bh-text-uppercase {
+    text-transform: uppercase;
+}
+
+.bh-text-lowercase {
+    text-transform: lowercase;
+}
+
+.bh-text-capitalize {
+    text-transform: capitalize;
+}
+
+// Cursor utilities
+.bh-cursor-pointer {
+    cursor: pointer;
+}
+
+.bh-cursor-default {
+    cursor: default;
+}
+
+// Overflow utilities
+.bh-overflow-hidden {
+    overflow: hidden;
+}
+
+.bh-overflow-auto {
+    overflow: auto;
+}
+
+.bh-overflow-scroll {
+    overflow: scroll;
+}

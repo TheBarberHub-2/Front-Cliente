@@ -1,0 +1,33 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+:root {
+  @for $i from 1 through list.length(utilidades.$paddings) {
+    $padding: list.nth(utilidades.$paddings, $i);
+    --bh-p-#{$i}: #{$padding};
+  }
+}
+
+@for $i from 1 through list.length(utilidades.$paddings) {
+  $padding: list.nth(utilidades.$paddings, $i);
+
+  .bh--p-#{$i} {
+    padding: var(--bh-p-#{$i});
+  }
+
+  .bh--pt-#{$i} {
+    padding-top: var(--bh-p-#{$i});
+  }
+
+  .bh--pb-#{$i} {
+    padding-bottom: var(--bh-p-#{$i});
+  }
+
+  .bh--pl-#{$i} {
+    padding-left: var(--bh-p-#{$i});
+  }
+
+  .bh--pr-#{$i} {
+    padding-right: var(--bh-p-#{$i});
+  }
+}

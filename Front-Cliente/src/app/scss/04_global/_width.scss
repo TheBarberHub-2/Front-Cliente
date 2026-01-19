@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+:root {
+  @for $i from 1 through list.length(utilidades.$widths) {
+    $width: list.nth(utilidades.$widths, $i);
+    --bh-w-#{$i}: #{$width};
+  }
+}
+
+@for $i from 1 through list.length(utilidades.$widths) {
+  $width: list.nth(utilidades.$widths, $i);
+
+  .bh--w-#{$i} {
+    width: var(--bh-w-#{$i});
+  }
+}

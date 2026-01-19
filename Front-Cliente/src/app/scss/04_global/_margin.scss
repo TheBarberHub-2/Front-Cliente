@@ -1,0 +1,33 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+:root {
+  @for $i from 1 through list.length(utilidades.$margins) {
+    $margin: list.nth(utilidades.$margins, $i);
+    --bh-m-#{$i}: #{$margin};
+  }
+}
+
+@for $i from 1 through list.length(utilidades.$margins) {
+  $margin: list.nth(utilidades.$margins, $i);
+
+  .bh--ma-#{$i} {
+    margin: var(--bh-m-#{$i});
+  }
+
+  .bh--mt-#{$i} {
+    margin-top: var(--bh-m-#{$i});
+  }
+
+  .bh--mb-#{$i} {
+    margin-bottom: var(--bh-margin-#{$i});
+  }
+
+  .bh--ml-#{$i} {
+    margin-left: var(--bh-margin-#{$i});
+  }
+
+  .bh--mr-#{$i} {
+    margin-right: var(--bh-margin-#{$i});
+  }
+}

@@ -1,0 +1,17 @@
+@use "sass:list";
+@use "../01_utilities/_index.scss" as utilidades;
+
+:root {
+  @for $i from 1 through list.length(utilidades.$heights) {
+    $height: list.nth(utilidades.$heights, $i);
+    --bh-altura-#{$i}: #{$height};
+  }
+}
+
+@for $i from 1 through list.length(utilidades.$heights) {
+  $height: list.nth(utilidades.$heights, $i);
+
+  .bh--altura-#{$i} {
+    height: var(--bh-altura-#{$i});
+  }
+}

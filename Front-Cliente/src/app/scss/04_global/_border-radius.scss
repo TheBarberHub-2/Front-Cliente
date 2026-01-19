@@ -1,0 +1,16 @@
+@use "../01_utilities/index" as *;
+@use "sass:list";
+
+:root {
+    @for $i from 1 through list.length($border-radius) {
+        --bh-radio-#{$i}: #{list.nth($border-radius, $i)};
+    }
+}
+
+@for $i from 1 through list.length($border-radius) {
+    $radio: list.nth($border-radius, $i);
+
+    .bh--radio-#{$i} {
+        border-radius: var(--bh-radio-#{$i});
+    }
+}

@@ -1,0 +1,78 @@
+.c-cerrar-sesion-container {
+    --c-mod-container-height: var(--bh-altura-1);
+    --c-mod-container-width: var(--bh-w-13);
+    --c-mod-container-color-fondo: var(--bh-color-gris-4);
+    --c-mod-container-color-superficie: var(--bh-color-gris-1);
+    --c-mod-container-color-texto-primario: var(--bh-color-texto-gris-9);
+    --c-mod-container-color-texto-secundario: var(--bh-color-texto-gris-1);
+
+    background-color: var(--c-mod-container-color-fondo);
+
+    min-height: var(--c-mod-container-height);
+    max-width: var(--c-mod-container-width);
+    margin: 0 auto;
+    padding: var(--bh-p-4);
+
+    .form-wrapper {
+        background: var(--c-mod-container-color-superficie);
+        padding: var(--bh-p-6);
+        border-radius: var(--bh-radio-2);
+        box-shadow: var(--bh-sombra-1);
+
+        h2 {
+            margin-bottom: var(--bh-p-4);
+            color: var(--c-mod-container-color-texto-primario);
+            font-size: var(--bh-texto-2);
+            border-bottom: 2px solid var(--bh-color-primario);
+            padding-bottom: var(--bh-p-2);
+        }
+    }
+
+    .form-actions {
+        display: flex;
+        gap: var(--bh-p-2);
+        justify-content: flex-end;
+        margin-top: var(--bh-p-4);
+
+        button {
+            padding: var(--bh-p-2) var(--bh-p-4);
+            border-radius: var(--bh-radio-1);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+
+            &.btn-submit {
+                background-color: var(--bh-color-error); // Red for logout
+                color: white;
+
+                &:hover {
+                    background-color: color-mix(in srgb, var(--bh-color-error), black 10%);
+                }
+            }
+
+            &.btn-cancel {
+                background-color: transparent;
+                border: 1px solid var(--bh-color-gris-5);
+                color: var(--c-mod-container-color-texto-primario);
+
+                &:hover {
+                    background-color: var(--bh-color-gris-3);
+                }
+            }
+        }
+    }
+
+    .no-data {
+        text-align: center;
+        padding: var(--bh-p-4);
+        background: var(--c-mod-container-color-superficie);
+        border-radius: var(--bh-radio-2);
+
+        p {
+            color: var(--c-mod-container-color-texto-primario);
+            font-size: var(--bh-texto-4);
+            margin-bottom: var(--bh-p-2);
+        }
+    }
+}

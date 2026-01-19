@@ -1,0 +1,146 @@
+// Login Component Styles - BarberHub
+.form-wrapper {
+    --bh-inicio-color-fondo: var(--bh-color-gris-3);
+    --bh-inicio-color-superficie: var(--bh-color-gris-1);
+    --bh-inicio-color-texto-primario: var(--bh-color-gris-9);
+    --bh-inicio-color-texto-secundario: var(--bh-color-gris-1);
+    --bh-inicio-height: var(--bh-altura-12);
+    --bh-inicio-width: var(--bh-w-9);
+
+    min-height: var(--bh-inicio-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bh-color-gris-1) 0%, var(--bh-color-negro) 100%);
+    padding: var(--bh-espacio-6);
+    background-color: var(--bh-inicio-color-fondo);
+    border-radius: 0; // Fix white corners on page background
+
+    h2 {
+        color: var(--bh-color-gris-9);
+        font-size: var(--bh-texto-7);
+        font-weight: var(--bh-peso-5);
+        margin-bottom: var(--bh-espacio-8);
+        text-align: center;
+        letter-spacing: -0.5px;
+        text-transform: uppercase;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--bh-color-gris-9);
+            margin: var(--bh-espacio-4) auto 0;
+        }
+    }
+
+    form {
+        background: var(--bh-color-gris-1);
+        border-radius: var(--bh-radio-4);
+        padding: var(--bh-espacio-6);
+        box-shadow: var(--bh-sombra-4);
+        width: var(--bh-inicio-width);
+        max-width: 420px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .form-group {
+            margin-bottom: var(--bh-espacio-6);
+
+            label {
+                display: block;
+                margin-bottom: var(--bh-espacio-2);
+                color: var(--bh-color-gris-9);
+                font-weight: var(--bh-peso-3);
+                font-size: var(--bh-texto-2);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            input {
+                width: 100%;
+                padding: var(--bh-espacio-4);
+                border: 2px solid transparent;
+                border-radius: var(--bh-radio-2);
+                font-size: var(--bh-texto-3);
+                background: var(--bh-color-gris-4);
+                color: var(--bh-color-gris-9);
+                transition: all var(--bh-transicion-2);
+                font-family: var(--bh-fuente-primaria);
+
+                &::placeholder {
+                    color: var(--bh-color-gris-8);
+                    opacity: 0.5;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--bh-color-gris-9);
+                    background: var(--bh-color-gris-2);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+                }
+
+                &.error {
+                    border-color: #ff4444;
+                    background: rgba(255, 68, 68, 0.1);
+                }
+            }
+
+            .error-message {
+                display: block;
+                color: #ff4444;
+                font-size: var(--bh-texto-1);
+                margin-top: var(--bh-espacio-2);
+                font-weight: var(--bh-peso-3);
+            }
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: var(--bh-espacio-4);
+            border: none;
+            border-radius: var(--bh-radio-2);
+            font-size: var(--bh-texto-3);
+            font-weight: var(--bh-peso-4);
+            cursor: pointer;
+            transition: all var(--bh-transicion-2);
+            background: var(--bh-color-azul-5);
+            color: var(--bh-color-blanco);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: var(--bh-espacio-4);
+
+            &:hover:not(:disabled) {
+                background: var(--bh-color-azul-6);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+            }
+
+            &:active:not(:disabled) {
+                transform: translateY(0);
+            }
+
+            &:disabled {
+                background: var(--bh-color-gris-4);
+                color: var(--bh-color-gris-8);
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    // Responsive
+    @media (max-width: 768px) {
+        padding: var(--bh-espacio-4);
+
+        h2 {
+            font-size: var(--bh-texto-6);
+        }
+
+        form {
+            padding: var(--bh-espacio-6);
+        }
+    }
+}

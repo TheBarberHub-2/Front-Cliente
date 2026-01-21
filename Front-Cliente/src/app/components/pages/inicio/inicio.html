@@ -17,7 +17,7 @@
     <section class="categories">
         <div class="category-list">
             @for (cat of categorias; track cat.name) {
-            <div class="category-item">
+            <div class="category-item" [routerLink]="['/servicios', cat.name]" style="cursor: pointer;">
                 <span class="category-icon">{{ cat.icon }}</span>
                 <span class="category-name">{{ cat.name }}</span>
             </div>

@@ -6,6 +6,7 @@ import { LoginGuard } from './services/login.guard';
 import { CPerfil } from './components/pages/c-perfil/c-perfil';
 import { CPeluquerias } from './components/pages/c-peluquerias/c-peluquerias';
 import { CReserva } from './components/pages/c-reserva/c-reserva';
+import { CCatalogoServicios } from './components/pages/c-catalogo-servicios/c-catalogo-servicios';
 
 export const routes: Routes = [
     { path: '', component: LandingPage, pathMatch: 'full' },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     { path: 'usuarios', component: CPerfil, canActivate: [LoginGuard] },
     { path: 'peluquerias', component: CPeluquerias, canActivate: [LoginGuard] },
     { path: 'peluqueria/:id', component: CReserva, canActivate: [LoginGuard] },
+    { path: 'servicios/:categoria', component: CCatalogoServicios, canActivate: [LoginGuard] },
     { path: '**', redirectTo: '' }
 ];

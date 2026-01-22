@@ -26,9 +26,17 @@ export class LoginService {
       map(() => { })
     );
   }
-  logOut(): Observable<void> {
-    return this.http
-      .delete<void>(this.apiUrl + '/logout')
-      .pipe(tap(() => localStorage.removeItem('token')));
+  logout() {
+    this.http.delete('/auth/logout').subscribe({
+      next: () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('login');
+      },
+      error: (err) => {
+        console.error('Logout error:', err);
+        localStorage.removeItem('token');
+        localStorage.removeItem('login');
+      },
+    });
   }
 }

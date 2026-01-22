@@ -18,4 +18,7 @@ export class CHeader {
   get isLoggedIn(): boolean {
     return this.loginService.isLogged();
   }
+  LogOut(){
+   return this.loginService.logout();
+  }
 }

@@ -14,8 +14,7 @@ export class CCerrarSesion {
   constructor(private loginService: LoginService, private router: Router) {}
 
   logout(): void {
-    this.loginService.logOut().subscribe((x) => {
-      this.router.navigate(['']);
-    });
+    this.loginService.logout();
+    this.router.navigate(['']);
   }
 }

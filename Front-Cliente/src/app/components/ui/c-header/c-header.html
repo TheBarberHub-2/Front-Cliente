@@ -15,7 +15,7 @@
       <li><a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a></li>
       <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
       <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
-      <li><a class="c-header__link logout" [routerLink]="['/cerrar-sesion']">Salir</a></li>
+      <li><a class="c-header__link logout" class="btn-submit" (click)="LogOut()" [routerLink]="['/']">Cerrar Sesion</a></li>
     </ul>
     } @else {
     <div class="c-header__actions">

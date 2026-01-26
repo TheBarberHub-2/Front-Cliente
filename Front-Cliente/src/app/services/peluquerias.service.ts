@@ -15,16 +15,7 @@ export class PeluqueriasService {
   getPeluquerias(): Observable<Page<PeluqueriaSummary>> {
     return this.http.get<Page<PeluqueriaSummary>>(this.apiUrl);
   }
-  crearPeluqueria(peluqueria: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, peluqueria);
-  }
   verPeluqueria(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
-  }
-  modificarPeluqueria(id: number, peluqueria: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, peluqueria);
-  }
-  eliminarPeluqueria(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

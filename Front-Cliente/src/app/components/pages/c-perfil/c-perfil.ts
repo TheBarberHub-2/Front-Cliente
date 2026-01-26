@@ -22,13 +22,15 @@ export class CPerfil implements OnInit {
     }
 
     loadProfile(): void {
-        // Intentamos cargar el perfil. Como no tenemos un /me explícito,
-        // por ahora cargaremos el primero de la lista como simulación o si la API lo soporta.
-        // NOTA: En un entorno real se usaría un endpoint tipo /api/usuarios/me
+        const loggedEmail = localStorage.getItem('email');
         this.usuariosService.getUsuarios().subscribe({
             next: (page) => {
                 if (page.data && page.data.length > 0) {
-                    this.usuario = page.data[0]; // Simulación: primer usuario
+                    if (loggedEmail) {
+                        this.usuario = page.data.find(u => u.email === loggedEmail) || page.data[0];
+                    } else {
+                        this.usuario = page.data[0];
+                    }
                 }
                 this.loading = false;
             },

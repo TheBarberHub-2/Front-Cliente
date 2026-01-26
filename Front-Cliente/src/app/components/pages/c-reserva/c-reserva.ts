@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PeluqueriasService } from '../../../services/peluquerias.service';
 import { ProductosService } from '../../../services/productos.service';
+import { LoginService } from '../../../services/login.service';
+import { Rol } from '../../../enums/rol.enum';
+import { Subscription } from 'rxjs';
 import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summary';
 import { ProductoSummary } from '../../../models/productos/producto.summary';
 
@@ -13,19 +16,25 @@ import { ProductoSummary } from '../../../models/productos/producto.summary';
     templateUrl: './c-reserva.html',
     styleUrl: './c-reserva.scss'
 })
-export class CReserva implements OnInit {
+export class CReserva implements OnInit, OnDestroy {
     peluqueria: PeluqueriaSummary | null = null;
     servicios: ProductoSummary[] = [];
     loading: boolean = true;
     peluqueriaId: number = 0;
+    isPeluqueria: boolean = false;
+    private rolSub: Subscription | null = null;
 
     constructor(
         private route: ActivatedRoute,
         private peluqueriasService: PeluqueriasService,
-        private productosService: ProductosService
+        private productosService: ProductosService,
+        private loginService: LoginService
     ) { }
 
     ngOnInit(): void {
+        this.rolSub = this.loginService.role$.subscribe(rol => {
+            this.isPeluqueria = rol === Rol.Peluqueria;
+        });
         const idParam = this.route.snapshot.paramMap.get('id');
         if (idParam) {
             this.peluqueriaId = +idParam;
@@ -71,5 +80,11 @@ export class CReserva implements OnInit {
 
     confirmarReserva(servicio: ProductoSummary): void {
         alert("Has pulsado el boton, muy bien master pero no está implementado")
+    }
+
+    ngOnDestroy(): void {
+        if (this.rolSub) {
+            this.rolSub.unsubscribe();
+        }
     }
 }

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductosService } from '../../../services/productos.service';
 import { PeluqueriasService } from '../../../services/peluquerias.service';
 import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summary';
+import { LoginService } from '../../../services/login.service';
+import { Rol } from '../../../enums/rol.enum';
+import { Subscription } from 'rxjs';
 
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './c-catalogo-servicios.html',
     styleUrl: './c-catalogo-servicios.scss'
 })
-export class CCatalogoServicios implements OnInit {
+export class CCatalogoServicios implements OnInit, OnDestroy {
     categoria: string = '';
     searchTerm: string = '';
     allServicios: any[] = [];
@@ -27,14 +30,20 @@ export class CCatalogoServicios implements OnInit {
     currentPage: number = 1;
     pageSize: number = 6;
     totalPages: number = 1;
+    isPeluqueria: boolean = false;
+    private rolSub: Subscription | null = null;
 
     constructor(
         private route: ActivatedRoute,
         private productosService: ProductosService,
-        private peluqueriasService: PeluqueriasService
+        private peluqueriasService: PeluqueriasService,
+        private loginService: LoginService
     ) { }
 
     ngOnInit(): void {
+        this.rolSub = this.loginService.role$.subscribe(rol => {
+            this.isPeluqueria = rol === Rol.Peluqueria;
+        });
         this.route.params.subscribe(params => {
             this.categoria = params['categoria'];
             this.loadInitialData();
@@ -127,5 +136,11 @@ export class CCatalogoServicios implements OnInit {
             'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop'
         ];
         return images[(id || 0) % images.length];
+    }
+
+    ngOnDestroy(): void {
+        if (this.rolSub) {
+            this.rolSub.unsubscribe();
+        }
     }
 }

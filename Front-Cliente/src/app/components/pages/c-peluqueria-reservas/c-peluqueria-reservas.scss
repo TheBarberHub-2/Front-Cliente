@@ -1,0 +1,178 @@
+.c-reservas {
+    padding: 2rem;
+    min-height: 80vh;
+    background-color: var(--grey-background);
+
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    &__coming-soon {
+        background: var(--bh-color-gris-2);
+        padding: 4rem 2rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        margin-bottom: 3rem;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+        h2 {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+    }
+
+    &__table-container {
+        background: var(--bh-color-gris-2);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+
+            h2 {
+                font-size: 1.5rem;
+                color: white;
+            }
+
+            .table-actions {
+                display: flex;
+                gap: 0.5rem;
+
+                .btn-filter {
+                    padding: 0.5rem 1rem;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    background: rgba(255, 255, 255, 0.05);
+                    color: #ccc;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    transition: all 0.2s;
+
+                    &:hover {
+                        border-color: #d4af37;
+                        color: #d4af37;
+                        background: rgba(212, 175, 55, 0.05);
+                    }
+                }
+            }
+        }
+    }
+
+    .reservas-table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        td {
+            color: #ccc;
+            font-size: 1rem;
+
+            strong {
+                color: white;
+            }
+
+            small {
+                color: #666;
+            }
+        }
+
+        .status {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+
+            &--pending {
+                background: rgba(255, 243, 205, 0.1);
+                color: #ffeeba;
+                border: 1px solid rgba(255, 238, 186, 0.2);
+            }
+
+            &--confirmed {
+                background: rgba(212, 237, 218, 0.1);
+                color: #c3e6cb;
+                border: 1px solid rgba(195, 230, 203, 0.2);
+            }
+        }
+
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: all 0.2s;
+
+            &:hover {
+                transform: scale(1.1);
+                background: rgba(255, 255, 255, 0.1);
+                border-color: #d4af37;
+            }
+        }
+    }
+
+    &__icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        color: #d4af37;
+    }
+
+    &__placeholder-table {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th,
+            td {
+                padding: 1rem;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            th {
+                color: var(--secondary-color);
+                font-weight: 600;
+            }
+        }
+    }
+}

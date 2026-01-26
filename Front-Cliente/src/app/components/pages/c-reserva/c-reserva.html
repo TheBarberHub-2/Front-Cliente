@@ -21,7 +21,9 @@
                     <h3>{{ servicio.nombre }}</h3>
                     <p class="price">{{ servicio.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
                 </div>
+                @if (!isPeluqueria) {
                 <button class="btn-reserve" (click)="confirmarReserva(servicio)">Reservar Cita</button>
+                }
             </div>
             } @empty {
             <div class="empty-services">

@@ -12,10 +12,27 @@
 
     @if (isLoggedIn) {
     <ul class="c-header__nav">
-      <li><a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a></li>
-      <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
+      <!-- Role-Specific Home Link -->
+      <li>
+        <a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">
+          {{ isPeluqueria ? 'Mi Panel' : 'Inicio' }}
+        </a>
+      </li>
+
+      <!-- Peluquería-Specific Links -->
+      @if (isPeluqueria) {
+      <li><a class="c-header__link" [routerLink]="['/mis-reservas']" routerLinkActive="active">Reservas</a></li>
+      <li><a class="c-header__link" [routerLink]="['/mis-servicios']" routerLinkActive="active">Servicios</a></li>
+      }
+
+      <!-- Customer-Specific Links -->
+      @if (!isPeluqueria && !isAdmin) {
       <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
-      <li><a class="c-header__link logout" class="btn-submit" (click)="LogOut()" [routerLink]="['/']">Cerrar Sesion</a></li>
+      }
+
+      <!-- Shared Links -->
+      <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
+      <li><a class="c-header__link logout" (click)="LogOut()">Cerrar Sesión</a></li>
     </ul>
     } @else {
     <div class="c-header__actions">

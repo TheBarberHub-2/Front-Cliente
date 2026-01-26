@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { LoginService } from '../../../services/login.service';
+import { Rol } from '../../../enums/rol.enum';
+import { Subscription } from 'rxjs';
 import { PeluqueriasService } from '../../../services/peluquerias.service';
 import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summary';
+import { UsuariosService } from '../../../services/usuarios.service';
+import { Usuario } from '../../../models/usuarios/usuario';
 
 @Component({
     selector: 'app-inicio',
@@ -24,10 +29,43 @@ export class Inicio implements OnInit {
         { name: 'Tratamientos', icon: '💆' }
     ];
 
-    constructor(private peluqueriasService: PeluqueriasService) { }
+    userRol: Rol | null = null;
+    usuario: Usuario | null = null;
+    private rolSub: Subscription | null = null;
+
+    constructor(
+        private peluqueriasService: PeluqueriasService,
+        private loginService: LoginService,
+        private usuariosService: UsuariosService
+    ) { }
 
     ngOnInit(): void {
+        this.rolSub = this.loginService.role$.subscribe(rol => {
+            this.userRol = rol;
+            if (rol) {
+                this.loadUserData();
+            }
+        });
         this.loadBarberias();
+    }
+
+    loadUserData(): void {
+        const loggedEmail = localStorage.getItem('email');
+        if (loggedEmail) {
+            this.usuariosService.getUsuarios().subscribe({
+                next: (page) => {
+                    this.usuario = page.data.find(u => u.email === loggedEmail) || null;
+                }
+            });
+        }
+    }
+
+    get isPeluqueria(): boolean {
+        return this.userRol === Rol.Peluqueria;
+    }
+
+    get isAdmin(): boolean {
+        return this.userRol === Rol.Admin;
     }
 
     loadBarberias(): void {
@@ -63,5 +101,10 @@ export class Inicio implements OnInit {
             'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop'
         ];
         return images[id % images.length];
+    }
+    ngOnDestroy(): void {
+        if (this.rolSub) {
+            this.rolSub.unsubscribe();
+        }
     }
 }

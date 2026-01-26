@@ -36,8 +36,10 @@
                                 item.barberia.nombre }}</a>
                         </div>
                     </div>
+                    @if (!isPeluqueria) {
                     <button class="btn-book-now" [routerLink]="['/peluqueria', item.barberia.id]">Ver
                         disponibilidad</button>
+                    }
                 </div>
             </div>
             } @empty {

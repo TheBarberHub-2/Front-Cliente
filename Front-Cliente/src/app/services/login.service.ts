@@ -11,6 +11,8 @@ export class LoginService {
   private apiUrl = 'http://localhost:8080/auth';
   private roleSubject = new BehaviorSubject<Rol | null>(null);
   role$ = this.roleSubject.asObservable();
+  private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));
+  email$ = this.emailSubject.asObservable();
 
   constructor(private http: HttpClient) {
     if (this.isLogged()) {
@@ -24,20 +26,20 @@ export class LoginService {
 
   getRol(): Observable<Rol | null> {
     return this.http.get<any>(this.apiUrl + '/rol').pipe(
-      tap(res => console.log('DEBUG: /rol raw response:', res)),
-      map(res => {
-        const rol = (typeof res === 'string' ? res : res.rol);
+      tap((res) => console.log('DEBUG: /rol raw response:', res)),
+      map((res) => {
+        const rol = typeof res === 'string' ? res : res.rol;
         const normalized = rol ? (rol.toUpperCase() as Rol) : null;
         console.log('DEBUG: /rol normalized:', normalized);
         return normalized;
       }),
-      tap(rol => this.roleSubject.next(rol))
+      tap((rol) => this.roleSubject.next(rol)),
     );
   }
 
   refreshRol() {
     this.getRol().subscribe({
-      error: () => this.roleSubject.next(null)
+      error: () => this.roleSubject.next(null),
     });
   }
 
@@ -46,9 +48,10 @@ export class LoginService {
       tap((response: any) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('email', credentials.email);
+        this.emailSubject.next(credentials.email);
       }),
       switchMap(() => this.getRol()),
-      map(() => { })
+      map(() => {}),
     );
   }
   logout(): Observable<void> {
@@ -57,6 +60,7 @@ export class LoginService {
         localStorage.removeItem('token');
         localStorage.removeItem('login');
         localStorage.removeItem('email');
+        this.emailSubject.next(null);
         this.roleSubject.next(null);
       }),
       catchError((err: any) => {
@@ -67,7 +71,7 @@ export class LoginService {
         this.roleSubject.next(null);
         return of(undefined);
       }),
-      map(() => { })
+      map(() => {}),
     );
   }
 }

@@ -10,81 +10,95 @@ import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summar
 import { ProductoSummary } from '../../../models/productos/producto.summary';
 
 @Component({
-    selector: 'app-c-reserva',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
-    templateUrl: './c-reserva.html',
-    styleUrl: './c-reserva.scss'
+  selector: 'app-c-reserva',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './c-reserva.html',
+  styleUrl: './c-reserva.scss',
 })
 export class CReserva implements OnInit, OnDestroy {
-    peluqueria: PeluqueriaSummary | null = null;
-    servicios: ProductoSummary[] = [];
-    loading: boolean = true;
-    peluqueriaId: number = 0;
-    isPeluqueria: boolean = false;
-    private rolSub: Subscription | null = null;
+  peluqueria: PeluqueriaSummary | null = null;
+  servicios: ProductoSummary[] = [];
+  loading: boolean = true;
+  peluqueriaId: number = 0;
+  isPeluqueria: boolean = false;
+  private rolSub: Subscription | null = null;
 
-    constructor(
-        private route: ActivatedRoute,
-        private peluqueriasService: PeluqueriasService,
-        private productosService: ProductosService,
-        private loginService: LoginService
-    ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private peluqueriasService: PeluqueriasService,
+    private productosService: ProductosService,
+    private loginService: LoginService,
+  ) {}
 
-    ngOnInit(): void {
-        this.rolSub = this.loginService.role$.subscribe(rol => {
-            this.isPeluqueria = rol === Rol.Peluqueria;
-        });
-        const idParam = this.route.snapshot.paramMap.get('id');
-        if (idParam) {
-            this.peluqueriaId = +idParam;
-            this.loadData();
-        }
+  ngOnInit(): void {
+    this.rolSub = this.loginService.role$.subscribe((rol) => {
+      this.isPeluqueria = rol === Rol.Peluqueria;
+    });
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.peluqueriaId = +idParam;
+      this.loadData();
     }
+  }
 
-    loadData(): void {
-        this.loading = true;
+  loadData(): void {
+    this.loading = true;
 
-        // Cargamos los datos de la peluquería
-        this.peluqueriasService.verPeluqueria(this.peluqueriaId).subscribe({
-            next: (data) => {
-                this.peluqueria = data;
-            },
-            error: (err) => console.error('Error al cargar peluquería', err)
-        });
+    // Cargamos los datos de la peluquería
+    this.peluqueriasService.verPeluqueria(this.peluqueriaId).subscribe({
+      next: (data) => {
+        this.peluqueria = data;
 
-        // Cargamos los servicios (productos)
-        // NOTA: Como no hay endpoint por ID de peluquería en el servicio actual,
-        // cargamos todos los productos. En un entorno real se filtraría por peluqueriaId.
         this.productosService.getProductos().subscribe({
-            next: (page) => {
-                this.servicios = page.data || [];
-                this.loading = false;
-            },
-            error: (err) => {
-                console.error('Error al cargar servicios', err);
-                this.loading = false;
-            }
+          next: (page) => {
+            const all = page.data || [];
+
+            this.servicios = all.filter((p) => p.peluqueria === this.peluqueria?.nombre);
+
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Error al cargar servicios', err);
+            this.loading = false;
+          },
         });
-    }
+      },
+      error: (err) => console.error('Error al cargar peluquería', err),
+    });
 
-    getRandomImage(id: any): string {
-        const images = [
-            'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1621605815841-db897c4733dd?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop'
-        ];
-        return images[id % images.length];
-    }
+    // Cargamos los servicios (productos)
+    // NOTA: Como no hay endpoint por ID de peluquería en el servicio actual,
+    // cargamos todos los productos. En un entorno real se filtraría por peluqueriaId.
+    this.productosService.getProductos().subscribe({
+      next: (page) => {
+        this.servicios = page.data || [];
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar servicios', err);
+        this.loading = false;
+      },
+    });
+  }
 
-    confirmarReserva(servicio: ProductoSummary): void {
-        alert("Has pulsado el boton, muy bien master pero no está implementado")
-    }
+  getRandomImage(id: any): string {
+    const images = [
+      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1621605815841-db897c4733dd?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop',
+    ];
+    return images[id % images.length];
+  }
 
-    ngOnDestroy(): void {
-        if (this.rolSub) {
-            this.rolSub.unsubscribe();
-        }
+  confirmarReserva(servicio: ProductoSummary): void {
+    alert('Has pulsado el boton, muy bien master pero no está implementado');
+  }
+
+  ngOnDestroy(): void {
+    if (this.rolSub) {
+      this.rolSub.unsubscribe();
     }
+  }
 }

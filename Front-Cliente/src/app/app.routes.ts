@@ -11,14 +11,14 @@ import { CPeluqueriaReservas } from './components/pages/c-peluqueria-reservas/c-
 import { CPeluqueriaServicios } from './components/pages/c-peluqueria-servicios/c-peluqueria-servicios';
 
 export const routes: Routes = [
-    { path: '', component: LandingPage, pathMatch: 'full' },
-    { path: 'login', component: CLogin },
-    { path: 'inicio', component: Inicio, canActivate: [LoginGuard] },
-    { path: 'usuarios', component: CPerfil, canActivate: [LoginGuard] },
-    { path: 'peluquerias', component: CPeluquerias, canActivate: [LoginGuard] },
-    { path: 'peluqueria/:id', component: CReserva, canActivate: [LoginGuard] },
-    { path: 'mis-reservas', component: CPeluqueriaReservas, canActivate: [LoginGuard] },
-    { path: 'mis-servicios', component: CPeluqueriaServicios, canActivate: [LoginGuard] },
-    { path: 'servicios/:categoria', component: CCatalogoServicios, canActivate: [LoginGuard] },
-    { path: '**', redirectTo: '' }
+  { path: '', component: LandingPage, pathMatch: 'full' },
+  { path: 'login', component: CLogin },
+  { path: 'inicio', component: Inicio, canActivate: [LoginGuard] },
+  { path: 'usuarios', component: CPerfil, canActivate: [LoginGuard] },
+  { path: 'peluquerias', component: CPeluquerias, canActivate: [LoginGuard] },
+  { path: 'peluqueria/:id', component: CReserva, canActivate: [LoginGuard] },
+  { path: 'mis-reservas', component: CPeluqueriaReservas, canActivate: [LoginGuard] },
+  { path: 'mis-servicios', component: CPeluqueriaServicios, canActivate: [LoginGuard] },
+  { path: 'servicios/:categoria', component: CCatalogoServicios, canActivate: [LoginGuard] },
+  { path: '**', redirectTo: '' },
 ];

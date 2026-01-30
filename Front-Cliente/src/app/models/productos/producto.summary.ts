@@ -1,5 +1,6 @@
 export interface ProductoSummary {
-    id?: number;
-    nombre: string;
-    precio: number;
+  id?: number;
+  peluqueria: string;
+  nombre: string;
+  precio: number;
 }

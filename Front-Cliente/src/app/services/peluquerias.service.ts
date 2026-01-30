@@ -18,4 +18,8 @@ export class PeluqueriasService {
   verPeluqueria(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+
+  getByEmail(email: string): Observable<PeluqueriaSummary> {
+    return this.http.get<PeluqueriaSummary>(`${this.apiUrl}/by-email?email=${email}`);
+  }
 }

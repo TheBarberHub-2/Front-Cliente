@@ -1,91 +1,117 @@
 <div class="c-servicios-solicitud">
-    <div class="c-servicios-solicitud__container">
-        <h1 class="c-servicios-solicitud__title">Gestionar Mis Servicios</h1>
+  <div class="c-servicios-solicitud__container">
+    <h1 class="c-servicios-solicitud__title">Gestionar Mis Servicios</h1>
 
-        <!-- Listado de servicios actuales -->
-        <div class="c-servicios-solicitud__section">
-            <h2 class="c-servicios-solicitud__subtitle">Mis Servicios Actuales</h2>
-            @if (loading) {
-                <div class="loading-state">Cargando servicios...</div>
-            } @else {
-                <div class="services-grid">
-                    @for (s of servicios; track s.id) {
-                        <div class="service-item">
-                            <div class="service-item__info">
-                                <strong>{{ s.nombre }}</strong>
-                                <span>{{ s.precio }}€</span>
-                            </div>
-                            <button class="btn-small" (click)="seleccionarServicio(s)">Solicitar Modificación</button>
-                        </div>
-                    } @empty {
-                        <p>No tienes servicios registrados actualmente.</p>
-                    }
-                </div>
-            }
-        </div>
-
-        <div class="c-servicios-solicitud__card">
-            <h2 class="c-servicios-solicitud__subtitle">Nueva Solicitud</h2>
-            <p class="c-servicios-solicitud__intro">
-                Utiliza este formulario para solicitar la adición de un nuevo servicio o la modificación de uno
-                existente.
-                Nuestro equipo revisará tu solicitud y te contactará en breve.
-            </p>
-
-            @if (enviado) {
-            <div class="alert alert-success">
-                ¡Solicitud enviada correctamente! Un administrador la revisará pronto.
+    <!-- Listado de servicios actuales -->
+    <div class="c-servicios-solicitud__section">
+      <h2 class="c-servicios-solicitud__subtitle">Mis Servicios Actuales</h2>
+      @if (loading) {
+        <div class="loading-state">Cargando servicios...</div>
+      } @else {
+        <div class="services-grid">
+          @for (s of servicios; track s.id) {
+            <div class="service-item">
+              <div class="service-item__info">
+                <strong>{{ s.nombre }}</strong>
+                <span>{{ s.precio }}€</span>
+              </div>
+              <button class="btn-small" (click)="seleccionarServicio(s)">
+                Solicitar Modificación
+              </button>
             </div>
-            }
-
-            <form (ngSubmit)="onSubmit()" #solicitudForm="ngForm">
-                <div class="form-group">
-                    <label>Tipo de Solicitud</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="añadir"> Añadir Nuevo
-                        </label>
-                        <label>
-                            <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="modificar"> Modificar
-                            Existente
-                        </label>
-                    </div>
-                </div>
-
-                @if (solicitud.tipo === 'modificar') {
-                <div class="form-group">
-                    <label for="servicioActual">Servicio a Modificar</label>
-                    <input type="text" id="servicioActual" [(ngModel)]="solicitud.servicioActual" name="servicioActual"
-                        placeholder="Ej: Corte Clásico" required>
-                </div>
-                }
-
-                <div class="form-group">
-                    <label for="nuevoNombre">Nombre del Servicio {{solicitud.tipo === 'añadir' ? '' :
-                        '(Nuevo)'}}</label>
-                    <input type="text" id="nuevoNombre" [(ngModel)]="solicitud.nuevoNombre" name="nuevoNombre" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="nuevoPrecio">Precio Sugerido (€)</label>
-                    <input type="number" id="nuevoPrecio" [(ngModel)]="solicitud.nuevoPrecio" name="nuevoPrecio"
-                        step="0.5" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="nuevaDescripcion">Descripción / Detalles</label>
-                    <textarea id="nuevaDescripcion" [(ngModel)]="solicitud.nuevaDescripcion" name="nuevaDescripcion"
-                        rows="4"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="motivo">Notas adicionales para el Administrador</label>
-                    <textarea id="motivo" [(ngModel)]="solicitud.motivo" name="motivo" rows="2"></textarea>
-                </div>
-
-                <button type="submit" class="btn-submit" [disabled]="!solicitudForm.form.valid">Enviar
-                    Solicitud</button>
-            </form>
+          } @empty {
+            <p>No tienes servicios registrados actualmente.</p>
+          }
         </div>
+      }
     </div>
+
+    <div class="c-servicios-solicitud__card">
+      <h2 class="c-servicios-solicitud__subtitle">Nueva Solicitud</h2>
+      <p class="c-servicios-solicitud__intro">
+        Utiliza este formulario para solicitar la adición de un nuevo servicio o la modificación de
+        uno existente. Nuestro equipo revisará tu solicitud y te contactará en breve.
+      </p>
+
+      @if (enviado) {
+        <div class="alert alert-success">
+          ¡Solicitud enviada correctamente! Un administrador la revisará pronto.
+        </div>
+      }
+
+      <form (ngSubmit)="onSubmit()" #solicitudForm="ngForm">
+        <div class="form-group">
+          <label>Tipo de Solicitud</label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="añadir" /> Añadir
+              Nuevo
+            </label>
+            <label>
+              <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="modificar" />
+              Modificar Existente
+            </label>
+          </div>
+        </div>
+
+        @if (solicitud.tipo === 'modificar') {
+          <div class="form-group">
+            <label for="servicioActual">Servicio a Modificar</label>
+            <input
+              type="text"
+              id="servicioActual"
+              [(ngModel)]="solicitud.servicioActual"
+              name="servicioActual"
+              placeholder="Ej: Corte Clásico"
+              required
+            />
+          </div>
+        }
+
+        <div class="form-group">
+          <label for="nuevoNombre"
+            >Nombre del Servicio {{ solicitud.tipo === 'añadir' ? '' : '(Nuevo)' }}</label
+          >
+          <input
+            type="text"
+            id="nuevoNombre"
+            [(ngModel)]="solicitud.nuevoNombre"
+            name="nuevoNombre"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="nuevoPrecio">Precio Sugerido (€)</label>
+          <input
+            type="number"
+            id="nuevoPrecio"
+            [(ngModel)]="solicitud.nuevoPrecio"
+            name="nuevoPrecio"
+            step="0.5"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="nuevaDescripcion">Descripción / Detalles</label>
+          <textarea
+            id="nuevaDescripcion"
+            [(ngModel)]="solicitud.nuevaDescripcion"
+            name="nuevaDescripcion"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="motivo">Notas adicionales para el Administrador</label>
+          <textarea id="motivo" [(ngModel)]="solicitud.motivo" name="motivo" rows="2"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="!solicitudForm.form.valid">
+          Enviar Solicitud
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

@@ -8,7 +8,7 @@ import { PeluqueriaSummary } from '../models/peluquerias/peluqueria.summary';
   providedIn: 'root',
 })
 export class PeluqueriasService {
-  private apiUrl = 'http://localhost:8080/api/peluquerias';
+  private apiUrl = 'http://thebarberhub-back.producciondaw.cip.fpmislata.com/api/peluquerias';
 
   constructor(private http: HttpClient) {}
 

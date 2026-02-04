@@ -1,4 +1,10 @@
-<div class="reserva-container" *ngIf="!loading">
+@if (loading) {
+<div class="loading-state">
+  <div class="spinner"></div>
+  <p>Cargando servicios...</p>
+</div>
+} @else {
+<div class="reserva-container">
   <div class="reserva-hero" [style.backgroundImage]="'url(' + getRandomImage(peluqueria?.id) + ')'">
     <div class="overlay"></div>
     <div class="hero-content">
@@ -11,6 +17,26 @@
   </div>
 
   <main class="reserva-main">
+    @if (horarios.length > 0) {
+    <section class="schedule-section">
+      <div class="schedule-header">
+        <span class="schedule-icon">🕒</span>
+        <h3>Horario de Atención</h3>
+      </div>
+      <div class="schedule-container-grid">
+        @for (h of horarios; track h.id) {
+        <div class="schedule-card">
+          <div class="day-label">{{ h.diaSemana | titlecase }}</div>
+          <div class="time-range">{{ h.horaApertura }} - {{ h.horaCierre }}</div>
+        </div>
+        }
+      </div>
+    </section>
+    } @else {
+    <div class="no-schedule-alert">
+      <p>ℹ️ No se han definido horarios de apertura para esta barbería todavía.</p>
+    </div>
+    }
     <div class="services-header">
       <h2>Servicios disponibles</h2>
       <p>Selecciona un servicio para realizar tu reserva</p>
@@ -18,25 +44,21 @@
 
     <div class="services-list">
       @for (servicio of servicios; track servicio.id) {
-        <div class="service-card">
-          <div class="service-info">
-            <h3>{{ servicio.nombre }}</h3>
-            <p class="price">{{ servicio.precio | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
-          </div>
-          @if (!isPeluqueria) {
-            <button class="btn-reserve" (click)="confirmarReserva(servicio)">Reservar Cita</button>
-          }
+      <div class="service-card">
+        <div class="service-info">
+          <h3>{{ servicio.nombre }}</h3>
+          <p class="price">{{ servicio.precio | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
         </div>
+        @if (!isPeluqueria) {
+        <button class="btn-reserve" (click)="confirmarReserva(servicio)">Reservar Cita</button>
+        }
+      </div>
       } @empty {
-        <div class="empty-services">
-          <p>No hay servicios disponibles en este momento.</p>
-        </div>
+      <div class="empty-services">
+        <p>No hay servicios disponibles en este momento.</p>
+      </div>
       }
     </div>
   </main>
 </div>
-
-<div class="loading-state" *ngIf="loading">
-  <div class="spinner"></div>
-  <p>Cargando servicios...</p>
-</div>
+}

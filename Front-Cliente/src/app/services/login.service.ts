@@ -8,7 +8,7 @@ import { Rol } from '../enums/rol.enum';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'http://thebarberhub-back.producciondaw.cip.fpmislata.com/auth';
+  private apiUrl = 'http://localhost:8080/auth';
   private roleSubject = new BehaviorSubject<Rol | null>(null);
   role$ = this.roleSubject.asObservable();
   private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));
@@ -51,7 +51,7 @@ export class LoginService {
         this.emailSubject.next(credentials.email);
       }),
       switchMap(() => this.getRol()),
-      map(() => {}),
+      map(() => { }),
     );
   }
   logout(): Observable<void> {
@@ -71,7 +71,7 @@ export class LoginService {
         this.roleSubject.next(null);
         return of(undefined);
       }),
-      map(() => {}),
+      map(() => { }),
     );
   }
 }

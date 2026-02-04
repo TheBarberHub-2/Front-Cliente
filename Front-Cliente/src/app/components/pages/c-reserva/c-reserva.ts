@@ -8,6 +8,7 @@ import { Rol } from '../../../enums/rol.enum';
 import { Subscription } from 'rxjs';
 import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summary';
 import { ProductoSummary } from '../../../models/productos/producto.summary';
+import { PeluqueriaHorario } from '../../../models/peluquerias/peluqueria-horario';
 
 @Component({
   selector: 'app-c-reserva',
@@ -19,6 +20,7 @@ import { ProductoSummary } from '../../../models/productos/producto.summary';
 export class CReserva implements OnInit, OnDestroy {
   peluqueria: PeluqueriaSummary | null = null;
   servicios: ProductoSummary[] = [];
+  horarios: PeluqueriaHorario[] = [];
   loading: boolean = true;
   peluqueriaId: number = 0;
   isPeluqueria: boolean = false;
@@ -29,7 +31,7 @@ export class CReserva implements OnInit, OnDestroy {
     private peluqueriasService: PeluqueriasService,
     private productosService: ProductosService,
     private loginService: LoginService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.rolSub = this.loginService.role$.subscribe((rol) => {
@@ -50,6 +52,15 @@ export class CReserva implements OnInit, OnDestroy {
       next: (data) => {
         this.peluqueria = data;
 
+        // Cargar horarios
+        this.peluqueriasService.getHorarios(this.peluqueriaId).subscribe({
+          next: (horarios) => {
+            this.horarios = this.formatHorarios(horarios);
+            console.log('Horarios cargados:', this.horarios);
+          },
+          error: (err) => console.error('Error cargando horarios', err)
+        });
+
         this.productosService.getProductos().subscribe({
           next: (page) => {
             const all = page.data || [];
@@ -64,22 +75,20 @@ export class CReserva implements OnInit, OnDestroy {
           },
         });
       },
-      error: (err) => console.error('Error al cargar peluquería', err),
-    });
-
-    // Cargamos los servicios (productos)
-    // NOTA: Como no hay endpoint por ID de peluquería en el servicio actual,
-    // cargamos todos los productos. En un entorno real se filtraría por peluqueriaId.
-    this.productosService.getProductos().subscribe({
-      next: (page) => {
-        this.servicios = page.data || [];
-        this.loading = false;
-      },
       error: (err) => {
-        console.error('Error al cargar servicios', err);
+        console.error('Error al cargar peluquería', err);
         this.loading = false;
       },
     });
+  }
+
+  // Método para agrupar o formatear horarios si fuera necesario
+  formatHorarios(horarios: any[]): any[] {
+    return horarios.map(h => ({
+      ...h,
+      horaApertura: h.horaApertura ? String(h.horaApertura).substring(0, 5) : '00:00',
+      horaCierre: h.horaCierre ? String(h.horaCierre).substring(0, 5) : '00:00'
+    }));
   }
 
   getRandomImage(id: any): string {

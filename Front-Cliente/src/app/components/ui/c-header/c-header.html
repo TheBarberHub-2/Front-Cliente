@@ -25,10 +25,8 @@
       <li><a class="c-header__link" [routerLink]="['/mis-servicios']" routerLinkActive="active">Servicios</a></li>
       }
 
-      <!-- Customer-Specific Links -->
-      @if (!isPeluqueria && !isAdmin) {
+      <!-- Shared Links -->
       <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
-      }
 
       <!-- Shared Links -->
       <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>

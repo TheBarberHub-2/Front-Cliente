@@ -8,9 +8,9 @@ import { PeluqueriaSummary } from '../models/peluquerias/peluqueria.summary';
   providedIn: 'root',
 })
 export class PeluqueriasService {
-  private apiUrl = 'http://thebarberhub-back.producciondaw.cip.fpmislata.com/api/peluquerias';
+  private apiUrl = 'http://localhost:8080/api/peluquerias';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getPeluquerias(): Observable<Page<PeluqueriaSummary>> {
     return this.http.get<Page<PeluqueriaSummary>>(this.apiUrl);
@@ -21,5 +21,10 @@ export class PeluqueriasService {
 
   getByEmail(email: string): Observable<PeluqueriaSummary> {
     return this.http.get<PeluqueriaSummary>(`${this.apiUrl}/by-email?email=${email}`);
+  }
+
+  getHorarios(id: number): Observable<any[]> {
+    const scheduleUrl = 'http://localhost:8080/api/peluqueria';
+    return this.http.get<any[]>(`${scheduleUrl}/${id}/horarios`);
   }
 }

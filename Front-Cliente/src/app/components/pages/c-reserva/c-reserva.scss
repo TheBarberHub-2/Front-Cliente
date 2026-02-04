@@ -74,6 +74,17 @@
     padding: 0 20px;
 }
 
+.no-schedule-alert {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #aaa;
+    font-style: italic;
+}
+
 .services-header {
     margin-bottom: 40px;
     text-align: center;
@@ -87,6 +98,72 @@
     p {
         color: #666;
         font-size: 1.1rem;
+    }
+}
+
+.schedule-section {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    padding: 30px;
+    margin-bottom: 50px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+    .schedule-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 25px;
+
+        .schedule-icon {
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    }
+
+    .schedule-container-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 15px;
+    }
+
+    .schedule-card {
+        background: rgba(212, 175, 55, 0.05);
+        border: 1px solid rgba(212, 175, 55, 0.1);
+        padding: 15px;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .day-label {
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .time-range {
+            font-size: 0.95rem;
+            color: #d4af37;
+            font-weight: 600;
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 <div class="perfil-container">
-    <div class="perfil-card" *ngIf="!loading && usuario">
+    @if (!loading && usuario) {
+    <div class="perfil-card">
         <div class="perfil-header">
             <div class="avatar-placeholder">
                 {{ usuario.nombre.charAt(0).toUpperCase() }}
@@ -20,13 +21,18 @@
             </div>
         </div>
     </div>
+    }
 
-    <div class="loading-state" *ngIf="loading">
+    @if (loading) {
+    <div class="loading-state">
         <div class="spinner"></div>
         <p>Cargando información...</p>
     </div>
+    }
 
-    <div class="error-state" *ngIf="error">
+    @if (error) {
+    <div class="error-state">
         <p>{{ error }}</p>
     </div>
+    }
 </div>

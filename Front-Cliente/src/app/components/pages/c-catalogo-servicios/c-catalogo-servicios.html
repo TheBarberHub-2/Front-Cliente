@@ -6,12 +6,7 @@
 
     <div class="search-section">
       <div class="search-bar">
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (input)="onSearch()"
-          placeholder="Busca servicios o barberías..."
-        />
+        <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Busca servicios o barberías..." />
         <span class="search-icon">🔍</span>
       </div>
     </div>
@@ -19,70 +14,57 @@
 
   <main class="catalogo-main">
     @if (loading) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Preparando catálogo...</p>
-      </div>
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Preparando catálogo...</p>
+    </div>
     } @else {
-      <div class="catalogo-grid">
-        @for (item of paginatedServicios; track item.id) {
-          <div class="service-explorer-card">
-            <div
-              class="card-image"
-              [style.backgroundImage]="'url(' + getRandomImage(item.id) + ')'"
-            >
-              <div class="price-tag">{{ item.precio | currency: 'EUR' : 'symbol' : '1.2-2' }}</div>
-            </div>
-            <div class="card-content">
-              <h3>{{ item.nombre }}</h3>
-              <div class="establishment-info">
-                <span class="icon">🏠</span>
-                <div class="details">
-                  <span class="label">Realizado en:</span>
-                  <a [routerLink]="['/peluqueria', item.barberia.id]" class="barber-link">{{
-                    item.barberia.nombre
-                  }}</a>
-                </div>
-              </div>
-              @if (!isPeluqueria) {
-                <button class="btn-book-now" [routerLink]="['/peluqueria', item.barberia.id]">
-                  Ver disponibilidad
-                </button>
-              }
+    <div class="catalogo-grid">
+      @for (item of paginatedServicios; track item.id) {
+      <div class="service-explorer-card">
+        <div class="card-image" [style.backgroundImage]="'url(' + getRandomImage(item.id) + ')'">
+          <div class="price-tag">{{ item.precio | currency: 'EUR' : 'symbol' : '1.2-2' }}</div>
+        </div>
+        <div class="card-content">
+          <h3>{{ item.nombre }}</h3>
+          <div class="establishment-info">
+            <span class="icon">🏠</span>
+            <div class="details">
+              <span class="label">Realizado en:</span>
+              <a [routerLink]="['/peluqueria', item.barberia.id]" class="barber-link">{{
+                item.barberia.nombre
+                }}</a>
             </div>
           </div>
-        } @empty {
-          <div class="empty-state">
-            <p>No hay resultados para "{{ searchTerm }}" en esta categoría.</p>
-            <button class="btn-back-main" (click)="searchTerm = ''; onSearch()">Ver todo</button>
-          </div>
-        }
-      </div>
-
-      <!-- Paginación -->
-      @if (totalPages > 1) {
-        <div class="pagination">
-          <button
-            class="page-btn prev"
-            [disabled]="currentPage === 1"
-            (click)="onPageChange(currentPage - 1)"
-          >
-            Anterior
-          </button>
-
-          <div class="page-info">
-            <span>Página {{ currentPage }} de {{ totalPages }}</span>
-          </div>
-
-          <button
-            class="page-btn next"
-            [disabled]="currentPage === totalPages"
-            (click)="onPageChange(currentPage + 1)"
-          >
-            Siguiente
+          <button class="btn-book-now" [routerLink]="['/peluqueria', item.barberia.id]">
+            Ver disponibilidad
           </button>
         </div>
+      </div>
+      } @empty {
+      <div class="empty-state">
+        <p>No hay resultados para "{{ searchTerm }}" en esta categoría.</p>
+        <button class="btn-back-main" (click)="searchTerm = ''; onSearch()">Ver todo</button>
+      </div>
       }
+    </div>
+
+    <!-- Paginación -->
+    @if (totalPages > 1) {
+    <div class="pagination">
+      <button class="page-btn prev" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+        Anterior
+      </button>
+
+      <div class="page-info">
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      </div>
+
+      <button class="page-btn next" [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">
+        Siguiente
+      </button>
+    </div>
+    }
     }
   </main>
 </div>

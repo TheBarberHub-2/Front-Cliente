@@ -6,23 +6,20 @@
     <div class="c-servicios-solicitud__section">
       <h2 class="c-servicios-solicitud__subtitle">Mis Servicios Actuales</h2>
       @if (loading) {
-        <div class="loading-state">Cargando servicios...</div>
+      <div class="loading-state">Cargando servicios...</div>
       } @else {
-        <div class="services-grid">
-          @for (s of servicios; track s.id) {
-            <div class="service-item">
-              <div class="service-item__info">
-                <strong>{{ s.nombre }}</strong>
-                <span>{{ s.precio }}€</span>
-              </div>
-              <button class="btn-small" (click)="seleccionarServicio(s)">
-                Solicitar Modificación
-              </button>
-            </div>
-          } @empty {
-            <p>No tienes servicios registrados actualmente.</p>
-          }
+      <div class="services-grid">
+        @for (s of servicios; track s.id) {
+        <div class="service-item">
+          <div class="service-item__info">
+            <strong>{{ s.nombre }}</strong>
+            <span>{{ s.precio }}€</span>
+          </div>
         </div>
+        } @empty {
+        <p>No tienes servicios registrados actualmente.</p>
+        }
+      </div>
       }
     </div>
 
@@ -34,73 +31,42 @@
       </p>
 
       @if (enviado) {
-        <div class="alert alert-success">
-          ¡Solicitud enviada correctamente! Un administrador la revisará pronto.
-        </div>
+      <div class="alert alert-success">
+        ¡Solicitud enviada correctamente! Un administrador la revisará pronto.
+      </div>
       }
 
       <form (ngSubmit)="onSubmit()" #solicitudForm="ngForm">
-        <div class="form-group">
-          <label>Tipo de Solicitud</label>
-          <div class="radio-group">
-            <label>
-              <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="añadir" /> Añadir
-              Nuevo
-            </label>
-            <label>
-              <input type="radio" [(ngModel)]="solicitud.tipo" name="tipo" value="modificar" />
-              Modificar Existente
-            </label>
-          </div>
-        </div>
-
-        @if (solicitud.tipo === 'modificar') {
-          <div class="form-group">
-            <label for="servicioActual">Servicio a Modificar</label>
-            <input
-              type="text"
-              id="servicioActual"
-              [(ngModel)]="solicitud.servicioActual"
-              name="servicioActual"
-              placeholder="Ej: Corte Clásico"
-              required
-            />
-          </div>
-        }
 
         <div class="form-group">
-          <label for="nuevoNombre"
-            >Nombre del Servicio {{ solicitud.tipo === 'añadir' ? '' : '(Nuevo)' }}</label
-          >
-          <input
-            type="text"
-            id="nuevoNombre"
-            [(ngModel)]="solicitud.nuevoNombre"
-            name="nuevoNombre"
-            required
-          />
+          <label for="nuevoNombre">Nombre del Servicio</label>
+          <input type="text" id="nuevoNombre" [(ngModel)]="solicitud.nuevoNombre" name="nuevoNombre" required />
         </div>
 
         <div class="form-group">
           <label for="nuevoPrecio">Precio Sugerido (€)</label>
-          <input
-            type="number"
-            id="nuevoPrecio"
-            [(ngModel)]="solicitud.nuevoPrecio"
-            name="nuevoPrecio"
-            step="0.5"
-            required
-          />
+          <input type="number" id="nuevoPrecio" [(ngModel)]="solicitud.nuevoPrecio" name="nuevoPrecio" step="0.5"
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="duracion">Duración Estimada (min)</label>
+          <input type="number" id="duracion" [(ngModel)]="solicitud.duracion" name="duracion" step="5" required />
+        </div>
+
+        <div class="form-group">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" [(ngModel)]="solicitud.categoriaId" name="categoriaId" required>
+            @for (cat of categorias; track cat.id) {
+            <option [value]="cat.id">{{ cat.nombre }}</option>
+            }
+          </select>
         </div>
 
         <div class="form-group">
           <label for="nuevaDescripcion">Descripción / Detalles</label>
-          <textarea
-            id="nuevaDescripcion"
-            [(ngModel)]="solicitud.nuevaDescripcion"
-            name="nuevaDescripcion"
-            rows="4"
-          ></textarea>
+          <textarea id="nuevaDescripcion" [(ngModel)]="solicitud.nuevaDescripcion" name="nuevaDescripcion"
+            rows="4"></textarea>
         </div>
 
         <div class="form-group">

@@ -1,25 +1,115 @@
 <div class="perfil-container">
     @if (!loading && usuario) {
-    <div class="perfil-card">
-        <div class="perfil-header">
-            <div class="avatar-placeholder">
-                {{ usuario.nombre.charAt(0).toUpperCase() }}
-            </div>
-            <h1>{{ usuario.nombre }}</h1>
-            <span class="role-badge">{{ usuario.rol }}</span>
-        </div>
-
-        <div class="perfil-body">
-            <div class="info-group">
-                <label>Correo Electrónico</label>
-                <p>{{ usuario.email }}</p>
+    <div class="perfil-layout">
+        <!-- Sidebar Info -->
+        <aside class="perfil-card perfil-info">
+            <div class="perfil-header">
+                <div class="avatar-placeholder">
+                    {{ usuario.nombre.charAt(0).toUpperCase() }}
+                </div>
+                <h1>{{ usuario.nombre }}</h1>
+                <span class="role-badge" [class.role-peluqueria]="isPeluqueria">{{ usuario.rol }}</span>
             </div>
 
-            <div class="info-group">
-                <label>Nombre Completo</label>
-                <p>{{ usuario.nombre }}</p>
+            <div class="perfil-body">
+                <div class="info-group">
+                    <label>Correo Electrónico</label>
+                    <p>{{ usuario.email }}</p>
+                </div>
+                <div class="info-group">
+                    <label>Nombre Completo</label>
+                    <p>{{ usuario.nombre }}</p>
+                </div>
             </div>
-        </div>
+        </aside>
+
+        <!-- Main Content (Requests & Schedules) -->
+        <main class="perfil-content">
+            <!-- Solicitudes Section -->
+            <section class="content-card">
+                <div class="section-header">
+                    <h2>Mis Solicitudes</h2>
+                </div>
+                <div class="solicitudes-list">
+                    @for (sol of solicitudes; track sol.id) {
+                    <div class="solicitud-item" [class.pending]="sol.estado === 'Pendiente'"
+                        [class.approved]="sol.estado === 'Aprobada'">
+                        <div class="sol-info">
+                            <span class="sol-type">{{ sol.tipo }}</span>
+                            <span class="sol-status">{{ sol.estado }}</span>
+                            <span class="sol-date">{{ sol.fechaCreacion | date:'dd/MM/yyyy' }}</span>
+                        </div>
+                        <div class="sol-actions">
+                            @if (sol.estado === 'Aprobada') {
+                            <button class="btn-confirm" (click)="confirmarSolicitud(sol.id)">
+                                Confirmar y Activar
+                            </button>
+                            } @else if (sol.estado === 'Pendiente') {
+                            <span class="badge-pending">Pendiente de Aprobación</span>
+                            }
+                        </div>
+                    </div>
+                    } @empty {
+                    <p class="empty-state">No tienes solicitudes registradas.</p>
+                    }
+                </div>
+            </section>
+
+            <!-- Horarios Section (Only for Peluqueria) -->
+            @if (isPeluqueria) {
+            <section class="content-card">
+                <div class="section-header">
+                    <h2>Gestión de Horarios</h2>
+                    <button class="btn-add" (click)="abrirFormHorario()">+ Añadir Horario</button>
+                </div>
+
+                <div class="horarios-grid">
+                    @for (h of horarios; track h.id) {
+                    <div class="horario-chip">
+                        <div class="horario-dia">{{ h.diaSemana }}</div>
+                        <div class="horario-horas">{{ h.horaApertura }} - {{ h.horaCierre }}</div>
+                        <button class="btn-delete" (click)="h.id && eliminarHorario(h.id)">×</button>
+                    </div>
+                    } @empty {
+                    <p class="empty-state">Aún no has configurado tus horarios de apertura.</p>
+                    }
+                </div>
+
+                @if (showHorarioForm) {
+                <div class="modal-overlay">
+                    <div class="horario-modal">
+                        <h3>Añadir Nuevo Horario</h3>
+                        <form (ngSubmit)="guardarHorario()">
+                            <div class="form-group">
+                                <label>Día de la semana</label>
+                                <select [(ngModel)]="nuevoHorario.diaSemana" name="dia">
+                                    @for (dia of diasSemana; track dia) {
+                                    <option [value]="dia">{{ dia }}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Apertura</label>
+                                    <input type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cierre</label>
+                                    <input type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie" required>
+                                </div>
+                            </div>
+                            <div class="modal-actions">
+                                <button type="button" class="btn-cancel"
+                                    (click)="showHorarioForm = false">Cancelar</button>
+                                <button type="submit" class="btn-save">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                }
+            </section>
+            }
+        </main>
     </div>
     }
 

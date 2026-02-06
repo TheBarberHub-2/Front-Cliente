@@ -1,29 +1,99 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../services/login.service';
 import { Rol } from '../../../enums/rol.enum';
-import { Subscription } from 'rxjs';
+import { Subscription, interval, map, of, startWith, switchMap } from 'rxjs';
+import { SolicitudesService } from '../../../services/solicitudes.service';
+import { SolicitudDto } from '../../../models/solicitudes/solicitud.dto';
+
+import { UsuariosService } from '../../../services/usuarios.service';
 
 @Component({
   selector: 'app-c-header',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './c-header.html',
   styleUrl: './c-header.scss',
 })
-export class CHeader {
+export class CHeader implements OnInit, OnDestroy {
   numeroPedidos: number = 0;
   userRol: Rol | null = null;
-  private rolSub: Subscription | null = null;
+  solicitudesPendientes: SolicitudDto[] = [];
+  mostrarNotificaciones: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) { }
+  private rolSub: Subscription | null = null;
+  private notifSub: Subscription | null = null;
+
+  private userId: number | null = null;
+
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private solicitudesService: SolicitudesService,
+    private usuariosService: UsuariosService
+  ) { }
 
   ngOnInit() {
     this.rolSub = this.loginService.role$.subscribe((rol) => {
-      console.log('DEBUG: CHeader userRol updated to:', rol);
       this.userRol = rol;
+      if (this.isLoggedIn) {
+        this.startNotificationPolling();
+      }
     });
+
+    if (this.isLoggedIn) {
+      this.loadUserAndStartPolling();
+    }
+  }
+
+  loadUserAndStartPolling() {
+    const email = localStorage.getItem('email');
+    if (!email) return;
+
+    this.usuariosService.getUsuarios().subscribe({
+      next: (page) => {
+        const found = page.data ? page.data.find(u => u.email === email) : null;
+        if (found) {
+          this.userId = found.id ?? null;
+          this.startNotificationPolling();
+        }
+      }
+    });
+  }
+
+  startNotificationPolling() {
+    if (this.notifSub) this.notifSub.unsubscribe();
+
+    this.notifSub = interval(30000) // Poll every 30s
+      .pipe(
+        startWith(0),
+        switchMap(() => {
+          if (this.isLoggedIn && this.userId) {
+            // Using the new paginated admin-style request filtered by user
+            return this.solicitudesService.getSolicitudes(1, 10, this.userId).pipe(
+              map(page => page.data ? page.data.filter((s: any) => s.estado === 'Pendiente') : [])
+            );
+          }
+          return of([]);
+        })
+      )
+      .subscribe({
+        next: (notifs) => {
+          this.solicitudesPendientes = notifs;
+          this.numeroPedidos = notifs.length;
+        },
+        error: (err) => console.error('Error fetching notifications:', err)
+      });
+  }
+
+  toggleNotificaciones() {
+    this.mostrarNotificaciones = !this.mostrarNotificaciones;
+  }
+
+  irAPerfil() {
+    this.mostrarNotificaciones = false;
+    this.router.navigate(['/usuarios']);
   }
 
   get isLoggedIn(): boolean {
@@ -39,12 +109,15 @@ export class CHeader {
   }
 
   get isUser(): boolean {
-    return this.userRol === Rol.User;
+    return this.userRol === Rol.Cliente;
   }
 
   LogOut() {
     if (this.rolSub) {
       this.rolSub.unsubscribe();
+    }
+    if (this.notifSub) {
+      this.notifSub.unsubscribe();
     }
     this.userRol = null;
     this.loginService.logout().subscribe(() => {
@@ -55,6 +128,9 @@ export class CHeader {
   ngOnDestroy() {
     if (this.rolSub) {
       this.rolSub.unsubscribe();
+    }
+    if (this.notifSub) {
+      this.notifSub.unsubscribe();
     }
   }
 }

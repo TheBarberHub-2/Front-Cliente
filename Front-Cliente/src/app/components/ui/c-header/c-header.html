@@ -28,8 +28,36 @@
       <!-- Shared Links -->
       <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
 
-      <!-- Shared Links -->
       <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
+
+      <!-- Notification Bell - Now to the left of logout/login area -->
+      <li class="c-header__notifications" (click)="$event.stopPropagation()">
+        <button class="c-header__bell" (click)="toggleNotificaciones()">
+          <i class="bell-icon">🔔</i>
+          @if (numeroPedidos > 0) {
+          <span class="c-header__badge">{{ numeroPedidos }}</span>
+          }
+        </button>
+
+        @if (mostrarNotificaciones) {
+        <div class="c-header__dropdown">
+          <div class="c-header__dropdown-header">Notificaciones</div>
+          <ul class="c-header__dropdown-list">
+            @for (notif of solicitudesPendientes; track notif.id) {
+            <li (click)="irAPerfil()">
+              Tienes una solicitud de <strong>{{ notif.tipo }}</strong> pendiente.
+            </li>
+            } @empty {
+            <li class="empty-msg">No tienes notificaciones pendientes.</li>
+            }
+          </ul>
+          <div class="c-header__dropdown-footer">
+            <a (click)="irAPerfil()">Ver todas las solicitudes</a>
+          </div>
+        </div>
+        }
+      </li>
+
       <li><a class="c-header__link logout" (click)="LogOut()">Cerrar Sesión</a></li>
     </ul>
     } @else {

@@ -1,121 +1,330 @@
 .perfil-container {
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.perfil-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    align-items: start;
 }
 
 .perfil-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 25px;
-    width: 100%;
-    max-width: 500px;
-    padding: 40px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    color: white;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
 }
 
-.perfil-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
+.perfil-info {
+    padding: 2rem;
     text-align: center;
 
-    .avatar-placeholder {
-        width: 100px;
-        height: 100px;
-        background: linear-gradient(135deg, #d4af37 0%, #b5942e 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        font-weight: 700;
-        color: black;
-        margin-bottom: 20px;
-        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    .perfil-header {
+        margin-bottom: 2rem;
+
+        .avatar-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+
+        .role-badge {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: #f0f3f5;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+
+            &.role-peluqueria {
+                background: rgba(230, 126, 34, 0.1);
+                color: #e67e22;
+            }
+        }
     }
 
-    h1 {
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-    }
-
-    .role-badge {
-        background: rgba(212, 175, 55, 0.1);
-        color: #d4af37;
-        padding: 4px 12px;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-}
-
-.perfil-body {
     .info-group {
-        margin-bottom: 20px;
+        text-align: left;
+        margin-bottom: 1.5rem;
 
         label {
             display: block;
-            color: #888;
             font-size: 0.8rem;
+            color: #95a5a6;
             text-transform: uppercase;
-            margin-bottom: 5px;
             letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
         }
 
         p {
+            margin: 0;
             font-size: 1.1rem;
-            color: #eee;
+            color: #2c3e50;
+            font-weight: 500;
         }
     }
 }
 
-.perfil-footer {
-    margin-top: 40px;
+.perfil-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
 
-    .btn-edit {
-        width: 100%;
-        padding: 12px;
-        background: transparent;
-        border: 1px solid #d4af37;
-        color: #d4af37;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
+.content-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
 
-        &:hover {
-            background: #d4af37;
-            color: black;
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #f9f9f9;
+        padding-bottom: 1rem;
+
+        h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #2c3e50;
         }
     }
+}
+
+.solicitud-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border-left: 4px solid #3498db;
+
+    &.pending {
+        border-left-color: #f1c40f;
+    }
+
+    &.approved {
+        border-left-color: #2ecc71;
+    }
+
+    .sol-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+
+        .sol-type {
+            font-weight: 600;
+            color: #2c3e50;
+            text-transform: capitalize;
+        }
+
+        .sol-status {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #7f8c8d;
+        }
+
+        .sol-date {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+    }
+
+    .btn-confirm {
+        background: #2ecc71;
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #27ae60;
+        }
+    }
+
+    .badge-pending {
+        background: #fef9e7;
+        color: #f1c40f;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid #f9e79f;
+    }
+}
+
+// Horarios styles
+.horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.horario-chip {
+    background: #fdf6ec;
+    border: 1px solid #f5e3cc;
+    padding: 1rem;
+    border-radius: 8px;
+    position: relative;
+    text-align: center;
+
+    .horario-dia {
+        font-weight: 700;
+        color: #e67e22;
+        margin-bottom: 0.3rem;
+    }
+
+    .horario-horas {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+
+    .btn-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: #e74c3c;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.btn-add {
+    background: #e67e22;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+        background: #d35400;
+    }
+}
+
+// Modal styles
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.horario-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            background: #eee;
+            border: none;
+        }
+
+        .btn-save {
+            background: #e67e22;
+            color: white;
+            border: none;
+        }
+    }
+}
+
+.empty-state {
+    color: #999;
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
 }
 
 .loading-state,
 .error-state {
     text-align: center;
-    color: #888;
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid rgba(212, 175, 55, 0.1);
-    border-top: 3px solid #d4af37;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    padding: 5rem;
 }

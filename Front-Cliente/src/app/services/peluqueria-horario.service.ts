@@ -7,7 +7,7 @@ import { PeluqueriaHorario } from '../models/horarios/peluqueria-horario';
     providedIn: 'root',
 })
 export class PeluqueriaHorarioService {
-    private apiUrl = 'http://localhost:8080/api/peluqueria';
+    private apiUrl = 'producciondaw.cip.fpmislata.com/api/peluqueria';
 
     constructor(private http: HttpClient) { }
 

@@ -14,7 +14,7 @@ export interface ReservaInsertRequest {
     providedIn: 'root',
 })
 export class ReservasService {
-    private apiUrl = 'http://localhost:8080/api/reservas';
+    private apiUrl = 'producciondaw.cip.fpmislata.com/api/reservas';
 
     constructor(private http: HttpClient) { }
 

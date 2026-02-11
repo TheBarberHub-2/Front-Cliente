@@ -8,7 +8,7 @@ import { PeluqueriaSummary } from '../models/peluquerias/peluqueria.summary';
   providedIn: 'root',
 })
 export class PeluqueriasService {
-  private apiUrl = 'http://localhost:8080/api/peluquerias';
+  private apiUrl = 'producciondaw.cip.fpmislata.com/api/peluquerias';
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +24,7 @@ export class PeluqueriasService {
   }
 
   getHorarios(id: number): Observable<any[]> {
-    const scheduleUrl = 'http://localhost:8080/api/peluqueria';
+    const scheduleUrl = 'producciondaw.cip.fpmislata.com/api/peluqueria';
     return this.http.get<any[]>(`${scheduleUrl}/${id}/horarios`);
   }
 }

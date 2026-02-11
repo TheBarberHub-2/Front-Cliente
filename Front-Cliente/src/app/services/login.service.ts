@@ -8,7 +8,7 @@ import { Rol } from '../enums/rol.enum';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = 'producciondaw.cip.fpmislata.com/auth';
   private roleSubject = new BehaviorSubject<Rol | null>(null);
   role$ = this.roleSubject.asObservable();
   private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));

@@ -38,7 +38,7 @@ export interface SlotsDisponiblesResponse {
     providedIn: 'root',
 })
 export class CarritoService {
-    private apiUrl = 'http://localhost:8080/api/carrito';
+    private apiUrl = 'producciondaw.cip.fpmislata.com/api/carrito';
     private items: CartItem[] = [];
     private cartSubject = new BehaviorSubject<CartItem[]>([]);
     public cart$ = this.cartSubject.asObservable();

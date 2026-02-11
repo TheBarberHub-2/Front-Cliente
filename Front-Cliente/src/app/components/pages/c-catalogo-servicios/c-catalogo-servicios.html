@@ -36,9 +36,12 @@
                 }}</a>
             </div>
           </div>
-          <button class="btn-book-now" [routerLink]="['/peluqueria', item.barberia.id]">
-            Ver disponibilidad
-          </button>
+          <div class="service-actions">
+            <a [routerLink]="['/peluqueria', item.barberia.id]" class="btn-view">Info</a>
+            <button class="btn-cart" (click)="toggleService(item)" [class.in-cart]="isInCart(item.id)">
+              {{ isInCart(item.id) ? 'En carrito' : 'Reservar' }}
+            </button>
+          </div>
         </div>
       </div>
       } @empty {

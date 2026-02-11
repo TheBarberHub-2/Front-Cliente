@@ -9,6 +9,7 @@ import { CReserva } from './components/pages/c-reserva/c-reserva';
 import { CCatalogoServicios } from './components/pages/c-catalogo-servicios/c-catalogo-servicios';
 import { CPeluqueriaReservas } from './components/pages/c-peluqueria-reservas/c-peluqueria-reservas';
 import { CPeluqueriaServicios } from './components/pages/c-peluqueria-servicios/c-peluqueria-servicios';
+import { CCarrito } from './components/pages/c-carrito/c-carrito';
 
 export const routes: Routes = [
   { path: '', component: LandingPage, pathMatch: 'full' },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'usuarios', component: CPerfil, canActivate: [LoginGuard] },
   { path: 'peluquerias', component: CPeluquerias, canActivate: [LoginGuard] },
   { path: 'peluqueria/:id', component: CReserva, canActivate: [LoginGuard] },
+  { path: 'carrito', component: CCarrito, canActivate: [LoginGuard] },
   { path: 'mis-reservas', component: CPeluqueriaReservas, canActivate: [LoginGuard] },
   { path: 'mis-servicios', component: CPeluqueriaServicios, canActivate: [LoginGuard] },
   { path: 'servicios/:categoria', component: CCatalogoServicios, canActivate: [LoginGuard] },

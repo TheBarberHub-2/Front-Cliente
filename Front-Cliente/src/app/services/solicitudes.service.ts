@@ -35,4 +35,8 @@ export class SolicitudesService {
         }
         return this.http.get<any>(this.apiUrl, { params });
     }
+
+    crearSolicitudPeluqueria(solicitud: { municipio: string; direccion: string; telefono: string }): Observable<any> {
+        return this.http.post(`${this.apiUrl}/create/peluquerias`, solicitud);
+    }
 }

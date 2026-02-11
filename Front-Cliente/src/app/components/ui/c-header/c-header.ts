@@ -8,6 +8,7 @@ import { SolicitudesService } from '../../../services/solicitudes.service';
 import { SolicitudDto } from '../../../models/solicitudes/solicitud.dto';
 
 import { UsuariosService } from '../../../services/usuarios.service';
+import { CarritoService } from '../../../services/carrito.service';
 
 @Component({
   selector: 'app-c-header',
@@ -18,12 +19,14 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class CHeader implements OnInit, OnDestroy {
   numeroPedidos: number = 0;
+  unidadesCarrito: number = 0;
   userRol: Rol | null = null;
   solicitudesPendientes: SolicitudDto[] = [];
   mostrarNotificaciones: boolean = false;
 
   private rolSub: Subscription | null = null;
   private notifSub: Subscription | null = null;
+  private cartSub: Subscription | null = null;
 
   private userId: number | null = null;
 
@@ -31,7 +34,8 @@ export class CHeader implements OnInit, OnDestroy {
     private loginService: LoginService,
     private router: Router,
     private solicitudesService: SolicitudesService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private carritoService: CarritoService
   ) { }
 
   ngOnInit() {
@@ -40,6 +44,10 @@ export class CHeader implements OnInit, OnDestroy {
       if (this.isLoggedIn) {
         this.startNotificationPolling();
       }
+    });
+
+    this.cartSub = this.carritoService.cart$.subscribe(items => {
+      this.unidadesCarrito = items.length;
     });
 
     if (this.isLoggedIn) {
@@ -72,11 +80,14 @@ export class CHeader implements OnInit, OnDestroy {
           if (this.isLoggedIn && this.userId) {
             // Using the new paginated admin-style request filtered by user
             return this.solicitudesService.getSolicitudes(1, 10, this.userId).pipe(
-              map(page => page.data ? page.data.filter((s: any) => s.estado === 'Pendiente') : [])
+              map(page => page.data ? page.data.filter((s: any) =>
+                s.estado === 'Pendiente' && s.usuario?.id === this.userId
+              ) : [])
             );
           }
           return of([]);
         })
+
       )
       .subscribe({
         next: (notifs) => {
@@ -131,6 +142,9 @@ export class CHeader implements OnInit, OnDestroy {
     }
     if (this.notifSub) {
       this.notifSub.unsubscribe();
+    }
+    if (this.cartSub) {
+      this.cartSub.unsubscribe();
     }
   }
 }

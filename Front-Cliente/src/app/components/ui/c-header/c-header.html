@@ -26,9 +26,23 @@
       }
 
       <!-- Shared Links -->
+      @if (!isPeluqueria) {
       <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
+      }
 
       <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
+
+      <!-- Cart Icon -->
+      @if (isUser) {
+      <li class="c-header__cart">
+        <a class="c-header__cart-link" [routerLink]="['/carrito']" routerLinkActive="active">
+          <i class="cart-icon">🛒</i>
+          @if (unidadesCarrito > 0) {
+          <span class="c-header__badge">{{ unidadesCarrito }}</span>
+          }
+        </a>
+      </li>
+      }
 
       <!-- Notification Bell - Now to the left of logout/login area -->
       <li class="c-header__notifications" (click)="$event.stopPropagation()">

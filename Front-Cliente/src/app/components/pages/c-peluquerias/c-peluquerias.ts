@@ -5,6 +5,10 @@ import { RouterLink } from '@angular/router';
 import { PeluqueriasService } from '../../../services/peluquerias.service';
 import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summary';
 
+interface PeluqueriaWithSchedule extends PeluqueriaSummary {
+    weeklySchedule?: { [key: string]: string };
+}
+
 @Component({
     selector: 'app-c-peluquerias',
     standalone: true,
@@ -13,10 +17,12 @@ import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summar
     styleUrl: './c-peluquerias.scss'
 })
 export class CPeluquerias implements OnInit {
-    peluquerias: PeluqueriaSummary[] = [];
-    filteredPeluquerias: PeluqueriaSummary[] = [];
+    peluquerias: PeluqueriaWithSchedule[] = [];
+    filteredPeluquerias: PeluqueriaWithSchedule[] = [];
     searchTerm: string = '';
     loading: boolean = true;
+
+    private readonly DAYS_ORDER = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domigo'];
 
     constructor(private peluqueriasService: PeluqueriasService) { }
 
@@ -29,6 +35,16 @@ export class CPeluquerias implements OnInit {
             next: (page) => {
                 this.peluquerias = page.data || [];
                 this.filteredPeluquerias = [...this.peluquerias];
+
+                // Fetch schedules for each hairdresser
+                this.peluquerias.forEach(p => {
+                    if (p.id) {
+                        this.peluqueriasService.getHorarios(p.id).subscribe(horarios => {
+                            p.weeklySchedule = this.groupHorarios(horarios);
+                        });
+                    }
+                });
+
                 this.loading = false;
             },
             error: (err) => {
@@ -36,6 +52,33 @@ export class CPeluquerias implements OnInit {
                 this.loading = false;
             }
         });
+    }
+
+    private groupHorarios(horarios: any[]): { [key: string]: string } {
+        const grouped: { [key: string]: string[] } = {};
+
+        horarios.forEach(h => {
+            const day = h.diaSemana.toLowerCase();
+            if (!grouped[day]) grouped[day] = [];
+
+            const start = String(h.horaApertura).substring(0, 5);
+            const end = String(h.horaCierre).substring(0, 5);
+            grouped[day].push(`${start}-${end}`);
+        });
+
+        const result: { [key: string]: string } = {};
+        this.DAYS_ORDER.forEach(day => {
+            if (grouped[day]) {
+                result[day] = grouped[day].join(' y ');
+            }
+        });
+
+        return result;
+    }
+
+    getOrderedDays(schedule: { [key: string]: string } | undefined): string[] {
+        if (!schedule) return [];
+        return this.DAYS_ORDER.filter(day => schedule[day]);
     }
 
     onSearch(): void {

@@ -34,6 +34,20 @@
             <div class="barber-info">
                 <h3>{{ item.nombre }}</h3>
                 <p class="location"><span>📍</span> {{ item.municipio }} — {{ item.direccion }}</p>
+
+                @if (item.weeklySchedule) {
+                <div class="weekly-schedule">
+                    <div class="schedule-grid">
+                        @for (day of getOrderedDays(item.weeklySchedule); track day) {
+                        <div class="schedule-day">
+                            <span class="day-name">{{ day | slice:0:3 | titlecase }}</span>
+                            <span class="day-hours">{{ item.weeklySchedule[day] }}</span>
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+
                 <button class="btn-book" [routerLink]="['/peluqueria', item.id]">Reservar ahora</button>
             </div>
         </div>

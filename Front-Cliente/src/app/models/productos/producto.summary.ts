@@ -3,4 +3,5 @@ export interface ProductoSummary {
   peluqueria: string;
   nombre: string;
   precio: number;
+  duracion: number;
 }

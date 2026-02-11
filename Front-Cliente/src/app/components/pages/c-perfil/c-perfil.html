@@ -20,6 +20,16 @@
                     <label>Nombre Completo</label>
                     <p>{{ usuario.nombre }}</p>
                 </div>
+
+                <!-- Request to become Peluqueria (Only for Cliente without pending request) -->
+                @if (isCliente && !hasPendingPeluqueriaRequest) {
+                <div class="solicitud-peluqueria-cta">
+                    <p>¿Tienes tu propia barbería?</p>
+                    <button class="btn-request-peluqueria" (click)="abrirFormSolicitudPeluqueria()">
+                        Solicitar ser Peluquería
+                    </button>
+                </div>
+                }
             </div>
         </aside>
 
@@ -54,6 +64,36 @@
                     }
                 </div>
             </section>
+
+            @if (showSolicitudPeluqueriaForm) {
+            <div class="modal-overlay">
+                <div class="horario-modal">
+                    <h3>Solicitar Alta como Peluquería</h3>
+                    <form (ngSubmit)="onSubmitSolicitudPeluqueria()">
+                        <div class="form-group">
+                            <label>Municipio</label>
+                            <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio" name="municipio"
+                                required placeholder="Ej: Valencia">
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección</label>
+                            <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion" name="direccion"
+                                required placeholder="Ej: Calle Mayor, 12">
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono de Contacto</label>
+                            <input type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono" name="telefono" required
+                                placeholder="Ej: 600123456">
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn-cancel"
+                                (click)="showSolicitudPeluqueriaForm = false">Cancelar</button>
+                            <button type="submit" class="btn-save">Enviar Solicitud</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            }
 
             <!-- Horarios Section (Only for Peluqueria) -->
             @if (isPeluqueria) {

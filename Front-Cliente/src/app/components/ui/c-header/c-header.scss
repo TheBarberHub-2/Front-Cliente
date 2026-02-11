@@ -213,6 +213,36 @@
             }
         }
     }
+
+    &__cart {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &-link {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            padding: 5px;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                transform: scale(1.1);
+                color: #e67e22;
+            }
+
+            &.active {
+                color: #e67e22;
+            }
+
+            .cart-icon {
+                font-style: normal;
+            }
+        }
+    }
 }
 
 @keyframes fadeIn {

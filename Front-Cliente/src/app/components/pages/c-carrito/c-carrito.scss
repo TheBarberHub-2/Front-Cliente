@@ -1,0 +1,325 @@
+.carrito-container {
+    min-height: 100vh;
+    background: #0c0c0c;
+    color: white;
+}
+
+.carrito-header {
+    background: linear-gradient(to bottom, #1a1a1a, #0c0c0c);
+    padding: 60px 20px 40px;
+    text-align: center;
+
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+
+        .btn-back {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: color 0.3s;
+
+            &:hover {
+                color: #d4af37;
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .store-name {
+            color: #aaa;
+            font-size: 1.2rem;
+
+            span {
+                color: #d4af37;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.carrito-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px 100px;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 100px 0;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 30px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: 20px;
+        opacity: 0.3;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .btn-primary {
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+}
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+}
+
+.cart-items {
+    h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        padding-left: 10px;
+    }
+
+    .items-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cart-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 20px 30px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: scale(1.01);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .item-info {
+            h4 {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+
+            p {
+                color: #d4af37;
+                font-weight: 600;
+            }
+        }
+
+        .btn-remove {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+
+            &:hover {
+                background: #e74c3c;
+                color: white;
+            }
+        }
+    }
+}
+
+.config-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 30px;
+    position: sticky;
+    top: 100px;
+
+    .config-section {
+        margin-bottom: 40px;
+
+        h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+    }
+
+    .date-input {
+        width: 100%;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        color: white;
+        padding: 15px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        outline: none;
+
+        &:focus {
+            border-color: #d4af37;
+        }
+    }
+
+    .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+    }
+
+    .slot-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+
+        &:hover {
+            border-color: #d4af37;
+        }
+
+        &.selected {
+            background: #d4af37;
+            color: black;
+            border-color: #d4af37;
+            font-weight: 700;
+        }
+    }
+
+    .no-slots {
+        text-align: center;
+        padding: 20px;
+        background: rgba(255, 77, 77, 0.05);
+        border-radius: 15px;
+
+        p {
+            color: #ff4d4d;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        small {
+            color: #888;
+        }
+    }
+}
+
+.loading-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #888;
+
+    .mini-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(212, 175, 55, 0.2);
+        border-top-color: #d4af37;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+}
+
+.summary-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+
+    .summary-details {
+        margin-bottom: 30px;
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #aaa;
+
+            &.total {
+                margin-top: 15px;
+                font-size: 1.3rem;
+                color: white;
+                border-top: 1px dashed #333;
+                padding-top: 15px;
+
+                strong {
+                    color: #d4af37;
+                }
+            }
+        }
+    }
+
+    .btn-confirm {
+        width: 100%;
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 20px;
+        border-radius: 15px;
+        font-weight: 800;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: transform 0.2s, background 0.3s;
+
+        &:hover:not(:disabled) {
+            transform: translateY(-3px);
+            background: #f1c40f;
+        }
+
+        &:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .config-card {
+        position: static;
+    }
+
+    .carrito-header h1 {
+        font-size: 2.2rem;
+    }
+}

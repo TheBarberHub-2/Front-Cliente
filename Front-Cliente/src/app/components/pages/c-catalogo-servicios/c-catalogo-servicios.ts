@@ -7,6 +7,7 @@ import { PeluqueriaSummary } from '../../../models/peluquerias/peluqueria.summar
 import { LoginService } from '../../../services/login.service';
 import { Rol } from '../../../enums/rol.enum';
 import { Subscription } from 'rxjs';
+import { CarritoService } from '../../../services/carrito.service';
 
 import { FormsModule } from '@angular/forms';
 
@@ -38,7 +39,31 @@ export class CCatalogoServicios implements OnInit, OnDestroy {
     private productosService: ProductosService,
     private peluqueriasService: PeluqueriasService,
     private loginService: LoginService,
-  ) {}
+    private carritoService: CarritoService,
+  ) { }
+
+  isInCart(id: number): boolean {
+    let inCart = false;
+    this.carritoService.cart$.subscribe(items => {
+      inCart = items.some(i => i.id === id);
+    }).unsubscribe();
+    return inCart;
+  }
+
+  toggleService(servicio: any): void {
+    if (!servicio.id) return;
+
+    const item = {
+      id: servicio.id,
+      nombre: servicio.nombre,
+      precio: Number(servicio.precio),
+      duracion: servicio.duracion || 30,
+      peluqueriaId: servicio.barberia.id,
+      peluqueriaNombre: servicio.barberia.nombre
+    };
+
+    this.carritoService.addToCart(item);
+  }
 
   ngOnInit(): void {
     this.rolSub = this.loginService.role$.subscribe((rol) => {

@@ -36,6 +36,14 @@ export class CPerfil implements OnInit {
     };
     diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
+    // Peluqueria Request Form
+    showSolicitudPeluqueriaForm: boolean = false;
+    nuevaSolicitudPeluqueria = {
+        municipio: '',
+        direccion: '',
+        telefono: ''
+    };
+
     constructor(
         private usuariosService: UsuariosService,
         private solicitudesService: SolicitudesService,
@@ -142,6 +150,34 @@ export class CPerfil implements OnInit {
     }
 
     get isPeluqueria(): boolean {
-        return this.usuario?.rol === Rol.Peluqueria;
+        return this.usuario?.rol?.toUpperCase() === Rol.Peluqueria;
+    }
+
+    get isCliente(): boolean {
+        return this.usuario?.rol?.toUpperCase() === Rol.Cliente;
+    }
+
+
+    get hasPendingPeluqueriaRequest(): boolean {
+        return this.solicitudes.some(s => s.tipo === 'Peluqueria' && (s.estado === 'Pendiente' || s.estado === 'Aprobada'));
+    }
+
+    abrirFormSolicitudPeluqueria() {
+        this.showSolicitudPeluqueriaForm = true;
+        this.nuevaSolicitudPeluqueria = { municipio: '', direccion: '', telefono: '' };
+    }
+
+    onSubmitSolicitudPeluqueria() {
+        this.solicitudesService.crearSolicitudPeluqueria(this.nuevaSolicitudPeluqueria).subscribe({
+            next: () => {
+                alert('¡Solicitud enviada! Recibirás una notificación cuando sea revisada.');
+                this.showSolicitudPeluqueriaForm = false;
+                this.loadProfile();
+            },
+            error: (err) => {
+                console.error('Error al enviar solicitud:', err);
+                alert(err.error?.message || 'Error al enviar la solicitud.');
+            }
+        });
     }
 }

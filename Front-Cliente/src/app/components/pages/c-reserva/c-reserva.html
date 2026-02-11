@@ -39,18 +39,20 @@
     }
     <div class="services-header">
       <h2>Servicios disponibles</h2>
-      <p>Selecciona un servicio para realizar tu reserva</p>
+      <p>Selecciona uno o varios servicios para tu cita</p>
     </div>
 
     <div class="services-list">
       @for (servicio of servicios; track servicio.id) {
-      <div class="service-card">
+      <div class="service-card" [class.selected]="isInCart(servicio.id)">
         <div class="service-info">
           <h3>{{ servicio.nombre }}</h3>
           <p class="price">{{ servicio.precio | currency: 'EUR' : 'symbol' : '1.2-2' }}</p>
         </div>
         @if (!isPeluqueria) {
-        <button class="btn-reserve" (click)="confirmarReserva(servicio)">Reservar Cita</button>
+        <button class="btn-add-cart" (click)="toggleService(servicio)">
+          {{ isInCart(servicio.id) ? 'En el carrito' : 'Añadir al carrito' }}
+        </button>
         }
       </div>
       } @empty {

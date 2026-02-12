@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface CartItem {
     id: number;
@@ -38,7 +39,7 @@ export interface SlotsDisponiblesResponse {
     providedIn: 'root',
 })
 export class CarritoService {
-    private apiUrl = 'producciondaw.cip.fpmislata.com/api/carrito';
+    private apiUrl = `${environment.apiUrl}/carrito`;
     private items: CartItem[] = [];
     private cartSubject = new BehaviorSubject<CartItem[]>([]);
     public cart$ = this.cartSubject.asObservable();

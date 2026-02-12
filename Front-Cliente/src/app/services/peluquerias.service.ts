@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, map, catchError, of } from 'rxjs';
 import { Page } from '../models/page';
 import { PeluqueriaSummary } from '../models/peluquerias/peluqueria.summary';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeluqueriasService {
-  private apiUrl = 'producciondaw.cip.fpmislata.com/api/peluquerias';
+  private apiUrl = `${environment.apiUrl}/peluquerias`;
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +25,7 @@ export class PeluqueriasService {
   }
 
   getHorarios(id: number): Observable<any[]> {
-    const scheduleUrl = 'producciondaw.cip.fpmislata.com/api/peluqueria';
+    const scheduleUrl = `${environment.apiUrl}/peluqueria`;
     return this.http.get<any[]>(`${scheduleUrl}/${id}/horarios`);
   }
 }

@@ -74,6 +74,33 @@
                     </div>
                     }
 
+                    <div class="config-section payment-section">
+                        <h3>3. Pago con Tarjeta</h3>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label>Número de Tarjeta</label>
+                                <input type="text" [(ngModel)]="numeroTarjeta" name="cardNumber"
+                                    placeholder="0000 0000 0000 0000" maxlength="19">
+                            </div>
+                            <div class="form-group">
+                                <label>Titular de la Tarjeta</label>
+                                <input type="text" [(ngModel)]="titular" name="cardHolder"
+                                    placeholder="Nombre completo">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Caducidad</label>
+                                    <input type="text" [(ngModel)]="fechaCaducidad" name="expiry" placeholder="YYYY-MM"
+                                        maxlength="7">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="password" [(ngModel)]="cvc" name="cvc" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="summary-footer">
                         <div class="summary-details">
                             <div class="summary-line">
@@ -86,9 +113,15 @@
                             </div>
                         </div>
 
-                        <button class="btn-confirm" [disabled]="!selectedSlot || !selectedDate"
+                        <button class="btn-confirm"
+                            [disabled]="!selectedSlot || !selectedDate || !numeroTarjeta || isProcessing"
                             (click)="confirmarReserva()">
-                            Reservar Cita
+                            @if (isProcessing) {
+                            <div class="mini-spinner"></div>
+                            Procesando...
+                            } @else {
+                            Pagar y Reservar
+                            }
                         </button>
                     </div>
                 </div>

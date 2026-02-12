@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, map } from 'rxjs';
 import { Page } from '../models/page';
 import { Usuario } from '../models/usuarios/usuario';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuariosService {
-  private apiUrl = 'producciondaw.cip.fpmislata.com/api/usuarios';
+  private apiUrl = `${environment.apiUrl}/usuarios`;
 
   constructor(private http: HttpClient) { }
 

@@ -234,6 +234,46 @@
             color: #888;
         }
     }
+
+    .payment-section {
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                label {
+                    font-size: 0.8rem;
+                    color: #888;
+                    text-transform: uppercase;
+                }
+
+                input {
+                    background: #1a1a1a;
+                    border: 1px solid #333;
+                    color: white;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 1rem;
+                    outline: none;
+
+                    &:focus {
+                        border-color: #d4af37;
+                    }
+                }
+            }
+
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+        }
+    }
 }
 
 .loading-state {

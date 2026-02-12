@@ -1,24 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface ReservaInsertRequest {
-    clienteId: number;
-    peluqueriaId: number;
-    productoIds: number[];
-    fechaReserva: string;
-    horaInicio: string;
-}
+import { CrearReservaRequest } from '../models/pagos/pago-tarjeta.request';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ReservasService {
-    private apiUrl = 'producciondaw.cip.fpmislata.com/api/reservas';
+    private apiUrl = 'http://localhost:8080/api/reservas';
 
     constructor(private http: HttpClient) { }
 
-    crearReserva(request: ReservaInsertRequest): Observable<any> {
+    crearReserva(request: CrearReservaRequest): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/crear`, request);
     }
 

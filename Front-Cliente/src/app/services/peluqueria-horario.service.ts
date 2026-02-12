@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PeluqueriaHorario } from '../models/horarios/peluqueria-horario';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PeluqueriaHorarioService {
-    private apiUrl = 'producciondaw.cip.fpmislata.com/api/peluqueria';
+    private apiUrl = `${environment.apiUrl}/peluqueria`;
 
     constructor(private http: HttpClient) { }
 

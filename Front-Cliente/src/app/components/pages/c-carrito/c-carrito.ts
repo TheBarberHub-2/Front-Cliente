@@ -24,6 +24,13 @@ export class CCarrito implements OnInit, OnDestroy {
     userId: number = 0;
     loadingSlots: boolean = false;
 
+    // Datos de pago
+    numeroTarjeta: string = '';
+    titular: string = '';
+    fechaCaducidad: string = '';
+    cvc: string = '';
+    isProcessing: boolean = false;
+
     private cartSub: Subscription | null = null;
 
     constructor(
@@ -43,8 +50,16 @@ export class CCarrito implements OnInit, OnDestroy {
             this.updateSummary();
         });
 
-        this.usuariosService.getUsuarioActual().subscribe(u => {
-            this.userId = u.id;
+        // Cargar usuario actual de forma sincrónica
+        this.usuariosService.getUsuarioActual().subscribe({
+            next: u => {
+                this.userId = u.id;
+                console.log('Usuario cargado:', u.id);
+            },
+            error: err => {
+                console.error('Error al cargar usuario:', err);
+                alert('Error al cargar tu información. Por favor, recarga la página.');
+            }
         });
     }
 
@@ -131,20 +146,61 @@ export class CCarrito implements OnInit, OnDestroy {
 
     confirmarReserva() {
         if (!this.selectedDate || !this.selectedSlot || this.items.length === 0) return;
+        if (!this.numeroTarjeta || !this.titular || !this.fechaCaducidad || !this.cvc) {
+            alert('Por favor, completa los datos de pago.');
+            return;
+        }
+        if (this.userId === 0) {
+            alert('Error: No se pudo obtener tu ID de usuario. Por favor, recarga la página.');
+            return;
+        }
 
+        this.isProcessing = true;
+
+        // Convertir selectedSlot a LocalTime format (HH:mm)
+        let horaInicio = this.selectedSlot || '00:00';
+        if (horaInicio.includes(':')) {
+            // Si ya tiene formato HH:mm, usarlo tal cual
+        } else {
+            // Si es solo número, convertir
+            const minutes = parseInt(horaInicio, 10);
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            horaInicio = `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+        }
+
+        // Calcular día de semana (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+        const fecha = new Date(this.selectedDate);
+        const diaSemana = fecha.getDay();
+
+        // Crear Reserva con datos de pago incluidos
         this.reservasService.crearReserva({
-            clienteId: this.userId,
-            peluqueriaId: this.items[0].peluqueriaId,
-            productoIds: this.items.map(i => i.id),
-            fechaReserva: this.selectedDate,
-            horaInicio: this.selectedSlot
+            reserva: {
+                clienteId: this.userId,
+                peluqueriaId: this.items[0].peluqueriaId,
+                diaSemana: diaSemana,
+                productoIds: this.items.map(i => i.id),
+                fechaReserva: this.selectedDate,
+                horaInicio: horaInicio
+            },
+            origen: {
+                numeroTarjeta: this.numeroTarjeta,
+                nombreCompleto: this.titular,
+                fechaCaducidad: this.fechaCaducidad,
+                cvc: this.cvc,
+            }
         }).subscribe({
             next: () => {
-                alert('Reserva confirmada con éxito!');
+                alert('¡Pago realizado y reserva confirmada con éxito!');
                 this.carritoService.clearCart();
                 this.router.navigate(['/usuarios']);
+                this.isProcessing = false;
             },
-            error: err => alert(err.error?.message || 'Error al confirmar la reserva')
+            error: err => {
+                console.error('Error en la reserva:', err);
+                alert('Error al procesar la reserva: ' + (err.error?.message || 'Datos de tarjeta inválidos o saldo insuficiente'));
+                this.isProcessing = false;
+            }
         });
     }
 

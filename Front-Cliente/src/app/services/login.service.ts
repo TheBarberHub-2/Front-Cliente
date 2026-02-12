@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { LogIn } from '../models/login';
 import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Rol } from '../enums/rol.enum';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'producciondaw.cip.fpmislata.com/auth';
+  private apiUrl = environment.apiUrl.replace('/api', '/auth');
   private roleSubject = new BehaviorSubject<Rol | null>(null);
   role$ = this.roleSubject.asObservable();
   private emailSubject = new BehaviorSubject<string | null>(localStorage.getItem('email'));

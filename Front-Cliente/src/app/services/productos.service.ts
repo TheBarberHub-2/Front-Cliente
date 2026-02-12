@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../models/page';
 import { ProductoSummary } from '../models/productos/producto.summary';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductosService {
-  private apiUrl = ' producciondaw.cip.fpmislata.com/api/productos';
+  private apiUrl = `${environment.apiUrl}/productos`;
 
   constructor(private http: HttpClient) { }
 

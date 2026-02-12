@@ -10,12 +10,14 @@ import { CCatalogoServicios } from './components/pages/c-catalogo-servicios/c-ca
 import { CPeluqueriaReservas } from './components/pages/c-peluqueria-reservas/c-peluqueria-reservas';
 import { CPeluqueriaServicios } from './components/pages/c-peluqueria-servicios/c-peluqueria-servicios';
 import { CCarrito } from './components/pages/c-carrito/c-carrito';
+import { CTerminosBarberhub } from './components/pages/c-terminos-barberhub/c-terminos-barberhub';
 
 export const routes: Routes = [
   { path: '', component: LandingPage, pathMatch: 'full' },
   { path: 'login', component: CLogin },
   { path: 'inicio', component: Inicio, canActivate: [LoginGuard] },
   { path: 'usuarios', component: CPerfil, canActivate: [LoginGuard] },
+  { path: 'terminos', component: CTerminosBarberhub, canActivate: [LoginGuard] },
   { path: 'peluquerias', component: CPeluquerias, canActivate: [LoginGuard] },
   { path: 'peluqueria/:id', component: CReserva, canActivate: [LoginGuard] },
   { path: 'carrito', component: CCarrito, canActivate: [LoginGuard] },

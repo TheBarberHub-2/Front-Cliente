@@ -1,0 +1,334 @@
+.terminos-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.terminos-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.terminos-header {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+
+    .success-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: pulse-check 0.6s ease-out;
+    }
+
+    h1 {
+        margin: 0 0 0.5rem 0;
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        margin: 0;
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+}
+
+@keyframes pulse-check {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.terminos-content {
+    padding: 2.5rem;
+}
+
+// Approval Section
+.approval-section {
+    background: linear-gradient(135deg, #fdf6ec 0%, #fef8f0 100%);
+    border-left: 4px solid #e67e22;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+
+    h2 {
+        margin: 0 0 0.8rem 0;
+        font-size: 1.4rem;
+        color: #2c3e50;
+    }
+
+    p {
+        margin: 0;
+        color: #555;
+        line-height: 1.6;
+        font-size: 1rem;
+
+        strong {
+            color: #e67e22;
+            font-weight: 600;
+        }
+    }
+}
+
+// Terms Section
+.terms-section {
+    margin-bottom: 2.5rem;
+
+    h3 {
+        font-size: 1.6rem;
+        color: #2c3e50;
+        margin: 0 0 1rem 0;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid #f0f3f5;
+    }
+
+    >p {
+        color: #7f8c8d;
+        margin-bottom: 1.5rem;
+    }
+}
+
+// Individual Term Items
+.term-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #f0f3f5;
+
+    .term-icon {
+        font-size: 2rem;
+        min-width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .term-content {
+        flex: 1;
+
+        h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        p {
+            margin: 0 0 0.5rem 0;
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+
+            strong {
+                color: #e67e22;
+                font-weight: 600;
+            }
+        }
+
+        .benefits-list {
+            margin: 0.8rem 0 0 0;
+            padding-left: 1.5rem;
+            color: #555;
+
+            li {
+                margin-bottom: 0.4rem;
+                line-height: 1.5;
+
+                &::marker {
+                    color: #e67e22;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+// Agreement Section
+.agreement-section {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+
+    .checkbox-label {
+        display: flex;
+        gap: 1rem;
+        cursor: pointer;
+        align-items: flex-start;
+
+        .checkbox-input {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #e67e22;
+            flex-shrink: 0;
+            margin-top: 2px;
+
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
+        }
+
+        .checkbox-text {
+            color: #2c3e50;
+            line-height: 1.6;
+            font-size: 1rem;
+            user-select: none;
+        }
+    }
+}
+
+// Error Message
+.error-message {
+    background: #fadbd8;
+    color: #c0392b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #c0392b;
+}
+
+// Action Section
+.action-section {
+    text-align: center;
+
+    .btn-proceed {
+        background: linear-gradient(135deg, #e67e22, #d35400);
+        color: white;
+        border: none;
+        padding: 1.2rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(230, 126, 34, 0.4);
+            background: linear-gradient(135deg, #d35400, #c44a1a);
+        }
+
+        &:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+    }
+
+    .payment-info {
+        margin: 1rem 0 0 0;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        font-style: italic;
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .terminos-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .terminos-header {
+        padding: 2rem 1.5rem;
+
+        h1 {
+            font-size: 1.7rem;
+        }
+
+        .success-icon {
+            font-size: 2.5rem;
+        }
+    }
+
+    .terminos-content {
+        padding: 1.5rem;
+    }
+
+    .term-item {
+        flex-direction: column;
+        gap: 0.8rem;
+
+        .term-icon {
+            justify-content: flex-start;
+        }
+    }
+
+    .agreement-section {
+        padding: 1.5rem;
+
+        .checkbox-label {
+            gap: 0.8rem;
+        }
+    }
+
+    .action-section .btn-proceed {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .terminos-container {
+        margin: 0;
+        padding: 0;
+        min-height: auto;
+    }
+
+    .terminos-card {
+        border-radius: 0;
+    }
+
+    .terminos-header {
+        padding: 2rem 1rem;
+
+        h1 {
+            font-size: 1.4rem;
+        }
+
+        .success-icon {
+            font-size: 2rem;
+        }
+    }
+
+    .terminos-content {
+        padding: 1rem;
+    }
+
+    .approval-section,
+    .terms-section,
+    .agreement-section {
+        margin-bottom: 1.5rem;
+    }
+}

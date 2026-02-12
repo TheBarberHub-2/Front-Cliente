@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios.service';
 import { SolicitudesService } from '../../../services/solicitudes.service';
 import { PeluqueriaHorarioService } from '../../../services/peluqueria-horario.service';
@@ -21,6 +22,7 @@ import { switchMap, of, forkJoin } from 'rxjs';
 export class CPerfil implements OnInit {
     usuario: Usuario | null = null;
     solicitudes: SolicitudDto[] = [];
+    solicitudesAprobadas: SolicitudDto[] = [];
     horarios: PeluqueriaHorario[] = [];
     peluqueriaId: number | null = null;
 
@@ -48,7 +50,8 @@ export class CPerfil implements OnInit {
         private usuariosService: UsuariosService,
         private solicitudesService: SolicitudesService,
         private horarioService: PeluqueriaHorarioService,
-        private peluqueriasService: PeluqueriasService
+        private peluqueriasService: PeluqueriasService,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -69,18 +72,29 @@ export class CPerfil implements OnInit {
                 if (!found) return of(null);
                 this.usuario = found;
 
-                // Fetch ALL solicituds for the user (using the new paginated admin-style request)
-                const solicitudesSub = this.solicitudesService.getSolicitudes(1, 100, found.id);
+                // Build requests based on user role
+                const requests: { [key: string]: any } = {};
 
-                return forkJoin({
-                    allSolicitudes: solicitudesSub,
-                    peluqueria: found.rol === Rol.Peluqueria ? this.peluqueriasService.getByEmail(found.email) : of(null)
-                });
+                // Only fetch solicitudesAprobadas for clientes
+                if (found.rol === Rol.Cliente) {
+                    requests['solicitudesAprobadas'] = this.solicitudesService.getSolicitudesAprobadas();
+                } else {
+                    requests['solicitudesAprobadas'] = of([]);
+                }
+
+                // Fetch peluqueria info if user is a peluqueria
+                if (found.rol === Rol.Peluqueria) {
+                    requests['peluqueria'] = this.peluqueriasService.getByEmail(found.email);
+                } else {
+                    requests['peluqueria'] = of(null);
+                }
+
+                return forkJoin(requests);
             })
         ).subscribe({
             next: (result: any) => {
                 if (result) {
-                    this.solicitudes = result.allSolicitudes.data || [];
+                    this.solicitudesAprobadas = result.solicitudesAprobadas || [];
                     if (result.peluqueria) {
                         this.peluqueriaId = result.peluqueria.id;
                         this.loadHorarios();
@@ -97,12 +111,22 @@ export class CPerfil implements OnInit {
     }
 
     loadHorarios() {
-        if (this.peluqueriaId) {
-            this.horarioService.findByPeluqueria(this.peluqueriaId).subscribe({
-                next: (horarios) => this.horarios = horarios,
-                error: (err) => console.error('Error al cargar horarios:', err)
-            });
+        if (!this.peluqueriaId) {
+            console.warn('No peluqueriaId found. Cannot load horarios.');
+            return;
         }
+
+        console.log('Loading horarios for peluqueriaId:', this.peluqueriaId);
+        this.horarioService.findByPeluqueria(this.peluqueriaId).subscribe({
+            next: (horarios) => {
+                console.log('Horarios loaded:', horarios);
+                this.horarios = horarios || [];
+            },
+            error: (err) => {
+                console.error('Error al cargar horarios:', err);
+                this.horarios = [];
+            }
+        });
     }
 
     confirmarSolicitud(id: number) {
@@ -116,6 +140,11 @@ export class CPerfil implements OnInit {
                 alert('Error al confirmar la solicitud.');
             }
         });
+    }
+
+    irATerminos(id: number) {
+        localStorage.setItem('hasApproval', id.toString());
+        this.router.navigate(['/terminos']);
     }
 
     // Schedule Management

@@ -8,7 +8,7 @@ import { Categoria } from '../models/categorias/categoria';
   providedIn: 'root',
 })
 export class CategoriasService {
-  private apiUrl = 'producciondaw.cip.fpmislata.com/api/categorias';
+  private apiUrl = 'http://localhost:8080/api/categorias';
 
   constructor(private http: HttpClient) { }
 

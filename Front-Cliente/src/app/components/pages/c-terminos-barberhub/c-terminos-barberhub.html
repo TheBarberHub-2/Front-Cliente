@@ -1,0 +1,111 @@
+<div class="terminos-container">
+  <div class="terminos-card">
+    <!-- Header -->
+    <div class="terminos-header">
+      <div class="success-icon">✓</div>
+      <h1>¡Solicitud Aprobada!</h1>
+      <p class="subtitle">
+        Tu solicitud ha sido revisada y aprobada por el equipo administrativo de BarberHub
+      </p>
+    </div>
+
+    <!-- Content -->
+    <div class="terminos-content">
+      <!-- Approval Message -->
+      <div class="approval-section">
+        <h2>Bienvenido a BarberHub</h2>
+        <p>
+          Felicidades, tu solicitud de registro como barbería ha sido <strong>aprobada</strong>.
+          Ahora puedes acceder a todas las funcionalidades de nuestra plataforma para gestionar tus
+          servicios y reservas.
+        </p>
+      </div>
+
+      <!-- Terms Section -->
+      <div class="terms-section">
+        <h3>Términos y Condiciones</h3>
+        <p>Por favor lee cuidadosamente los siguientes términos antes de continuar:</p>
+
+        <!-- Commission Terms -->
+        <div class="term-item">
+          <div class="term-icon">💳</div>
+          <div class="term-content">
+            <h4>Comisión por Transacción</h4>
+            <p>
+              BarberHub cobrará una comisión del <strong>5%</strong> sobre cada transacción
+              realizada a través de nuestra plataforma. Esta comisión se deducirá automáticamente de
+              los pagos recibidos por los servicios prestados.
+            </p>
+          </div>
+        </div>
+
+        <!-- Monthly Fee -->
+        <div class="term-item">
+          <div class="term-icon">📅</div>
+          <div class="term-content">
+            <h4>Costo de Suscripción</h4>
+            <p>
+              El costo de suscripción mensual a la plataforma BarberHub es de
+              <strong>$50 USD</strong>. Este pago te proporciona acceso completo a todas las
+              herramientas de gestión, incluyendo calendario de reservas, gestión de servicios, y
+              reportes de desempeño.
+            </p>
+          </div>
+        </div>
+
+        <!-- Platform Benefits -->
+        <div class="term-item">
+          <div class="term-icon">⭐</div>
+          <div class="term-content">
+            <h4>Beneficios Incluidos</h4>
+            <p>Tu suscripción incluye:</p>
+            <ul class="benefits-list">
+              <li>Gestión completa de horarios y disponibilidad</li>
+              <li>Sistema de reservas integrado</li>
+              <li>Perfil de barbería visible para clientes</li>
+              <li>Historial de transacciones y reportes</li>
+              <li>Soporte técnico prioritario</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Cancellation Policy -->
+        <div class="term-item">
+          <div class="term-icon">🔄</div>
+          <div class="term-content">
+            <h4>Política de Cancelación</h4>
+            <p>
+              Puedes cancelar tu suscripción en cualquier momento desde tu panel de configuración.
+              La cancelación será efectiva al final del período de facturación actual.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkbox Section -->
+      <div class="agreement-section">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="acceptedTerms" class="checkbox-input" />
+          <span class="checkbox-text">
+            He leído y acepto los términos y condiciones de BarberHub. Entiendo que se me cobrará
+            una comisión del 5% por transacción y $50 USD mensales por la suscripción.
+          </span>
+        </label>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Action Button -->
+      <div class="action-section">
+        <button class="btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
+          <span *ngIf="!loading">Proceder a Pago</span>
+          <span *ngIf="loading">Procesando...</span>
+        </button>
+        <p class="payment-info">Se te redirigirá a la pasarela de pago segura</p>
+      </div>
+    </div>
+  </div>
+</div>

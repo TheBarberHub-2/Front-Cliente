@@ -8,7 +8,7 @@ import { SolicitudDto } from '../models/solicitudes/solicitud.dto';
     providedIn: 'root',
 })
 export class SolicitudesService {
-    private apiUrl = 'producciondaw.cip.fpmislata.com/api/solicitudes';
+    private apiUrl = 'http://localhost:8080/api/solicitudes';
 
     constructor(private http: HttpClient) { }
 

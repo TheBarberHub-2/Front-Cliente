@@ -79,11 +79,7 @@ export class CHeader implements OnInit, OnDestroy {
         switchMap(() => {
           if (this.isLoggedIn && this.userId) {
             // Using the new paginated admin-style request filtered by user
-            return this.solicitudesService.getSolicitudes(1, 10, this.userId).pipe(
-              map(page => page.data ? page.data.filter((s: any) =>
-                s.estado === 'Pendiente' && s.usuario?.id === this.userId
-              ) : [])
-            );
+            return this.solicitudesService.getSolicitudesAprobadas();
           }
           return of([]);
         })

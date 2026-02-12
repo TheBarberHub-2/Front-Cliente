@@ -30,6 +30,8 @@ export class CHeader implements OnInit, OnDestroy {
 
   private userId: number | null = null;
 
+  isLoggedIn: boolean = false;
+
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -39,8 +41,12 @@ export class CHeader implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.isLoggedIn = this.loginService.isLogged();
+
     this.rolSub = this.loginService.role$.subscribe((rol) => {
+      console.log('DEBUG: CHeader received role:', rol);
       this.userRol = rol;
+      this.isLoggedIn = this.loginService.isLogged();
       if (this.isLoggedIn) {
         this.startNotificationPolling();
       }
@@ -52,6 +58,10 @@ export class CHeader implements OnInit, OnDestroy {
 
     if (this.isLoggedIn) {
       this.loadUserAndStartPolling();
+      // Asegurar que el rol se refresque al iniciar el componente si ya está logueado
+      if (!this.userRol) {
+        this.loginService.refreshRol();
+      }
     }
   }
 
@@ -101,10 +111,6 @@ export class CHeader implements OnInit, OnDestroy {
   irAPerfil() {
     this.mostrarNotificaciones = false;
     this.router.navigate(['/usuarios']);
-  }
-
-  get isLoggedIn(): boolean {
-    return this.loginService.isLogged();
   }
 
   get isAdmin(): boolean {

@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SolicitudProducto } from '../models/solicitudes/solicitud-producto';
 import { SolicitudDto } from '../models/solicitudes/solicitud.dto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class SolicitudesService {
-    private apiUrl = 'http://localhost:8080/api/solicitudes';
+    private apiUrl = `${environment.apiUrl}/solicitudes`;
 
     constructor(private http: HttpClient) { }
 

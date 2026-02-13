@@ -1,100 +1,101 @@
 <div class="inicio-container">
-    <header class="inicio-header">
-        <div class="welcome">
-            <h1>Hola, {{ usuario ? usuario.nombre : 'bienvenido' }}</h1>
-            <p>{{ isPeluqueria ? 'Gestiona tu peluquería desde aquí' : '¿Qué estilo estás buscando hoy?' }}</p>
-        </div>
-
-        @if (!isPeluqueria) {
-        <div class="search-container">
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar por nombre o dirección..." [(ngModel)]="searchTerm"
-                    (input)="onSearch()">
-                <button class="search-btn"><i class="bi bi-search"></i></button>
-            </div>
-        </div>
-        }
-    </header>
-
-    @if (isPeluqueria) {
-    <section class="dashboard-peluqueria">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-item__label">Reservas Hoy</span>
-                <span class="stat-item__value">12</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-item__label">Nuevos Clientes</span>
-                <span class="stat-item__value">4</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-item__label">Ingresos Estimados</span>
-                <span class="stat-item__value">245€</span>
-            </div>
-        </div>
-
-        <div class="dashboard-grid">
-            <div class="dashboard-card" [routerLink]="['/mis-reservas']">
-                <div class="dashboard-card__icon">📅</div>
-                <div class="dashboard-card__info">
-                    <h3>Mis Reservas</h3>
-                    <p>Revisa y gestiona tus citas pendientes</p>
-                </div>
-            </div>
-
-            <div class="dashboard-card" [routerLink]="['/mis-servicios']">
-                <div class="dashboard-card__icon">✂️</div>
-                <div class="dashboard-card__info">
-                    <h3>Mis Servicios</h3>
-                    <p>Solicita añadir o modificar tus servicios</p>
-                </div>
-            </div>
-
-            <div class="dashboard-card" [routerLink]="['/usuarios']">
-                <div class="dashboard-card__icon">👤</div>
-                <div class="dashboard-card__info">
-                    <h3>Mi Perfil</h3>
-                    <p>Actualiza tu información de contacto</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    }
-
-    <section class="categories">
-        <div class="category-list">
-            @for (cat of categorias; track cat.name) {
-            <div class="category-item" [routerLink]="['/servicios', cat.name]" style="cursor: pointer;">
-                <span class="category-icon">{{ cat.icon }}</span>
-                <span class="category-name">{{ cat.name }}</span>
-            </div>
-            }
-        </div>
-    </section>
+  <header class="inicio-header">
+    <div class="welcome">
+      <h1>Hola, {{ usuario ? usuario.nombre : 'bienvenido' }}</h1>
+      <p>
+        {{ isPeluqueria ? 'Gestiona tu peluquería desde aquí' : '¿Qué estilo estás buscando hoy?' }}
+      </p>
+    </div>
 
     @if (!isPeluqueria) {
-    <section class="featured">
-        <div class="section-header">
-            <h2>Barberías Recientes</h2>
-            <a [routerLink]="['/peluquerias']" class="view-all">Ver todas</a>
+      <div class="search-container">
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Buscar por nombre o dirección..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+          />
+          <button class="search-btn"><i class="bi bi-search"></i></button>
         </div>
-        <div class="barber-grid">
-            @for (barberia of filteredBarberias; track barberia.id) {
-            <div class="barber-card">
-                <div class="image-wrapper">
-                    <div class="barber-image" [style.backgroundImage]="'url(' + getRandomImage(barberia.id) + ')'">
-                        <div class="overlay"></div>
-                    </div>
-                    <span class="rating">⭐ 4.8</span>
-                </div>
-                <div class="barber-info">
-                    <h3>{{ barberia.nombre }}</h3>
-                    <p>{{ barberia.municipio }} — {{ barberia.direccion }}</p>
-                    <button class="btn-book" [routerLink]="['/peluqueria', barberia.id]">Reservar ahora</button>
-                </div>
-            </div>
-            }
-        </div>
-    </section>
+      </div>
     }
+  </header>
+
+  @if (isPeluqueria) {
+    <section class="dashboard-peluqueria">
+      <div class="dashboard-grid">
+        <div class="dashboard-card" [routerLink]="['/mis-reservas']">
+          <div class="dashboard-card__icon">📅</div>
+          <div class="dashboard-card__info">
+            <h3>Mis Reservas</h3>
+            <p>Revisa y gestiona tus citas pendientes</p>
+          </div>
+        </div>
+
+        <div class="dashboard-card" [routerLink]="['/mis-servicios']">
+          <div class="dashboard-card__icon">✂️</div>
+          <div class="dashboard-card__info">
+            <h3>Mis Servicios</h3>
+            <p>Solicita añadir o modificar tus servicios</p>
+          </div>
+        </div>
+
+        <div class="dashboard-card" [routerLink]="['/usuarios']">
+          <div class="dashboard-card__icon">👤</div>
+          <div class="dashboard-card__info">
+            <h3>Mi Perfil</h3>
+            <p>Actualiza tu información de contacto</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  @if (!isPeluqueria) {
+    <section class="categories">
+      <div class="category-list">
+        @for (cat of categorias; track cat.name) {
+          <div
+            class="category-item"
+            [routerLink]="['/servicios', cat.name]"
+            style="cursor: pointer"
+          >
+            <span class="category-icon">{{ cat.icon }}</span>
+            <span class="category-name">{{ cat.name }}</span>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  @if (!isPeluqueria) {
+    <section class="featured">
+      <div class="section-header">
+        <h2>Barberías Recientes</h2>
+        <a [routerLink]="['/peluquerias']" class="view-all">Ver todas</a>
+      </div>
+      <div class="barber-grid">
+        @for (barberia of filteredBarberias; track barberia.id) {
+          <div class="barber-card">
+            <div class="image-wrapper">
+              <div
+                class="barber-image"
+                [style.backgroundImage]="'url(' + getRandomImage(barberia.id) + ')'"
+              >
+                <div class="overlay"></div>
+              </div>
+            </div>
+            <div class="barber-info">
+              <h3>{{ barberia.nombre }}</h3>
+              <p>{{ barberia.municipio }} — {{ barberia.direccion }}</p>
+              <button class="btn-book" [routerLink]="['/peluqueria', barberia.id]">
+                Reservar ahora
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
 </div>

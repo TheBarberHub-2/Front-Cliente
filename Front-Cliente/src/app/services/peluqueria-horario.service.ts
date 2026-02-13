@@ -5,30 +5,84 @@ import { PeluqueriaHorario } from '../models/horarios/peluqueria-horario';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class PeluqueriaHorarioService {
-<<<<<<< HEAD
-    private apiUrl = 'http://localhost:8080/api/peluqueria';
-=======
-    private apiUrl = `${environment.apiUrl}/peluqueria`;
->>>>>>> 831579f47fe76d1019b84f031d90d323d282548f
+  private apiUrl = `${environment.apiUrl}/peluqueria`;
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    findByPeluqueria(peluqueriaId: number): Observable<PeluqueriaHorario[]> {
-        return this.http.get<PeluqueriaHorario[]>(`${this.apiUrl}/${peluqueriaId}/horarios`);
-    }
+  findByPeluqueria(peluqueriaId: number): Observable<PeluqueriaHorario[]> {
+    return this.http.get<PeluqueriaHorario[]>(`${this.apiUrl}/${peluqueriaId}/horarios`);
+  }
 
-    create(peluqueriaId: number, horario: PeluqueriaHorario): Observable<PeluqueriaHorario> {
-        return this.http.post<PeluqueriaHorario>(`${this.apiUrl}/${peluqueriaId}/horarios`, horario);
-    }
+  create(peluqueriaId: number, horario: PeluqueriaHorario): Observable<PeluqueriaHorario> {
+    // Transformar diaSemana al formato esperado por el backend (ej: "Lunes" → "LUNES", "Miércoles" → "MIERCOLES")
+    const diasMap: { [key: string]: string } = {
+      Lunes: 'LUNES',
+      Martes: 'MARTES',
+      Miércoles: 'MIERCOLES',
+      Jueves: 'JUEVES',
+      Viernes: 'VIERNES',
+      Sábado: 'SABADO',
+      Domingo: 'DOMINGO',
+    };
 
-    update(peluqueriaId: number, id: number, horario: PeluqueriaHorario): Observable<PeluqueriaHorario> {
-        return this.http.put<PeluqueriaHorario>(`${this.apiUrl}/${peluqueriaId}/horarios/${id}`, horario);
-    }
+    const diaNormalizado = diasMap[horario.diaSemana] || horario.diaSemana.toUpperCase();
 
-    delete(peluqueriaId: number, id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${peluqueriaId}/horarios/${id}`);
-    }
+    // Transformar horas al formato LocalTime (HH:mm:ss)
+    const formatearHora = (hora: string): string => {
+      return hora.length === 5 ? hora + ':00' : hora;
+    };
+
+    const horarioTransformado = {
+      diaSemana: diaNormalizado,
+      horaApertura: formatearHora(horario.horaApertura),
+      horaCierre: formatearHora(horario.horaCierre),
+    };
+
+    return this.http.post<PeluqueriaHorario>(
+      `${this.apiUrl}/${peluqueriaId}/horarios`,
+      horarioTransformado,
+    );
+  }
+
+  update(
+    peluqueriaId: number,
+    id: number,
+    horario: PeluqueriaHorario,
+  ): Observable<PeluqueriaHorario> {
+    // Transformar diaSemana al formato esperado por el backend (ej: "Lunes" → "LUNES", "Miércoles" → "MIERCOLES")
+    const diasMap: { [key: string]: string } = {
+      Lunes: 'LUNES',
+      Martes: 'MARTES',
+      Miércoles: 'MIERCOLES',
+      Jueves: 'JUEVES',
+      Viernes: 'VIERNES',
+      Sábado: 'SABADO',
+      Domingo: 'DOMINGO',
+    };
+
+    const diaNormalizado = diasMap[horario.diaSemana] || horario.diaSemana.toUpperCase();
+
+    // Transformar horas al formato LocalTime (HH:mm:ss)
+    const formatearHora = (hora: string): string => {
+      return hora.length === 5 ? hora + ':00' : hora;
+    };
+
+    const horarioTransformado = {
+      diaSemana: diaNormalizado,
+      horaApertura: formatearHora(horario.horaApertura),
+      horaCierre: formatearHora(horario.horaCierre),
+    };
+
+    return this.http.put<PeluqueriaHorario>(
+      `${this.apiUrl}/${peluqueriaId}/horarios/${id}`,
+      horarioTransformado,
+    );
+  }
+
+  delete(peluqueriaId: number, id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${peluqueriaId}/horarios/${id}`);
+  }
 }

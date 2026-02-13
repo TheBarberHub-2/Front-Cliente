@@ -1,377 +1,458 @@
 .perfil-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
 }
 
 .perfil-layout {
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    gap: 2rem;
-    align-items: start;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
 .perfil-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .perfil-info {
-    padding: 2rem;
-    text-align: center;
+  padding: 2rem;
+  text-align: center;
 
-    .perfil-header {
-        margin-bottom: 2rem;
+  .perfil-header {
+    margin-bottom: 2rem;
 
-        .avatar-placeholder {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            color: white;
-            font-size: 3rem;
-            font-weight: 700;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            color: #2c3e50;
-        }
-
-        .role-badge {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            background: #f0f3f5;
-            color: #7f8c8d;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-
-            &.role-peluqueria {
-                background: rgba(230, 126, 34, 0.1);
-                color: #e67e22;
-            }
-        }
+    .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #e67e22, #d35400);
+      color: white;
+      font-size: 3rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 8px 16px rgba(230, 126, 34, 0.3);
     }
 
-    .info-group {
-        text-align: left;
-        margin-bottom: 1.5rem;
-
-        label {
-            display: block;
-            font-size: 0.8rem;
-            color: #95a5a6;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
-        }
-
-        p {
-            margin: 0;
-            font-size: 1.1rem;
-            color: #2c3e50;
-            font-weight: 500;
-        }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #2c3e50;
     }
+
+    .role-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #f0f3f5;
+      color: #7f8c8d;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      &.role-peluqueria {
+        background: rgba(230, 126, 34, 0.1);
+        color: #e67e22;
+      }
+    }
+  }
+
+  .info-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: #95a5a6;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      font-weight: 500;
+    }
+  }
 }
 
 .perfil-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .content-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
 
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-        border-bottom: 2px solid #f9f9f9;
-        padding-bottom: 1rem;
-
-        h2 {
-            margin: 0;
-            font-size: 1.4rem;
-            color: #2c3e50;
-        }
-    }
-}
-
-.solicitud-item {
+  .section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    border-left: 4px solid #3498db;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #f9f9f9;
+    padding-bottom: 1rem;
 
-    &.pending {
-        border-left-color: #f1c40f;
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: #2c3e50;
+    }
+  }
+}
+
+.solicitud-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #3498db;
+
+  &.pending {
+    border-left-color: #f1c40f;
+  }
+
+  &.approved {
+    border-left-color: #2ecc71;
+  }
+
+  .sol-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    .sol-type {
+      font-weight: 600;
+      color: #2c3e50;
+      text-transform: capitalize;
     }
 
-    &.approved {
-        border-left-color: #2ecc71;
+    .sol-status {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #7f8c8d;
     }
 
-    .sol-info {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-
-        .sol-type {
-            font-weight: 600;
-            color: #2c3e50;
-            text-transform: capitalize;
-        }
-
-        .sol-status {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #7f8c8d;
-        }
-
-        .sol-date {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-        }
+    .sol-date {
+      font-size: 0.8rem;
+      color: #7f8c8d;
     }
+  }
 
-    .btn-confirm {
-        background: #2ecc71;
-        color: white;
-        border: none;
-        padding: 0.6rem 1.2rem;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
+  .btn-confirm {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
 
-        &:hover {
-            background: #27ae60;
-        }
+    &:hover {
+      background: #27ae60;
     }
+  }
 
-    .badge-pending {
-        background: #fef9e7;
-        color: #f1c40f;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        border: 1px solid #f9e79f;
-    }
+  .badge-pending {
+    background: #fef9e7;
+    color: #f1c40f;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #f9e79f;
+  }
 }
 
 // Horarios styles
 .horarios-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.horarios-table-container {
+  overflow-x: auto;
+}
+
+.horarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+
+  thead {
+    background: #f9f9f9;
+    border-bottom: 2px solid #e0e0e0;
+
+    tr {
+      th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: #2c3e50;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #fafafa;
+      }
+
+      td {
+        padding: 1rem;
+        color: #2c3e50;
+
+        &.table-actions {
+          display: flex;
+          gap: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+.btn-edit {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #2980b9;
+  }
+}
+
+.btn-delete-small {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #c0392b;
+  }
 }
 
 .horario-chip {
-    background: #fdf6ec;
-    border: 1px solid #f5e3cc;
-    padding: 1rem;
-    border-radius: 8px;
-    position: relative;
-    text-align: center;
+  background: #fdf6ec;
+  border: 1px solid #f5e3cc;
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+  text-align: center;
 
-    .horario-dia {
-        font-weight: 700;
-        color: #e67e22;
-        margin-bottom: 0.3rem;
+  .horario-dia {
+    font-weight: 700;
+    color: #e67e22;
+    margin-bottom: 0.3rem;
+  }
+
+  .horario-horas {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+
+  .btn-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #e74c3c;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
     }
-
-    .horario-horas {
-        font-size: 0.9rem;
-        color: #7f8c8d;
-    }
-
-    .btn-delete {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: none;
-        border: none;
-        font-size: 1.2rem;
-        color: #e74c3c;
-        cursor: pointer;
-        opacity: 0.5;
-        transition: opacity 0.2s;
-
-        &:hover {
-            opacity: 1;
-        }
-    }
+  }
 }
 
 .btn-add {
-    background: #e67e22;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
+  background: #e67e22;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
 
-    &:hover {
-        background: #d35400;
-    }
+  &:hover {
+    background: #d35400;
+  }
 }
 
 // Modal styles
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
 }
 
 .horario-modal {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
-    h3 {
-        margin-top: 0;
-        margin-bottom: 1.5rem;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #2c3e50;
     }
 
-    .form-group {
-        margin-bottom: 1.5rem;
+    select,
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      color: #000;
+      background: #fff;
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #2c3e50;
-        }
+      &::placeholder {
+        color: #666;
+      }
+    }
+  }
 
-        select,
-        input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            color: #000;
-            background: #fff;
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
 
-            &::placeholder {
-                color: #666;
-            }
-        }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    button {
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
+    .btn-cancel {
+      background: #95a5a6;
+      color: white;
+      border: none;
 
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+      &:hover {
+        background: #7f8c8d;
+      }
     }
 
-    .modal-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-        margin-top: 2rem;
-
-        button {
-            padding: 0.8rem 1.5rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-cancel {
-            background: #95a5a6;
-            color: white;
-            border: none;
-
-            &:hover {
-                background: #7f8c8d;
-            }
-        }
-
-        .btn-save {
-            background: #e67e22;
-            color: white;
-            border: none;
-        }
+    .btn-save {
+      background: #e67e22;
+      color: white;
+      border: none;
     }
+  }
 }
 
 .empty-state {
-    color: #999;
-    text-align: center;
-    padding: 2rem;
-    font-style: italic;
+  color: #999;
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
 }
 
 .loading-state,
 .error-state {
-    text-align: center;
-    padding: 5rem;
+  text-align: center;
+  padding: 5rem;
 }
 
 // Peluqueria Request CTA
 .solicitud-peluqueria-cta {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, #fdf6ec 0%, #fef8f0 100%);
-    border: 2px dashed #f5c89a;
-    border-radius: 12px;
-    text-align: center;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fdf6ec 0%, #fef8f0 100%);
+  border: 2px dashed #f5c89a;
+  border-radius: 12px;
+  text-align: center;
 
-    p {
-        margin: 0 0 1rem 0;
-        color: #7f8c8d;
-        font-size: 1rem;
-    }
+  p {
+    margin: 0 0 1rem 0;
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
 }
 
 .btn-request-peluqueria {
-    background: linear-gradient(135deg, #e67e22, #d35400);
-    color: white;
-    border: none;
-    padding: 0.9rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(230, 126, 34, 0.4);
-    }
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(230, 126, 34, 0.4);
+  }
 }

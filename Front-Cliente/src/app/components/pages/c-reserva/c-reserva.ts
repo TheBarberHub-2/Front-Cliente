@@ -24,6 +24,7 @@ export class CReserva implements OnInit, OnDestroy {
   peluqueria: PeluqueriaSummary | null = null;
   servicios: ProductoSummary[] = [];
   horarios: PeluqueriaHorario[] = [];
+  weeklySchedule: { [key: string]: string } | null = null;
   loading: boolean = true;
   peluqueriaId: number = 0;
   isPeluqueria: boolean = false;
@@ -35,6 +36,16 @@ export class CReserva implements OnInit, OnDestroy {
   private rolSub: Subscription | null = null;
   private userId: number = 0;
 
+  private readonly DAYS_ORDER = [
+    'lunes',
+    'martes',
+    'miercoles',
+    'jueves',
+    'viernes',
+    'sabado',
+    'domingo',
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -42,7 +53,7 @@ export class CReserva implements OnInit, OnDestroy {
     private productosService: ProductosService,
     private loginService: LoginService,
     private carritoService: CarritoService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
   ) {
     const today = new Date();
     today.setDate(today.getDate() + 1); // No permitir el mismo día
@@ -54,12 +65,12 @@ export class CReserva implements OnInit, OnDestroy {
       this.isPeluqueria = rol === Rol.Peluqueria;
     });
 
-    this.usuariosService.getUsuarioActual().subscribe(u => {
+    this.usuariosService.getUsuarioActual().subscribe((u) => {
       this.userId = u.id;
     });
 
-    this.carritoService.cart$.subscribe(items => {
-      this.selectedServices = items.map(i => i.id);
+    this.carritoService.cart$.subscribe((items) => {
+      this.selectedServices = items.map((i) => i.id);
     });
 
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -79,8 +90,9 @@ export class CReserva implements OnInit, OnDestroy {
         this.peluqueriasService.getHorarios(this.peluqueriaId).subscribe({
           next: (horarios) => {
             this.horarios = this.formatHorarios(horarios);
+            this.weeklySchedule = this.groupHorarios(horarios);
           },
-          error: (err) => console.error('Error cargando horarios', err)
+          error: (err) => console.error('Error cargando horarios', err),
         });
 
         this.productosService.getProductos().subscribe({
@@ -111,7 +123,7 @@ export class CReserva implements OnInit, OnDestroy {
       precio: Number(servicio.precio),
       duracion: servicio.duracion || 30,
       peluqueriaId: this.peluqueriaId,
-      peluqueriaNombre: this.peluqueria?.nombre || ''
+      peluqueriaNombre: this.peluqueria?.nombre || '',
     };
 
     this.carritoService.addToCart(item);
@@ -127,23 +139,43 @@ export class CReserva implements OnInit, OnDestroy {
   }
 
   formatHorarios(horarios: any[]): any[] {
-    return horarios.map(h => ({
+    return horarios.map((h) => ({
       ...h,
       horaApertura: h.horaApertura ? String(h.horaApertura).substring(0, 5) : '00:00',
-      horaCierre: h.horaCierre ? String(h.horaCierre).substring(0, 5) : '00:00'
+      horaCierre: h.horaCierre ? String(h.horaCierre).substring(0, 5) : '00:00',
     }));
   }
 
-  getRandomImage(id: any): string {
-    const images = [
-      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1621605815841-db897c4733dd?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop',
-    ];
-    return images[id % images.length];
+  groupHorarios(horarios: any[]): { [key: string]: string } {
+    const grouped: { [key: string]: string[] } = {};
+
+    horarios.forEach((h) => {
+      const day = String(h.diaSemana).toLowerCase();
+      if (!grouped[day]) grouped[day] = [];
+
+      const start = h.horaApertura ? String(h.horaApertura).substring(0, 5) : '00:00';
+      const end = h.horaCierre ? String(h.horaCierre).substring(0, 5) : '00:00';
+      // Use non-breaking spaces around the dash so a single range doesn't break across lines
+      grouped[day].push(`${start}\u00A0-\u00A0${end}`);
+    });
+
+    const result: { [key: string]: string } = {};
+    this.DAYS_ORDER.forEach((day) => {
+      if (grouped[day]) {
+        result[day] = grouped[day].join(' y ');
+      }
+    });
+
+    return result;
   }
 
+  getOrderedDays(schedule: { [key: string]: string } | undefined): string[] {
+    if (!schedule) return [];
+    return this.DAYS_ORDER.filter((day) => !!schedule[day]);
+  }
+  getRandomImage(id: any): string {
+    return 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop';
+  }
   ngOnDestroy(): void {
     if (this.rolSub) {
       this.rolSub.unsubscribe();

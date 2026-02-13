@@ -45,10 +45,10 @@
           <div class="term-content">
             <h4>Costo de Suscripción</h4>
             <p>
-              El costo de suscripción mensual a la plataforma BarberHub es de
-              <strong>$50 USD</strong>. Este pago te proporciona acceso completo a todas las
-              herramientas de gestión, incluyendo calendario de reservas, gestión de servicios, y
-              reportes de desempeño.
+              El costo de suscripción a la plataforma BarberHub es de
+              <strong>50€</strong> (pago único). Esta suscripción es <strong>permanente</strong>
+              y te proporciona acceso completo a todas las herramientas de gestión, incluyendo
+              calendario de reservas, gestión de servicios y reportes de desempeño.
             </p>
           </div>
         </div>
@@ -69,14 +69,14 @@
           </div>
         </div>
 
-        <!-- Cancellation Policy -->
+        <!-- Reservation Payment -->
         <div class="term-item">
-          <div class="term-icon">🔄</div>
+          <div class="term-icon">💸</div>
           <div class="term-content">
-            <h4>Política de Cancelación</h4>
+            <h4>Pago de Reservas</h4>
             <p>
-              Puedes cancelar tu suscripción en cualquier momento desde tu panel de configuración.
-              La cancelación será efectiva al final del período de facturación actual.
+              El pago de una reserva se hará efectivo en el momento en el que se confirme que la
+              reserva ha sido realizada y completada.
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@
           <input type="checkbox" [(ngModel)]="acceptedTerms" class="checkbox-input" />
           <span class="checkbox-text">
             He leído y acepto los términos y condiciones de BarberHub. Entiendo que se me cobrará
-            una comisión del 5% por transacción y $50 USD mensales por la suscripción.
+            una comisión del 5% por transacción y 50€ (pago único) por la suscripción permanente.
           </span>
         </label>
       </div>
@@ -100,11 +100,91 @@
 
       <!-- Action Button -->
       <div class="action-section">
-        <button class="btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
-          <span *ngIf="!loading">Proceder a Pago</span>
-          <span *ngIf="loading">Procesando...</span>
-        </button>
-        <p class="payment-info">Se te redirigirá a la pasarela de pago segura</p>
+        <div *ngIf="!showPaymentForm">
+          <button class="btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
+            <span *ngIf="!loading">Proceder a Pago</span>
+            <span *ngIf="loading">Procesando...</span>
+          </button>
+          <p class="payment-info">Se te redirigirá a la pasarela de pago segura</p>
+        </div>
+
+        <!-- Modal: formulario de pago -->
+        <div *ngIf="showPaymentForm" class="modal-overlay" role="dialog" aria-modal="true">
+          <div class="modal-card" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+              <h3>Pago con Tarjeta</h3>
+            </div>
+
+            <div class="bank-note">
+              <strong>Nota:</strong> La cuenta bancaria utilizada para realizar el pago será la
+              misma cuenta a la que se ingresará el dinero de las reservas.
+            </div>
+
+            <div class="payment-form">
+              <div class="form-group">
+                <label>Número de Tarjeta:</label>
+                <input
+                  type="text"
+                  [(ngModel)]="numeroTarjeta"
+                  name="cardNumber"
+                  placeholder="0000 0000 0000 0000"
+                  maxlength="19"
+                  (input)="formatearTarjeta()"
+                />
+              </div>
+              <div class="form-group">
+                <label>Titular de la Tarjeta:</label>
+                <input
+                  type="text"
+                  [(ngModel)]="titular"
+                  name="cardHolder"
+                  placeholder="Nombre completo"
+                />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Caducidad:</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="fechaCaducidad"
+                    name="expiry"
+                    placeholder="YYYY-MM"
+                    maxlength="7"
+                    (input)="formatearFecha()"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>CVV:</label>
+                  <input
+                    type="password"
+                    [(ngModel)]="cvc"
+                    name="cvc"
+                    placeholder="123"
+                    maxlength="3"
+                  />
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button
+                  class="btn-secondary"
+                  (click)="showPaymentForm = false"
+                  [disabled]="loading"
+                >
+                  Volver
+                </button>
+                <button
+                  class="btn-primary"
+                  (click)="confirmarPago()"
+                  [disabled]="!numeroTarjeta || !titular || !fechaCaducidad || !cvc || loading"
+                >
+                  <span *ngIf="!loading">Pagar y Confirmar</span>
+                  <span *ngIf="loading">Procesando...</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

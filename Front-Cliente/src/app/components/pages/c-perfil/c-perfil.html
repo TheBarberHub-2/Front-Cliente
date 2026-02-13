@@ -43,18 +43,20 @@
             </div>
             <div class="solicitudes-list">
               @if (solicitudesAprobadas.length > 0) {
-                <div class="solicitud-item approved">
-                  <div class="sol-info">
-                    <span class="sol-type">Solicitud de Peluquería</span>
-                    <span class="sol-status">Aprobada</span>
-                  </div>
+                @for (solicitud of solicitudesAprobadas; track solicitud.id) {
+                  <div class="solicitud-item approved">
+                    <div class="sol-info">
+                      <span class="sol-type">{{ solicitud.tipo }}</span>
+                      <span class="sol-status">{{ solicitud.estado }}</span>
+                    </div>
 
-                  <div class="sol-actions">
-                    <button class="btn-confirm" (click)="irATerminos(solicitudesAprobadas[0].id)">
-                      Confirmar y Activar
-                    </button>
+                    <div class="sol-actions">
+                      <button class="btn-confirm" (click)="irATerminos(solicitud.id)">
+                        Confirmar y Activar
+                      </button>
+                    </div>
                   </div>
-                </div>
+                }
               } @else {
                 <p class="empty-state">
                   No tienes solicitudes aprobadas pendientes de confirmación.
@@ -122,15 +124,33 @@
               <button class="btn-add" (click)="abrirFormHorario()">+ Añadir Horario</button>
             </div>
 
-            <div class="horarios-grid">
+            <div class="horarios-table-container">
               @if (horarios && horarios.length > 0) {
-                @for (h of horarios; track h.id || $index) {
-                  <div class="horario-chip">
-                    <div class="horario-dia">{{ h.diaSemana }}</div>
-                    <div class="horario-horas">{{ h.horaApertura }} - {{ h.horaCierre }}</div>
-                    <button class="btn-delete" (click)="h.id && eliminarHorario(h.id)">×</button>
-                  </div>
-                }
+                <table class="horarios-table">
+                  <thead>
+                    <tr>
+                      <th>Día de la Semana</th>
+                      <th>Hora de Apertura</th>
+                      <th>Hora de Cierre</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (h of horarios; track h.id || $index) {
+                      <tr>
+                        <td>{{ h.diaSemana }}</td>
+                        <td>{{ h.horaApertura }}</td>
+                        <td>{{ h.horaCierre }}</td>
+                        <td class="table-actions">
+                          <button class="btn-edit" (click)="abrirEditarHorario(h)">✎ Editar</button>
+                          <button class="btn-delete-small" (click)="h.id && eliminarHorario(h.id)">
+                            ✕ Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
               } @else {
                 <p class="empty-state">Aún no has configurado tus horarios de apertura.</p>
               }
@@ -174,6 +194,54 @@
                         Cancelar
                       </button>
                       <button type="submit" class="btn-save">Guardar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            }
+
+            @if (showEditarHorarioForm && horarioEnEdicion) {
+              <div class="modal-overlay">
+                <div class="horario-modal">
+                  <h3>Editar Horario</h3>
+                  <form (ngSubmit)="guardarCambiosHorario()">
+                    <div class="form-group">
+                      <label>Día de la semana</label>
+                      <select [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
+                        @for (dia of diasSemana; track dia) {
+                          <option [value]="dia">{{ dia }}</option>
+                        }
+                      </select>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label>Apertura</label>
+                        <input
+                          type="time"
+                          [(ngModel)]="horarioEnEdicion.horaApertura"
+                          name="ape"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label>Cierre</label>
+                        <input
+                          type="time"
+                          [(ngModel)]="horarioEnEdicion.horaCierre"
+                          name="cie"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="modal-actions">
+                      <button
+                        type="button"
+                        class="btn-cancel"
+                        (click)="showEditarHorarioForm = false"
+                      >
+                        Cancelar
+                      </button>
+                      <button type="submit" class="btn-save">Guardar Cambios</button>
                     </div>
                   </form>
                 </div>

@@ -40,13 +40,15 @@ export class CCatalogoServicios implements OnInit, OnDestroy {
     private peluqueriasService: PeluqueriasService,
     private loginService: LoginService,
     private carritoService: CarritoService,
-  ) { }
+  ) {}
 
   isInCart(id: number): boolean {
     let inCart = false;
-    this.carritoService.cart$.subscribe(items => {
-      inCart = items.some(i => i.id === id);
-    }).unsubscribe();
+    this.carritoService.cart$
+      .subscribe((items) => {
+        inCart = items.some((i) => i.id === id);
+      })
+      .unsubscribe();
     return inCart;
   }
 
@@ -59,7 +61,7 @@ export class CCatalogoServicios implements OnInit, OnDestroy {
       precio: Number(servicio.precio),
       duracion: servicio.duracion || 30,
       peluqueriaId: servicio.barberia.id,
-      peluqueriaNombre: servicio.barberia.nombre
+      peluqueriaNombre: servicio.barberia.nombre,
     };
 
     this.carritoService.addToCart(item);
@@ -150,20 +152,14 @@ export class CCatalogoServicios implements OnInit, OnDestroy {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  getRandomImage(id: any): string {
-    const images = [
-      'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1621605815841-db897c4733dd?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1512690199101-8316d2673838?q=80&w=2070&auto=format&fit=crop',
-    ];
-    return images[(id || 0) % images.length];
-  }
-
   ngOnDestroy(): void {
     if (this.rolSub) {
       this.rolSub.unsubscribe();
     }
+  }
+
+  getRandomImage(id: any): string {
+    return '/barber_hero_bg.png';
   }
 
   normalizarCategoria(cat: string): string {

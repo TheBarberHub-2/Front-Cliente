@@ -1,132 +1,167 @@
 <div class="carrito-container">
-    <div class="carrito-header">
-        <div class="header-content">
-            <a [routerLink]="['/inicio']" class="btn-back">← Volver</a>
-            <h1>Tu Cita</h1>
-            @if (items.length > 0) {
-            <p class="store-name">En <span>{{ peluqueriaNombre }}</span></p>
-            }
-        </div>
+  <div class="carrito-header">
+    <div class="header-content">
+      <a [routerLink]="['/inicio']" class="btn-back">← Volver</a>
+      <h1>Tu Cita</h1>
+      @if (items.length > 0) {
+        <p class="store-name">
+          En <span>{{ peluqueriaNombre }}</span>
+        </p>
+      }
     </div>
+  </div>
 
-    <main class="carrito-main">
-        @if (items.length === 0) {
-        <div class="empty-cart">
-            <div class="empty-icon">🛒</div>
-            <h2>Tu carrito está vacío</h2>
-            <p>Parece que no has seleccionado ningún servicio todavía.</p>
-            <button class="btn-primary" [routerLink]="['/peluquerias']">Ver Barberías</button>
-        </div>
-        } @else {
-        <div class="cart-layout">
-            <!-- Listado de servicios -->
-            <section class="cart-items">
-                <h3>Servicios seleccionados</h3>
-                <div class="items-list">
-                    @for (item of items; track item.id) {
-                    <div class="cart-item">
-                        <div class="item-info">
-                            <h4>{{ item.nombre }}</h4>
-                            <p>{{ item.precio | currency:'EUR' }} — {{ item.duracion }} min</p>
-                        </div>
-                        <button class="btn-remove" (click)="removeItem(item.id)">
-                            <span class="remove-icon">✕</span>
-                        </button>
-                    </div>
-                    }
+  <main class="carrito-main">
+    @if (items.length === 0) {
+      <div class="empty-cart">
+        <div class="empty-icon">🛒</div>
+        <h2>Tu carrito está vacío</h2>
+        <p>Parece que no has seleccionado ningún servicio todavía.</p>
+        <button class="btn-primary" [routerLink]="['/peluquerias']">Ver Barberías</button>
+      </div>
+    } @else {
+      <div class="cart-layout">
+        <!-- Listado de servicios -->
+        <section class="cart-items">
+          <h3>Servicios seleccionados</h3>
+          <div class="items-list">
+            @for (item of items; track item.id) {
+              <div class="cart-item">
+                <div class="item-info">
+                  <h4>{{ item.nombre }}</h4>
+                  <p>{{ item.precio | currency: 'EUR' }} — {{ item.duracion }} min</p>
                 </div>
-            </section>
+                <button class="btn-remove" (click)="removeItem(item.id)">
+                  <span class="remove-icon">✕</span>
+                </button>
+              </div>
+            }
+          </div>
+        </section>
 
-            <!-- Configuración de la reserva -->
-            <section class="booking-config">
-                <div class="config-card">
-                    <div class="config-section">
-                        <h3>1. ¿Qué día vendrás?</h3>
-                        <div class="form-group">
-                            <input type="date" class="date-input" [min]="minDate" [(ngModel)]="selectedDate"
-                                (change)="onDateChange()">
-                        </div>
-                    </div>
+        <!-- Configuración de la reserva -->
+        <section class="booking-config">
+          <div class="config-card">
+            <div class="config-section">
+              <h3>1. ¿Qué día vendrás?</h3>
+              <div class="form-group">
+                <input
+                  type="date"
+                  class="date-input"
+                  [min]="minDate"
+                  [(ngModel)]="selectedDate"
+                  (change)="onDateChange()"
+                />
+              </div>
+            </div>
 
-                    @if (selectedDate) {
-                    <div class="config-section">
-                        <h3>2. Selecciona la hora</h3>
-                        @if (loadingSlots) {
-                        <div class="loading-state">
-                            <div class="mini-spinner"></div>
-                            <span>Consultando disponibilidad...</span>
-                        </div>
-                        } @else if (availableSlots.length > 0) {
-                        <div class="slots-grid">
-                            @for (slot of availableSlots; track slot) {
-                            <button class="slot-btn" [class.selected]="selectedSlot === slot"
-                                (click)="selectedSlot = slot">
-                                {{ slot }}
-                            </button>
-                            }
-                        </div>
-                        } @else {
-                        <div class="no-slots">
-                            <p>No hay huecos disponibles para el {{ selectedDate | date:'fullDate':'':'es' }}</p>
-                            <small>Intenta con otra fecha o cambia los servicios.</small>
-                        </div>
-                        }
-                    </div>
-                    }
+            @if (selectedDate) {
+              <div class="config-section">
+                <h3>2. Selecciona la hora</h3>
+                @if (loadingSlots) {
+                  <div class="loading-state">
+                    <div class="mini-spinner"></div>
+                    <span>Consultando disponibilidad...</span>
+                  </div>
+                } @else if (availableSlots.length > 0) {
+                  <div class="form-group">
+                    <label>Selecciona una hora</label>
+                    <select class="slot-select" [(ngModel)]="selectedSlot">
+                      <option value="" disabled selected>Elige una hora</option>
+                      @for (slot of availableSlots; track slot) {
+                        <option [value]="slot">{{ slot }}</option>
+                      }
+                    </select>
+                  </div>
+                } @else {
+                  <div class="no-slots">
+                    <p>
+                      No hay huecos disponibles para el
+                      {{ selectedDate | date: 'fullDate' : '' : 'es' }}
+                    </p>
+                    <small>Intenta con otra fecha o cambia los servicios.</small>
+                  </div>
+                }
+              </div>
+            }
 
-                    <div class="config-section payment-section">
-                        <h3>3. Pago con Tarjeta</h3>
-                        <div class="payment-form">
-                            <div class="form-group">
-                                <label>Número de Tarjeta</label>
-                                <input type="text" [(ngModel)]="numeroTarjeta" name="cardNumber"
-                                    placeholder="0000 0000 0000 0000" maxlength="19">
-                            </div>
-                            <div class="form-group">
-                                <label>Titular de la Tarjeta</label>
-                                <input type="text" [(ngModel)]="titular" name="cardHolder"
-                                    placeholder="Nombre completo">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Caducidad</label>
-                                    <input type="text" [(ngModel)]="fechaCaducidad" name="expiry" placeholder="YYYY-MM"
-                                        maxlength="7">
-                                </div>
-                                <div class="form-group">
-                                    <label>CVV</label>
-                                    <input type="password" [(ngModel)]="cvc" name="cvc" placeholder="123" maxlength="3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="summary-footer">
-                        <div class="summary-details">
-                            <div class="summary-line">
-                                <span>Tiempo total:</span>
-                                <strong>{{ (summary?.duracionTotal || 0) }} min</strong>
-                            </div>
-                            <div class="summary-line total">
-                                <span>Total a pagar:</span>
-                                <strong>{{ (summary?.precioTotal || 0) | currency:'EUR' }}</strong>
-                            </div>
-                        </div>
-
-                        <button class="btn-confirm"
-                            [disabled]="!selectedSlot || !selectedDate || !numeroTarjeta || isProcessing"
-                            (click)="confirmarReserva()">
-                            @if (isProcessing) {
-                            <div class="mini-spinner"></div>
-                            Procesando...
-                            } @else {
-                            Pagar y Reservar
-                            }
-                        </button>
-                    </div>
+            <div class="config-section payment-section">
+              <h3>3. Pago con Tarjeta</h3>
+              <div class="payment-form">
+                <div class="form-group">
+                  <label>Número de Tarjeta</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="numeroTarjeta"
+                    name="cardNumber"
+                    placeholder="0000 0000 0000 0000"
+                    maxlength="19"
+                    (input)="formatearTarjeta()"
+                  />
                 </div>
-            </section>
-        </div>
-        }
-    </main>
+                <div class="form-group">
+                  <label>Titular de la Tarjeta</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="titular"
+                    name="cardHolder"
+                    placeholder="Nombre completo"
+                  />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Caducidad</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="fechaCaducidad"
+                      name="expiry"
+                      placeholder="YYYY-MM"
+                      maxlength="7"
+                      (input)="formatearFecha()"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>CVV</label>
+                    <input
+                      type="password"
+                      [(ngModel)]="cvc"
+                      name="cvc"
+                      placeholder="123"
+                      maxlength="3"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="summary-footer">
+              <div class="summary-details">
+                <div class="summary-line">
+                  <span>Tiempo total:</span>
+                  <strong>{{ summary?.duracionTotal || 0 }} min</strong>
+                </div>
+                <div class="summary-line total">
+                  <span>Total a pagar:</span>
+                  <strong>{{ summary?.precioTotal || 0 | currency: 'EUR' }}</strong>
+                </div>
+              </div>
+
+              <button
+                class="btn-confirm"
+                [disabled]="!selectedSlot || !selectedDate || !numeroTarjeta || isProcessing"
+                (click)="confirmarReserva()"
+              >
+                @if (isProcessing) {
+                  <div class="mini-spinner"></div>
+                  Procesando...
+                } @else {
+                  Pagar y Reservar
+                }
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    }
+  </main>
 </div>

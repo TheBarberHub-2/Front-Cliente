@@ -9,13 +9,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class PeluqueriasService {
-<<<<<<< HEAD
-  private apiUrl = 'http://localhost:8080/api/peluquerias';
-=======
   private apiUrl = `${environment.apiUrl}/peluquerias`;
->>>>>>> 831579f47fe76d1019b84f031d90d323d282548f
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPeluquerias(): Observable<Page<PeluqueriaSummary>> {
     return this.http.get<Page<PeluqueriaSummary>>(this.apiUrl);
@@ -29,11 +25,7 @@ export class PeluqueriasService {
   }
 
   getHorarios(id: number): Observable<any[]> {
-<<<<<<< HEAD
-    const scheduleUrl = 'http://localhost:8080/api/peluqueria';
-=======
     const scheduleUrl = `${environment.apiUrl}/peluqueria`;
->>>>>>> 831579f47fe76d1019b84f031d90d323d282548f
     return this.http.get<any[]>(`${scheduleUrl}/${id}/horarios`);
   }
 }

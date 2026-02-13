@@ -27,6 +27,7 @@ export class CHeader implements OnInit, OnDestroy {
   private rolSub: Subscription | null = null;
   private notifSub: Subscription | null = null;
   private cartSub: Subscription | null = null;
+  private emailSub: Subscription | null = null;
 
   private userId: number | null = null;
 
@@ -37,14 +38,13 @@ export class CHeader implements OnInit, OnDestroy {
     private router: Router,
     private solicitudesService: SolicitudesService,
     private usuariosService: UsuariosService,
-    private carritoService: CarritoService
-  ) { }
+    private carritoService: CarritoService,
+  ) {}
 
   ngOnInit() {
     this.isLoggedIn = this.loginService.isLogged();
 
     this.rolSub = this.loginService.role$.subscribe((rol) => {
-      console.log('DEBUG: CHeader received role:', rol);
       this.userRol = rol;
       this.isLoggedIn = this.loginService.isLogged();
       if (this.isLoggedIn) {
@@ -52,8 +52,33 @@ export class CHeader implements OnInit, OnDestroy {
       }
     });
 
-    this.cartSub = this.carritoService.cart$.subscribe(items => {
+    this.cartSub = this.carritoService.cart$.subscribe((items) => {
       this.unidadesCarrito = items.length;
+    });
+
+    // React to login email changes so we can update userId and polling immediately
+    this.emailSub = this.loginService.email$.subscribe((email) => {
+      if (email) {
+        // update userId and restart polling for the new user
+        this.usuariosService.getUsuarios().subscribe({
+          next: (page) => {
+            const found = page.data ? page.data.find((u) => u.email === email) : null;
+            this.userId = found?.id ?? null;
+            // restart polling when userId changes
+            this.startNotificationPolling();
+          },
+          error: () => {
+            this.userId = null;
+            this.stopPolling();
+          },
+        });
+      } else {
+        // logged out
+        this.userId = null;
+        this.solicitudesPendientes = [];
+        this.numeroPedidos = 0;
+        this.stopPolling();
+      }
     });
 
     if (this.isLoggedIn) {
@@ -71,12 +96,12 @@ export class CHeader implements OnInit, OnDestroy {
 
     this.usuariosService.getUsuarios().subscribe({
       next: (page) => {
-        const found = page.data ? page.data.find(u => u.email === email) : null;
+        const found = page.data ? page.data.find((u) => u.email === email) : null;
         if (found) {
           this.userId = found.id ?? null;
           this.startNotificationPolling();
         }
-      }
+      },
     });
   }
 
@@ -92,15 +117,26 @@ export class CHeader implements OnInit, OnDestroy {
             return this.solicitudesService.getSolicitudesAprobadas();
           }
           return of([]);
-        })
-
+        }),
       )
       .subscribe({
         next: (notifs) => {
-          this.solicitudesPendientes = notifs;
-          this.numeroPedidos = notifs.length;
+          // Normalize response to an array and filter by the logged-in user's id
+          const arr: SolicitudDto[] = Array.isArray(notifs)
+            ? notifs
+            : notifs && (notifs as any).data && Array.isArray((notifs as any).data)
+              ? (notifs as any).data
+              : [];
+
+          const filtered = arr.filter((n) => {
+            const notifUserId = (n as any).usuarioId ?? (n as any).usuario?.id ?? null;
+            return this.userId != null && notifUserId === this.userId;
+          });
+
+          this.solicitudesPendientes = filtered;
+          // Badge must reflect the number of approved requests for this user
+          this.numeroPedidos = filtered.length;
         },
-        error: (err) => console.error('Error fetching notifications:', err)
       });
   }
 
@@ -126,16 +162,27 @@ export class CHeader implements OnInit, OnDestroy {
   }
 
   LogOut() {
-    if (this.rolSub) {
-      this.rolSub.unsubscribe();
-    }
-    if (this.notifSub) {
-      this.notifSub.unsubscribe();
-    }
+    // Stop polling and clear notification state immediately
+    this.stopPolling();
+    // Clear the carrito service so items are not persisted between users/sessions
+    this.carritoService.clearCart();
+    // Keep subscriptions for role/email so they can emit updated values to the component.
     this.userRol = null;
+    this.isLoggedIn = false;
+    this.solicitudesPendientes = [];
+    this.numeroPedidos = 0;
+    this.unidadesCarrito = 0;
+
     this.loginService.logout().subscribe(() => {
       this.router.navigate(['/']);
     });
+  }
+
+  private stopPolling() {
+    if (this.notifSub) {
+      this.notifSub.unsubscribe();
+      this.notifSub = null;
+    }
   }
 
   ngOnDestroy() {
@@ -147,6 +194,9 @@ export class CHeader implements OnInit, OnDestroy {
     }
     if (this.cartSub) {
       this.cartSub.unsubscribe();
+    }
+    if (this.emailSub) {
+      this.emailSub.unsubscribe();
     }
   }
 }

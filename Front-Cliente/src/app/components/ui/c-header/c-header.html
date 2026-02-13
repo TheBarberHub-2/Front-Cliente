@@ -1,83 +1,104 @@
 <nav class="c-header">
   <div class="c-header__container">
     @if (isLoggedIn) {
-    <a class="c-header__brand" [routerLink]="['/inicio']">
-      <h2 class="c-header__brand-name">TheBarberHub</h2>
-    </a>
+      <a class="c-header__brand" [routerLink]="['/inicio']">
+        <h2 class="c-header__brand-name">TheBarberHub</h2>
+      </a>
     } @else {
-    <a class="c-header__brand" [routerLink]="['/']">
-      <h2 class="c-header__brand-name">TheBarberHub</h2>
-    </a>
+      <a class="c-header__brand" [routerLink]="['/']">
+        <h2 class="c-header__brand-name">TheBarberHub</h2>
+      </a>
     }
 
     @if (isLoggedIn) {
-    <ul class="c-header__nav">
-      <!-- Role-Specific Home Link -->
-      <li>
-        <a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">
-          {{ isPeluqueria ? 'Mi Panel' : 'Inicio' }}
-        </a>
-      </li>
+      <ul class="c-header__nav">
+        <!-- Role-Specific Home Link -->
+        <li>
+          <a class="c-header__link" [routerLink]="['/inicio']" routerLinkActive="active">
+            {{ isPeluqueria ? 'Mi Panel' : 'Inicio' }}
+          </a>
+        </li>
 
-      <!-- Peluquería-Specific Links -->
-      @if (isPeluqueria) {
-      <li><a class="c-header__link" [routerLink]="['/mis-reservas']" routerLinkActive="active">Reservas</a></li>
-      <li><a class="c-header__link" [routerLink]="['/mis-servicios']" routerLinkActive="active">Servicios</a></li>
-      }
-
-      <!-- Shared Links -->
-      @if (!isPeluqueria) {
-      <li><a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active">Barberías</a></li>
-      }
-
-      <li><a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active">Mi Perfil</a></li>
-
-      <!-- Cart Icon -->
-      @if (isUser) {
-      <li class="c-header__cart">
-        <a class="c-header__cart-link" [routerLink]="['/carrito']" routerLinkActive="active">
-          <i class="cart-icon">🛒</i>
-          @if (unidadesCarrito > 0) {
-          <span class="c-header__badge">{{ unidadesCarrito }}</span>
-          }
-        </a>
-      </li>
-      }
-
-      <!-- Notification Bell - Now to the left of logout/login area -->
-      <li class="c-header__notifications" (click)="$event.stopPropagation()">
-        <button class="c-header__bell" (click)="toggleNotificaciones()">
-          <i class="bell-icon">🔔</i>
-          @if (numeroPedidos > 0) {
-          <span class="c-header__badge">{{ numeroPedidos }}</span>
-          }
-        </button>
-
-        @if (mostrarNotificaciones) {
-        <div class="c-header__dropdown">
-          <div class="c-header__dropdown-header">Notificaciones</div>
-          <ul class="c-header__dropdown-list">
-            @for (notif of solicitudesPendientes; track notif.id) {
-            <li (click)="irAPerfil()">
-              Tienes una solicitud de <strong>{{ notif.tipo }}</strong> pendiente.
-            </li>
-            } @empty {
-            <li class="empty-msg">No tienes notificaciones pendientes.</li>
-            }
-          </ul>
-          <div class="c-header__dropdown-footer">
-            <a (click)="irAPerfil()">Ver todas las solicitudes</a>
-          </div>
-        </div>
+        <!-- Peluquería-Specific Links -->
+        @if (isPeluqueria) {
+          <li>
+            <a class="c-header__link" [routerLink]="['/mis-reservas']" routerLinkActive="active"
+              >Reservas</a
+            >
+          </li>
+          <li>
+            <a class="c-header__link" [routerLink]="['/mis-servicios']" routerLinkActive="active"
+              >Servicios</a
+            >
+          </li>
         }
-      </li>
 
-      <li><a class="c-header__link logout" (click)="LogOut()">Cerrar Sesión</a></li>
-    </ul>
+        <!-- Shared Links -->
+        @if (!isPeluqueria) {
+          <li>
+            <a class="c-header__link" [routerLink]="['/peluquerias']" routerLinkActive="active"
+              >Barberías</a
+            >
+          </li>
+          <li>
+            <a class="c-header__link" [routerLink]="['/mis-reservas']" routerLinkActive="active"
+              >Mis Reservas</a
+            >
+          </li>
+        }
+
+        <li>
+          <a class="c-header__link" [routerLink]="['/usuarios']" routerLinkActive="active"
+            >Mi Perfil</a
+          >
+        </li>
+
+        <!-- Cart Icon -->
+        @if (isUser) {
+          <li class="c-header__cart">
+            <a class="c-header__cart-link" [routerLink]="['/carrito']" routerLinkActive="active">
+              <i class="cart-icon">🛒</i>
+              @if (unidadesCarrito > 0) {
+                <span class="c-header__badge">{{ unidadesCarrito }}</span>
+              }
+            </a>
+          </li>
+
+          <!-- Notification Bell - Now to the left of logout/login area -->
+          <li class="c-header__notifications" (click)="$event.stopPropagation()">
+            <button class="c-header__bell" (click)="toggleNotificaciones()">
+              <i class="bell-icon">🔔</i>
+              @if (numeroPedidos > 0) {
+                <span class="c-header__badge">{{ numeroPedidos }}</span>
+              }
+            </button>
+
+            @if (mostrarNotificaciones) {
+              <div class="c-header__dropdown">
+                <div class="c-header__dropdown-header">Notificaciones</div>
+                <ul class="c-header__dropdown-list">
+                  @for (notif of solicitudesPendientes; track notif.id) {
+                    <li (click)="irAPerfil()">
+                      Tienes una solicitud de <strong>{{ notif.tipo }}</strong> pendiente.
+                    </li>
+                  } @empty {
+                    <li class="empty-msg">No tienes notificaciones pendientes.</li>
+                  }
+                </ul>
+                <div class="c-header__dropdown-footer">
+                  <a (click)="irAPerfil()">Ver todas las solicitudes</a>
+                </div>
+              </div>
+            }
+          </li>
+        }
+
+        <li><a class="c-header__link logout" (click)="LogOut()">Cerrar Sesión</a></li>
+      </ul>
     } @else {
-    <div class="c-header__actions">
-      <a [routerLink]="['/login']" class="btn-login">Iniciar Sesión</a>
-    </div>
+      <div class="c-header__actions">
+        <a [routerLink]="['/login']" class="btn-login">Iniciar Sesión</a>
+      </div>
     }
   </div>
 </nav>

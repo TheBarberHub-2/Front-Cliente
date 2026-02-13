@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
     providedIn: 'root',
 })
 export class PagoService {
-    private apiUrl = 'http:/producciondaw.cip.fpmislata.com/api/pagoTarjeta';
+    private apiUrl = 'http://greatbank-back.producciondaw.cip.fpmislata.com/api/pagoTarjeta';
 
     constructor(private http: HttpClient) { }
 

@@ -7,7 +7,7 @@ import { CrearReservaRequest } from '../models/pagos/pago-tarjeta.request';
   providedIn: 'root',
 })
 export class ReservasService {
-  private apiUrl = 'http://localhost:8080/api/reservas';
+  private apiUrl = 'http://producciondaw.cip.fpmislata.com/api/reservas';
 
   constructor(private http: HttpClient) {}
 

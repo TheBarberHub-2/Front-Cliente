@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
     providedIn: 'root',
 })
 export class PagoService {
-    private apiUrl = 'http://localhost:8081/api/pagoTarjeta';
+    private apiUrl = 'http:/producciondaw.cip.fpmislata.com/api/pagoTarjeta';
 
     constructor(private http: HttpClient) { }
 

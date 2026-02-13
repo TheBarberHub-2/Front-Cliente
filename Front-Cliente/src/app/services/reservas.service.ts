@@ -7,7 +7,7 @@ import { CrearReservaRequest } from '../models/pagos/pago-tarjeta.request';
   providedIn: 'root',
 })
 export class ReservasService {
-  private apiUrl = 'http://thebarberhub-back.preproducciondaw.cip.fpmislata.com/api/reservas';
+  private apiUrl = 'http://thebarberhub-back.producciondaw.cip.fpmislata.com/api/reservas';
 
   constructor(private http: HttpClient) {}
 

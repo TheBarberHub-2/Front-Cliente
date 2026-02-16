@@ -94,22 +94,30 @@
       </div>
 
       <!-- Error Message -->
-      <div *ngIf="error" class="error-message">
+      @if (error) {
+      <div class="error-message">
         {{ error }}
       </div>
+      }
 
       <!-- Action Button -->
       <div class="action-section">
-        <div *ngIf="!showPaymentForm">
+        @if (!showPaymentForm) {
+        <div>
           <button class="btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
-            <span *ngIf="!loading">Proceder a Pago</span>
-            <span *ngIf="loading">Procesando...</span>
+            @if (!loading) {
+            <span>Proceder a Pago</span>
+            }
+            @if (loading) {
+            <span>Procesando...</span>
+            }
           </button>
           <p class="payment-info">Se te redirigirá a la pasarela de pago segura</p>
         </div>
+        }
 
-        <!-- Modal: formulario de pago -->
-        <div *ngIf="showPaymentForm" class="modal-overlay" role="dialog" aria-modal="true">
+        @if (showPaymentForm) {
+        <div class="modal-overlay" role="dialog" aria-modal="true">
           <div class="modal-card" (click)="$event.stopPropagation()">
             <div class="modal-header">
               <h3>Pago con Tarjeta</h3>
@@ -123,68 +131,43 @@
             <div class="payment-form">
               <div class="form-group">
                 <label>Número de Tarjeta:</label>
-                <input
-                  type="text"
-                  [(ngModel)]="numeroTarjeta"
-                  name="cardNumber"
-                  placeholder="0000 0000 0000 0000"
-                  maxlength="19"
-                  (input)="formatearTarjeta()"
-                />
+                <input type="text" [(ngModel)]="numeroTarjeta" name="cardNumber" placeholder="0000 0000 0000 0000"
+                  maxlength="19" (input)="formatearTarjeta()" />
               </div>
               <div class="form-group">
                 <label>Titular de la Tarjeta:</label>
-                <input
-                  type="text"
-                  [(ngModel)]="titular"
-                  name="cardHolder"
-                  placeholder="Nombre completo"
-                />
+                <input type="text" [(ngModel)]="titular" name="cardHolder" placeholder="Nombre completo" />
               </div>
               <div class="form-row">
                 <div class="form-group">
                   <label>Caducidad:</label>
-                  <input
-                    type="text"
-                    [(ngModel)]="fechaCaducidad"
-                    name="expiry"
-                    placeholder="YYYY-MM"
-                    maxlength="7"
-                    (input)="formatearFecha()"
-                  />
+                  <input type="text" [(ngModel)]="fechaCaducidad" name="expiry" placeholder="YYYY-MM" maxlength="7"
+                    (input)="formatearFecha()" />
                 </div>
                 <div class="form-group">
                   <label>CVV:</label>
-                  <input
-                    type="password"
-                    [(ngModel)]="cvc"
-                    name="cvc"
-                    placeholder="123"
-                    maxlength="3"
-                  />
+                  <input type="password" [(ngModel)]="cvc" name="cvc" placeholder="123" maxlength="3" />
                 </div>
               </div>
 
               <div class="form-actions">
-                <button
-                  class="btn-secondary"
-                  (click)="showPaymentForm = false"
-                  [disabled]="loading"
-                >
+                <button class="btn-secondary" (click)="showPaymentForm = false" [disabled]="loading">
                   Volver
                 </button>
-                <button
-                  class="btn-primary"
-                  (click)="confirmarPago()"
-                  [disabled]="!numeroTarjeta || !titular || !fechaCaducidad || !cvc || loading"
-                >
-                  <span *ngIf="!loading">Pagar y Confirmar</span>
-                  <span *ngIf="loading">Procesando...</span>
+                <button class="btn-primary" (click)="confirmarPago()"
+                  [disabled]="!numeroTarjeta || !titular || !fechaCaducidad || !cvc || loading">
+                  @if (!loading) {
+                  <span>Pagar y Confirmar</span>
+                  }
+                  @if (loading) {
+                  <span>Procesando...</span>
+                  }
                 </button>
               </div>
             </div>
           </div>
         </div>
+        }
       </div>
     </div>
   </div>

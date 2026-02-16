@@ -1,41 +1,41 @@
-.peluquerias-container {
+.c-peluquerias {
     padding: 60px 20px;
     max-width: 1400px;
     margin: 0 auto;
     min-height: 100vh;
-}
 
-.peluquerias-header {
-    text-align: center;
-    margin-bottom: 70px;
-
-    .title-section {
-        margin-bottom: 40px;
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-        }
-
-        p {
-            color: #888;
-            font-size: 1.3rem;
-            letter-spacing: 0.5px;
-        }
+    &__header {
+        text-align: center;
+        margin-bottom: 70px;
     }
 
-    .search-section {
+    &__title-section {
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+    }
+
+    &__subtitle {
+        color: #888;
+        font-size: 1.3rem;
+        letter-spacing: 0.5px;
+    }
+
+    &__search-section {
         display: flex;
         justify-content: center;
     }
 
-    .search-bar {
+    &__search-bar {
         display: flex;
         background: rgba(255, 255, 255, 0.03);
         padding: 15px 30px;
@@ -52,216 +52,204 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
             transform: translateY(-3px);
         }
-
-        input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 1.2rem;
-            background: transparent;
-            color: white;
-
-            &::placeholder {
-                color: #555;
-            }
-        }
-
-        .search-btn {
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: #d4af37;
-            display: flex;
-            align-items: center;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
     }
-}
 
-.peluquerias-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 40px;
-}
+    &__search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 1.2rem;
+        background: transparent;
+        color: white;
 
-.barber-card {
-    background: #111;
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-
-    &:hover {
-        transform: translateY(-12px);
-        border-color: rgba(212, 175, 55, 0.3);
-        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-
-        .barber-image {
-            transform: scale(1.08);
+        &::placeholder {
+            color: #555;
         }
     }
 
-    .image-wrapper {
+    &__search-btn {
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: #d4af37;
+        display: flex;
+        align-items: center;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 40px;
+    }
+
+    &__card {
+        background: #111;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:hover {
+            transform: translateY(-12px);
+            border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+
+            .c-peluquerias__card-image {
+                transform: scale(1.08);
+            }
+        }
+    }
+
+    &__card-image-wrapper {
         height: 240px;
         overflow: hidden;
         position: relative;
     }
 
-    .barber-image {
+    &__card-image {
         height: 100%;
         width: 100%;
         background-size: cover;
         background-position: center;
         transition: transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-        }
     }
 
-    .rating {
+    &__card-overlay {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 8px 16px;
-        border-radius: 14px;
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: #d4af37;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
     }
 
-    .barber-info {
+    &__card-info {
         padding: 30px;
+    }
 
-        h3 {
-            margin-bottom: 12px;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: white;
-        }
+    &__card-title {
+        margin-bottom: 12px;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: white;
+    }
 
-        .location {
-            color: #777;
-            font-size: 1rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+    &__card-location {
+        color: #777;
+        font-size: 1rem;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
-            span {
-                color: #d4af37;
-                font-size: 1.1rem;
-            }
-        }
-
-        .weekly-schedule {
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            padding: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-
-            .schedule-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .schedule-day {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-size: 0.9rem;
-                padding-bottom: 4px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-
-                &:last-child {
-                    border-bottom: none;
-                    padding-bottom: 0;
-                }
-
-                .day-name {
-                    color: #aaa;
-                    font-weight: 600;
-                    min-width: 45px;
-                }
-
-                .day-hours {
-                    color: #d4af37;
-                    font-weight: 500;
-                    text-align: right;
-                }
-            }
-        }
-
-        .btn-book {
-            width: 100%;
-            padding: 16px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            background: rgba(212, 175, 55, 0.05);
+        span {
             color: #d4af37;
-            font-weight: 700;
             font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-
-            &:hover {
-                background: #d4af37;
-                color: black;
-                border-color: #d4af37;
-                transform: translateY(-2px);
-            }
         }
     }
-}
 
-.loading-state,
-.empty-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 100px 0;
-    color: #666;
+    &__card-schedule {
+        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        padding: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
 
-    .spinner {
+    &__card-schedule-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__card-schedule-day {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        padding-bottom: 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+    }
+
+    &__card-day-name {
+        color: #aaa;
+        font-weight: 600;
+        min-width: 45px;
+    }
+
+    &__card-day-hours {
+        color: #d4af37;
+        font-weight: 500;
+        text-align: right;
+    }
+
+    &__card-btn-book {
+        width: 100%;
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        background: rgba(212, 175, 55, 0.05);
+        color: #d4af37;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #d4af37;
+            color: black;
+            border-color: #d4af37;
+            transform: translateY(-2px);
+        }
+    }
+
+    &__loading,
+    &__empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 100px 0;
+        color: #666;
+    }
+
+    &__spinner {
         width: 50px;
         height: 50px;
         border: 3px solid rgba(212, 175, 55, 0.1);
         border-top: 3px solid #d4af37;
         border-radius: 50%;
         margin: 0 auto 20px;
-        animation: spin 1s linear infinite;
+        animation: c-peluquerias-spin 1s linear infinite;
     }
 
-    p {
+    &__loading-text {
         font-size: 1.2rem;
     }
 }
 
-@keyframes spin {
+@keyframes c-peluquerias-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
 @media (max-width: 768px) {
-    .peluquerias-header .title-section h1 {
-        font-size: 2.5rem;
-    }
+    .c-peluquerias {
+        &__title {
+            font-size: 2.5rem;
+        }
 
-    .peluquerias-grid {
-        grid-template-columns: 1fr;
+        &__grid {
+            grid-template-columns: 1fr;
+        }
     }
 }

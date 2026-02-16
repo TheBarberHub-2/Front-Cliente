@@ -1,4 +1,4 @@
-.c-servicios-solicitud {
+.c-peluqueria-servicios {
     padding: 2rem;
     min-height: 80vh;
     background-color: var(--grey-background);
@@ -32,13 +32,13 @@
         margin-bottom: 1.5rem;
     }
 
-    .services-grid {
+    &__grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1rem;
     }
 
-    .service-item {
+    &__item {
         background: rgba(255, 255, 255, 0.03);
         padding: 1rem;
         border-radius: 8px;
@@ -46,24 +46,24 @@
         justify-content: space-between;
         align-items: center;
         border: 1px solid rgba(255, 255, 255, 0.05);
-
-        &__info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-
-            strong {
-                color: white;
-            }
-
-            span {
-                color: #d4af37;
-                font-weight: 600;
-            }
-        }
     }
 
-    .btn-small {
+    &__item-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    &__item-name {
+        color: white;
+    }
+
+    &__item-price {
+        color: #d4af37;
+        font-weight: 600;
+    }
+
+    &__btn-small {
         padding: 0.5rem 1rem;
         background: transparent;
         border: 1px solid #d4af37;
@@ -96,74 +96,58 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .form-group {
+    &__form-group {
         margin-bottom: 1.5rem;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #ccc;
+    &__label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #ccc;
+    }
+
+    &__input,
+    &__textarea,
+    &__select {
+        width: 100%;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+
+        &:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.03);
         }
 
-        input[type="text"],
-        input[type="number"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        &::placeholder {
+            color: #555;
+        }
+
+        option {
+            background: #1a1a1a;
             color: white;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-
-            &:focus {
-                outline: none;
-                border-color: #d4af37;
-                background: rgba(212, 175, 55, 0.03);
-            }
-
-            &::placeholder {
-                color: #555;
-            }
-
-            option {
-                background: #1a1a1a;
-                color: white;
-            }
         }
     }
 
-    .radio-group {
-        display: flex;
-        gap: 2rem;
-        margin-bottom: 1rem;
-
-        label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: normal;
-            cursor: pointer;
-            color: #ccc;
-        }
-    }
-
-    .alert {
+    &__alert {
         padding: 1rem;
         border-radius: 6px;
         margin-bottom: 1.5rem;
 
-        &-success {
+        &--success {
             background-color: rgba(40, 167, 69, 0.1);
             color: #28a745;
             border: 1px solid rgba(40, 167, 69, 0.2);
         }
     }
 
-    .btn-submit {
+    &__btn-submit {
         width: 100%;
         padding: 1rem;
         background-color: #d4af37;
@@ -186,5 +170,12 @@
             color: #666;
             cursor: not-allowed;
         }
+    }
+
+    &__loading,
+    &__empty {
+        text-align: center;
+        color: #888;
+        padding: 1rem;
     }
 }

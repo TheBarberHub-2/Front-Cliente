@@ -1,4 +1,4 @@
-.terminos-container {
+.c-terminos {
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 2rem;
@@ -6,75 +6,58 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.terminos-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-}
-
-.terminos-header {
-  background: linear-gradient(135deg, #e67e22, #d35400);
-  color: white;
-  padding: 3rem 2rem;
-  text-align: center;
-
-  .success-icon {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    animation: pulse-check 0.6s ease-out;
+  &__card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
   }
 
-  h1 {
+  &__header {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    animation: c-terminos-pulse-check 0.6s ease-out;
+  }
+
+  &__title {
     margin: 0 0 0.5rem 0;
     font-size: 2.2rem;
     font-weight: 700;
   }
 
-  .subtitle {
+  &__subtitle {
     margin: 0;
     font-size: 1.1rem;
     opacity: 0.95;
   }
-}
 
-@keyframes pulse-check {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
+  &__content {
+    padding: 2.5rem;
   }
 
-  50% {
-    transform: scale(1.1);
+  &__approval-section {
+    background: linear-gradient(135deg, #fdf6ec 0%, #fef8f0 100%);
+    border-left: 4px solid #e67e22;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
   }
 
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.terminos-content {
-  padding: 2.5rem;
-}
-
-// Approval Section
-.approval-section {
-  background: linear-gradient(135deg, #fdf6ec 0%, #fef8f0 100%);
-  border-left: 4px solid #e67e22;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2.5rem;
-
-  h2 {
+  &__section-title {
     margin: 0 0 0.8rem 0;
     font-size: 1.4rem;
     color: #2c3e50;
   }
 
-  p {
+  &__text {
     margin: 0;
     color: #555;
     line-height: 1.6;
@@ -85,13 +68,12 @@
       font-weight: 600;
     }
   }
-}
 
-// Terms Section
-.terms-section {
-  margin-bottom: 2.5rem;
+  &__section {
+    margin-bottom: 2.5rem;
+  }
 
-  h3 {
+  &__section-subtitle {
     font-size: 1.6rem;
     color: #2c3e50;
     margin: 0 0 1rem 0;
@@ -99,23 +81,17 @@
     border-bottom: 2px solid #f0f3f5;
   }
 
-  > p {
-    color: #7f8c8d;
+  &__item {
+    display: flex;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #f0f3f5;
   }
-}
 
-// Individual Term Items
-.term-item {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  padding: 1.2rem;
-  background: #f9fafb;
-  border-radius: 8px;
-  border: 1px solid #f0f3f5;
-
-  .term-icon {
+  &__item-icon {
     font-size: 2rem;
     min-width: 60px;
     display: flex;
@@ -123,97 +99,94 @@
     justify-content: center;
   }
 
-  .term-content {
+  &__item-content {
     flex: 1;
+  }
 
-    h4 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.1rem;
-      color: #2c3e50;
+  &__item-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  &__item-text {
+    margin: 0 0 0.5rem 0;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+
+    strong {
+      color: #e67e22;
       font-weight: 600;
     }
+  }
 
-    p {
-      margin: 0 0 0.5rem 0;
-      color: #555;
-      line-height: 1.6;
-      font-size: 0.95rem;
+  &__benefits-list {
+    margin: 0.8rem 0 0 0;
+    padding-left: 1.5rem;
+    color: #555;
+  }
 
-      strong {
-        color: #e67e22;
-        font-weight: 600;
-      }
-    }
+  &__benefit-item {
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
 
-    .benefits-list {
-      margin: 0.8rem 0 0 0;
-      padding-left: 1.5rem;
-      color: #555;
-
-      li {
-        margin-bottom: 0.4rem;
-        line-height: 1.5;
-
-        &::marker {
-          color: #e67e22;
-          font-weight: bold;
-        }
-      }
+    &::marker {
+      color: #e67e22;
+      font-weight: bold;
     }
   }
-}
 
-// Agreement Section
-.agreement-section {
-  background: #f9fafb;
-  padding: 2rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+  &__agreement-section {
+    background: #f9fafb;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
 
-  .checkbox-label {
+  &__checkbox-label {
     display: flex;
     gap: 1rem;
     cursor: pointer;
     align-items: flex-start;
+  }
 
-    .checkbox-input {
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      accent-color: #e67e22;
-      flex-shrink: 0;
-      margin-top: 2px;
+  &__checkbox-input {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: #e67e22;
+    flex-shrink: 0;
+    margin-top: 2px;
 
-      &:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-      }
-    }
-
-    .checkbox-text {
-      color: #2c3e50;
-      line-height: 1.6;
-      font-size: 1rem;
-      user-select: none;
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   }
-}
 
-// Error Message
-.error-message {
-  background: #fadbd8;
-  color: #c0392b;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  border-left: 4px solid #c0392b;
-}
+  &__checkbox-text {
+    color: #2c3e50;
+    line-height: 1.6;
+    font-size: 1rem;
+    user-select: none;
+  }
 
-// Action Section
-.action-section {
-  text-align: center;
+  &__error {
+    background: #fadbd8;
+    color: #c0392b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #c0392b;
+  }
 
-  .btn-proceed {
+  &__actions {
+    text-align: center;
+  }
+
+  &__btn-proceed {
     background: linear-gradient(135deg, #e67e22, #d35400);
     color: white;
     border: none;
@@ -245,173 +218,190 @@
     }
   }
 
-  .payment-info {
+  &__payment-info {
     margin: 1rem 0 0 0;
     color: #7f8c8d;
     font-size: 0.9rem;
     font-style: italic;
   }
-}
 
-// Responsive Design
-@media (max-width: 768px) {
-  .terminos-container {
+  &__modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
     padding: 1rem;
-    margin: 1rem auto;
   }
 
-  .terminos-header {
-    padding: 2rem 1.5rem;
+  &__modal-card {
+    background: white;
+    border-radius: 10px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    padding: 1.25rem 1.5rem;
+  }
 
-    h1 {
+
+  &__modal-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+  }
+
+  &__note {
+    background: #fff7eb;
+    border-left: 4px solid #e67e22;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    color: #6b4a1b;
+  }
+
+
+  &__form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+  }
+
+
+  &__input {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid #e6eaee;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #2c3e50;
+    box-sizing: border-box;
+  }
+
+  &__form-row {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  &__btn-secondary {
+    background: transparent;
+    border: 1px solid #d1d6da;
+    color: #2c3e50;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  &__btn-primary {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+@keyframes c-terminos-pulse-check {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .c-terminos {
+    padding: 1rem;
+    margin: 1rem auto;
+
+    &__header {
+      padding: 2rem 1.5rem;
+    }
+
+    &__title {
       font-size: 1.7rem;
     }
 
-    .success-icon {
+    &__icon {
       font-size: 2.5rem;
     }
-  }
 
-  .terminos-content {
-    padding: 1.5rem;
-  }
-
-  .term-item {
-    flex-direction: column;
-    gap: 0.8rem;
-
-    .term-icon {
-      justify-content: flex-start;
+    &__content {
+      padding: 1.5rem;
     }
-  }
 
-  .agreement-section {
-    padding: 1.5rem;
-
-    .checkbox-label {
+    &__item {
+      flex-direction: column;
       gap: 0.8rem;
     }
-  }
 
-  .action-section .btn-proceed {
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    &__item-icon {
+      justify-content: flex-start;
+    }
+
+    &__agreement-section {
+      padding: 1.5rem;
+    }
+
+    &__btn-proceed {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .terminos-container {
+  .c-terminos {
     margin: 0;
     padding: 0;
     min-height: auto;
-  }
 
-  .terminos-card {
-    border-radius: 0;
-  }
+    &__card {
+      border-radius: 0;
+    }
 
-  .terminos-header {
-    padding: 2rem 1rem;
+    &__header {
+      padding: 2rem 1rem;
+    }
 
-    h1 {
+    &__title {
       font-size: 1.4rem;
     }
 
-    .success-icon {
+    &__icon {
       font-size: 2rem;
     }
+
+    &__content {
+      padding: 1rem;
+    }
+
+    &__approval-section,
+    &__section,
+    &__agreement-section {
+      margin-bottom: 1.5rem;
+    }
   }
-
-  .terminos-content {
-    padding: 1rem;
-  }
-
-  .approval-section,
-  .terms-section,
-  .agreement-section {
-    margin-bottom: 1.5rem;
-  }
-}
-
-/* Modal overlay for payment form */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1200;
-  padding: 1rem;
-}
-
-.modal-card {
-  background: white;
-  border-radius: 10px;
-  max-width: 520px;
-  width: 100%;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  padding: 1.25rem 1.5rem;
-}
-
-.modal-header h3 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.25rem;
-  color: #2c3e50;
-}
-
-.bank-note {
-  background: #fff7eb;
-  border-left: 4px solid #e67e22;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  color: #6b4a1b;
-}
-
-.payment-form .form-group label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.payment-form input {
-  width: 100%;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid #e6eaee;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  color: #2c3e50;
-  box-sizing: border-box;
-}
-
-.form-row {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #d1d6da;
-  color: #2c3e50;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #e67e22, #d35400);
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
 }

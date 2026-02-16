@@ -1,4 +1,4 @@
-.login-page {
+.c-login {
     position: relative;
     min-height: 90vh;
     display: flex;
@@ -10,7 +10,7 @@
     background-position: center;
     padding: 20px;
 
-    .overlay {
+    &__overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -20,7 +20,7 @@
         z-index: 1;
     }
 
-    .login-card {
+    &__card {
         position: relative;
         z-index: 2;
         width: 100%;
@@ -31,132 +31,133 @@
         border-radius: 30px;
         padding: 60px 40px;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
 
-        .login-header {
-            text-align: center;
-            margin-bottom: 40px;
+    &__header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
 
-            h1 {
-                font-size: 2.5rem;
-                font-weight: 800;
-                color: #d4af37;
-                margin-bottom: 10px;
-                letter-spacing: -1.5px;
-                cursor: pointer;
-            }
+    &__title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #d4af37;
+        margin-bottom: 10px;
+        letter-spacing: -1.5px;
+        cursor: pointer;
+    }
 
-            p {
-                color: #888;
-                font-size: 1rem;
-            }
+    &__subtitle {
+        color: #888;
+        font-size: 1rem;
+    }
+
+
+    &__form-group {
+        margin-bottom: 25px;
+    }
+
+    &__label {
+        display: block;
+        color: #aaa;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+
+    &__input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 15px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
 
-        .login-form {
-            .form-group {
-                margin-bottom: 25px;
+        &::placeholder {
+            color: #555;
+        }
+    }
 
-                label {
-                    display: block;
-                    color: #aaa;
-                    font-size: 0.85rem;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }
+    &__error {
+        background: rgba(255, 68, 68, 0.1);
+        border: 1px solid rgba(255, 68, 68, 0.2);
+        color: #ff6b6b;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-                .input-container {
-                    input {
-                        width: 100%;
-                        background: rgba(255, 255, 255, 0.05);
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        border-radius: 12px;
-                        padding: 15px;
-                        color: white;
-                        font-size: 1rem;
-                        transition: all 0.3s ease;
+    &__btn-submit {
+        width: 100%;
+        background: #d4af37;
+        color: black;
+        border: none;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
 
-                        &:focus {
-                            outline: none;
-                            border-color: #d4af37;
-                            background: rgba(212, 175, 55, 0.05);
-                            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
-                        }
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            background: #e5c04a;
+        }
 
-                        &::placeholder {
-                            color: #555;
-                        }
-                    }
-                }
-            }
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+    }
 
-            .error-alert {
-                background: rgba(255, 68, 68, 0.1);
-                border: 1px solid rgba(255, 68, 68, 0.2);
-                color: #ff6b6b;
-                padding: 12px;
-                border-radius: 10px;
-                margin-bottom: 25px;
-                font-size: 0.9rem;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
 
-            .btn-submit {
-                width: 100%;
-                background: #d4af37;
-                color: black;
-                border: none;
-                padding: 16px;
-                border-radius: 12px;
-                font-size: 1.1rem;
-                font-weight: 700;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                transition: all 0.3s ease;
-                margin-bottom: 20px;
+    &__footer {
+        text-align: center;
 
-                &:hover:not(:disabled) {
-                    transform: translateY(-2px);
-                    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-                    background: #e5c04a;
-                }
+        p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    }
 
-                &:disabled {
-                    opacity: 0.5;
-                    cursor: not-allowed;
-                    filter: grayscale(1);
-                }
-            }
+    &__link {
+        color: #d4af37;
+        text-decoration: none;
+        font-weight: 600;
 
-            .form-footer {
-                text-align: center;
-
-                p {
-                    color: #666;
-                    font-size: 0.9rem;
-
-                    a {
-                        color: #d4af37;
-                        text-decoration: none;
-                        font-weight: 600;
-
-                        &:hover {
-                            text-decoration: underline;
-                        }
-                    }
-                }
-            }
+        &:hover {
+            text-decoration: underline;
         }
     }
 }
 
 @media (max-width: 480px) {
-    .login-card {
-        padding: 40px 20px;
+    .c-login {
+        &__card {
+            padding: 40px 20px;
+        }
     }
 }

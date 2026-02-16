@@ -1,268 +1,230 @@
-<div class="perfil-container">
+<div class="c-perfil">
   @if (!loading && usuario) {
-    <div class="perfil-layout">
-      <!-- Sidebar Info -->
-      <aside class="perfil-card perfil-info">
-        <div class="perfil-header">
-          <div class="avatar-placeholder">
-            {{ usuario.nombre.charAt(0).toUpperCase() }}
-          </div>
-          <h1>{{ usuario.nombre }}</h1>
-          <span class="role-badge" [class.role-peluqueria]="isPeluqueria">{{ usuario.rol }}</span>
+  <div class="c-perfil__layout">
+    <!-- Sidebar Info -->
+    <aside class="c-perfil__card c-perfil__info">
+      <div class="c-perfil__header">
+        <div class="c-perfil__avatar">
+          {{ usuario.nombre.charAt(0).toUpperCase() }}
+        </div>
+        <h1 class="c-perfil__name">{{ usuario.nombre }}</h1>
+        <span class="c-perfil__role-badge" [class.c-perfil__role-badge--peluqueria]="isPeluqueria">{{ usuario.rol
+          }}</span>
+      </div>
+
+      <div class="c-perfil__body">
+        <div class="c-perfil__info-group">
+          <label class="c-perfil__label">Correo Electrónico</label>
+          <p class="c-perfil__text">{{ usuario.email }}</p>
+        </div>
+        <div class="c-perfil__info-group">
+          <label class="c-perfil__label">Nombre Completo</label>
+          <p class="c-perfil__text">{{ usuario.nombre }}</p>
         </div>
 
-        <div class="perfil-body">
-          <div class="info-group">
-            <label>Correo Electrónico</label>
-            <p>{{ usuario.email }}</p>
-          </div>
-          <div class="info-group">
-            <label>Nombre Completo</label>
-            <p>{{ usuario.nombre }}</p>
-          </div>
+        <!-- Request to become Peluqueria (Only for Cliente without pending request) -->
+        @if (isCliente && !hasPendingPeluqueriaRequest) {
+        <div class="c-perfil__cta">
+          <p class="c-perfil__cta-text">¿Tienes tu propia barbería?</p>
+          <button class="c-perfil__btn-request" (click)="abrirFormSolicitudPeluqueria()">
+            Solicitar ser Peluquería
+          </button>
+        </div>
+        }
+      </div>
+    </aside>
 
-          <!-- Request to become Peluqueria (Only for Cliente without pending request) -->
-          @if (isCliente && !hasPendingPeluqueriaRequest) {
-            <div class="solicitud-peluqueria-cta">
-              <p>¿Tienes tu propia barbería?</p>
-              <button class="btn-request-peluqueria" (click)="abrirFormSolicitudPeluqueria()">
-                Solicitar ser Peluquería
+    <!-- Main Content (Requests & Schedules) -->
+    <main class="c-perfil__content">
+      <!-- Solicitudes Section (Only for Cliente) -->
+      @if (isCliente) {
+      <section class="c-perfil__content-card">
+        <div class="c-perfil__section-header">
+          <h2 class="c-perfil__section-title">Mis Solicitudes</h2>
+        </div>
+        <div class="c-perfil__solicitudes-list">
+          @if (solicitudesAprobadas.length > 0) {
+          @for (solicitud of solicitudesAprobadas; track solicitud.id) {
+          <div class="c-perfil__solicitud-item c-perfil__solicitud-item--approved">
+            <div class="c-perfil__solicitud-info">
+              <span class="c-perfil__solicitud-type">{{ solicitud.tipo }}</span>
+              <span class="c-perfil__solicitud-status">{{ solicitud.estado }}</span>
+            </div>
+
+            <div class="c-perfil__solicitud-actions">
+              <button class="c-perfil__btn-confirm" (click)="irATerminos(solicitud.id)">
+                Confirmar y Activar
               </button>
             </div>
+          </div>
+          }
+          } @else {
+          <p class="c-perfil__empty">
+            No tienes solicitudes aprobadas pendientes de confirmación.
+          </p>
           }
         </div>
-      </aside>
+      </section>
+      }
 
-      <!-- Main Content (Requests & Schedules) -->
-      <main class="perfil-content">
-        <!-- Solicitudes Section (Only for Cliente) -->
-        @if (isCliente) {
-          <section class="content-card">
-            <div class="section-header">
-              <h2>Mis Solicitudes</h2>
+      @if (showSolicitudPeluqueriaForm) {
+      <div class="c-perfil__modal-overlay">
+        <div class="c-perfil__modal">
+          <h3 class="c-perfil__modal-title">Solicitar Alta como Peluquería</h3>
+          <form (ngSubmit)="onSubmitSolicitudPeluqueria()">
+            <div class="c-perfil__form-group">
+              <label class="c-perfil__modal-label">Municipio</label>
+              <input class="c-perfil__modal-input" type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio"
+                name="municipio" required placeholder="Ej: Valencia" />
             </div>
-            <div class="solicitudes-list">
-              @if (solicitudesAprobadas.length > 0) {
-                @for (solicitud of solicitudesAprobadas; track solicitud.id) {
-                  <div class="solicitud-item approved">
-                    <div class="sol-info">
-                      <span class="sol-type">{{ solicitud.tipo }}</span>
-                      <span class="sol-status">{{ solicitud.estado }}</span>
-                    </div>
-
-                    <div class="sol-actions">
-                      <button class="btn-confirm" (click)="irATerminos(solicitud.id)">
-                        Confirmar y Activar
-                      </button>
-                    </div>
-                  </div>
-                }
-              } @else {
-                <p class="empty-state">
-                  No tienes solicitudes aprobadas pendientes de confirmación.
-                </p>
-              }
+            <div class="c-perfil__form-group">
+              <label class="c-perfil__modal-label">Dirección</label>
+              <input class="c-perfil__modal-input" type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion"
+                name="direccion" required placeholder="Ej: Calle Mayor, 12" />
             </div>
-          </section>
-        }
+            <div class="c-perfil__form-group">
+              <label class="c-perfil__modal-label">Teléfono de Contacto</label>
+              <input class="c-perfil__modal-input" type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono"
+                name="telefono" required placeholder="Ej: 600123456" />
+            </div>
+            <div class="c-perfil__modal-actions">
+              <button type="button" class="c-perfil__btn-cancel" (click)="showSolicitudPeluqueriaForm = false">
+                Cancelar
+              </button>
+              <button type="submit" class="c-perfil__btn-save">Enviar Solicitud</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      }
 
-        @if (showSolicitudPeluqueriaForm) {
-          <div class="modal-overlay">
-            <div class="horario-modal">
-              <h3>Solicitar Alta como Peluquería</h3>
-              <form (ngSubmit)="onSubmitSolicitudPeluqueria()">
-                <div class="form-group">
-                  <label>Municipio</label>
-                  <input
-                    type="text"
-                    [(ngModel)]="nuevaSolicitudPeluqueria.municipio"
-                    name="municipio"
-                    required
-                    placeholder="Ej: Valencia"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Dirección</label>
-                  <input
-                    type="text"
-                    [(ngModel)]="nuevaSolicitudPeluqueria.direccion"
-                    name="direccion"
-                    required
-                    placeholder="Ej: Calle Mayor, 12"
-                  />
-                </div>
-                <div class="form-group">
-                  <label>Teléfono de Contacto</label>
-                  <input
-                    type="tel"
-                    [(ngModel)]="nuevaSolicitudPeluqueria.telefono"
-                    name="telefono"
-                    required
-                    placeholder="Ej: 600123456"
-                  />
-                </div>
-                <div class="modal-actions">
-                  <button
-                    type="button"
-                    class="btn-cancel"
-                    (click)="showSolicitudPeluqueriaForm = false"
-                  >
-                    Cancelar
+      <!-- Horarios Section (Only for Peluqueria) -->
+      @if (isPeluqueria) {
+      <section class="c-perfil__content-card">
+        <div class="c-perfil__section-header">
+          <h2 class="c-perfil__section-title">Gestión de Horarios</h2>
+          <button class="c-perfil__btn-add" (click)="abrirFormHorario()">+ Añadir Horario</button>
+        </div>
+
+        <div class="c-perfil__table-container">
+          @if (horarios && horarios.length > 0) {
+          <table class="c-perfil__table">
+            <thead class="c-perfil__table-head">
+              <tr class="c-perfil__table-row">
+                <th class="c-perfil__table-th">Día de la Semana</th>
+                <th class="c-perfil__table-th">Hora de Apertura</th>
+                <th class="c-perfil__table-th">Hora de Cierre</th>
+                <th class="c-perfil__table-th">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="c-perfil__table-body">
+              @for (h of horarios; track h.id || $index) {
+              <tr class="c-perfil__table-row">
+                <td class="c-perfil__table-td">{{ h.diaSemana }}</td>
+                <td class="c-perfil__table-td">{{ h.horaApertura }}</td>
+                <td class="c-perfil__table-td">{{ h.horaCierre }}</td>
+                <td class="c-perfil__table-td c-perfil__table-actions">
+                  <button class="c-perfil__btn-edit" (click)="abrirEditarHorario(h)">✎ Editar</button>
+                  <button class="c-perfil__btn-delete-small" (click)="h.id && eliminarHorario(h.id)">
+                    ✕ Eliminar
                   </button>
-                  <button type="submit" class="btn-save">Enviar Solicitud</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        }
-
-        <!-- Horarios Section (Only for Peluqueria) -->
-        @if (isPeluqueria) {
-          <section class="content-card">
-            <div class="section-header">
-              <h2>Gestión de Horarios</h2>
-              <button class="btn-add" (click)="abrirFormHorario()">+ Añadir Horario</button>
-            </div>
-
-            <div class="horarios-table-container">
-              @if (horarios && horarios.length > 0) {
-                <table class="horarios-table">
-                  <thead>
-                    <tr>
-                      <th>Día de la Semana</th>
-                      <th>Hora de Apertura</th>
-                      <th>Hora de Cierre</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @for (h of horarios; track h.id || $index) {
-                      <tr>
-                        <td>{{ h.diaSemana }}</td>
-                        <td>{{ h.horaApertura }}</td>
-                        <td>{{ h.horaCierre }}</td>
-                        <td class="table-actions">
-                          <button class="btn-edit" (click)="abrirEditarHorario(h)">✎ Editar</button>
-                          <button class="btn-delete-small" (click)="h.id && eliminarHorario(h.id)">
-                            ✕ Eliminar
-                          </button>
-                        </td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
-              } @else {
-                <p class="empty-state">Aún no has configurado tus horarios de apertura.</p>
+                </td>
+              </tr>
               }
-            </div>
+            </tbody>
+          </table>
+          } @else {
+          <p class="c-perfil__empty">Aún no has configurado tus horarios de apertura.</p>
+          }
+        </div>
 
-            @if (showHorarioForm) {
-              <div class="modal-overlay">
-                <div class="horario-modal">
-                  <h3>Añadir Nuevo Horario</h3>
-                  <form (ngSubmit)="guardarHorario()">
-                    <div class="form-group">
-                      <label>Día de la semana</label>
-                      <select [(ngModel)]="nuevoHorario.diaSemana" name="dia">
-                        @for (dia of diasSemana; track dia) {
-                          <option [value]="dia">{{ dia }}</option>
-                        }
-                      </select>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label>Apertura</label>
-                        <input
-                          type="time"
-                          [(ngModel)]="nuevoHorario.horaApertura"
-                          name="ape"
-                          required
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label>Cierre</label>
-                        <input
-                          type="time"
-                          [(ngModel)]="nuevoHorario.horaCierre"
-                          name="cie"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="modal-actions">
-                      <button type="button" class="btn-cancel" (click)="showHorarioForm = false">
-                        Cancelar
-                      </button>
-                      <button type="submit" class="btn-save">Guardar</button>
-                    </div>
-                  </form>
+        @if (showHorarioForm) {
+        <div class="c-perfil__modal-overlay">
+          <div class="c-perfil__modal">
+            <h3 class="c-perfil__modal-title">Añadir Nuevo Horario</h3>
+            <form (ngSubmit)="guardarHorario()">
+              <div class="c-perfil__form-group">
+                <label class="c-perfil__modal-label">Día de la semana</label>
+                <select class="c-perfil__modal-select" [(ngModel)]="nuevoHorario.diaSemana" name="dia">
+                  @for (dia of diasSemana; track dia) {
+                  <option [value]="dia">{{ dia }}</option>
+                  }
+                </select>
+              </div>
+              <div class="c-perfil__form-row">
+                <div class="c-perfil__form-group">
+                  <label class="c-perfil__modal-label">Apertura</label>
+                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape"
+                    required />
+                </div>
+                <div class="c-perfil__form-group">
+                  <label class="c-perfil__modal-label">Cierre</label>
+                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie"
+                    required />
                 </div>
               </div>
-            }
-
-            @if (showEditarHorarioForm && horarioEnEdicion) {
-              <div class="modal-overlay">
-                <div class="horario-modal">
-                  <h3>Editar Horario</h3>
-                  <form (ngSubmit)="guardarCambiosHorario()">
-                    <div class="form-group">
-                      <label>Día de la semana</label>
-                      <select [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
-                        @for (dia of diasSemana; track dia) {
-                          <option [value]="dia">{{ dia }}</option>
-                        }
-                      </select>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label>Apertura</label>
-                        <input
-                          type="time"
-                          [(ngModel)]="horarioEnEdicion.horaApertura"
-                          name="ape"
-                          required
-                        />
-                      </div>
-                      <div class="form-group">
-                        <label>Cierre</label>
-                        <input
-                          type="time"
-                          [(ngModel)]="horarioEnEdicion.horaCierre"
-                          name="cie"
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div class="modal-actions">
-                      <button
-                        type="button"
-                        class="btn-cancel"
-                        (click)="showEditarHorarioForm = false"
-                      >
-                        Cancelar
-                      </button>
-                      <button type="submit" class="btn-save">Guardar Cambios</button>
-                    </div>
-                  </form>
-                </div>
+              <div class="c-perfil__modal-actions">
+                <button type="button" class="c-perfil__btn-cancel" (click)="showHorarioForm = false">
+                  Cancelar
+                </button>
+                <button type="submit" class="c-perfil__btn-save">Guardar</button>
               </div>
-            }
-          </section>
+            </form>
+          </div>
+        </div>
         }
-      </main>
-    </div>
+
+        @if (showEditarHorarioForm && horarioEnEdicion) {
+        <div class="c-perfil__modal-overlay">
+          <div class="c-perfil__modal">
+            <h3 class="c-perfil__modal-title">Editar Horario</h3>
+            <form (ngSubmit)="guardarCambiosHorario()">
+              <div class="c-perfil__form-group">
+                <label class="c-perfil__modal-label">Día de la semana</label>
+                <select class="c-perfil__modal-select" [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
+                  @for (dia of diasSemana; track dia) {
+                  <option [value]="dia">{{ dia }}</option>
+                  }
+                </select>
+              </div>
+              <div class="c-perfil__form-row">
+                <div class="c-perfil__form-group">
+                  <label class="c-perfil__modal-label">Apertura</label>
+                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="horarioEnEdicion.horaApertura"
+                    name="ape" required />
+                </div>
+                <div class="c-perfil__form-group">
+                  <label class="c-perfil__modal-label">Cierre</label>
+                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="horarioEnEdicion.horaCierre" name="cie"
+                    required />
+                </div>
+              </div>
+              <div class="c-perfil__modal-actions">
+                <button type="button" class="c-perfil__btn-cancel" (click)="showEditarHorarioForm = false">
+                  Cancelar
+                </button>
+                <button type="submit" class="c-perfil__btn-save">Guardar Cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        }
+      </section>
+      }
+    </main>
+  </div>
   }
 
   @if (loading) {
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Cargando información...</p>
-    </div>
+  <div class="c-perfil__loading">
+    <div class="c-perfil__spinner"></div>
+    <p class="c-perfil__loading-text">Cargando información...</p>
+  </div>
   }
 
   @if (error) {
-    <div class="error-state">
-      <p>{{ error }}</p>
-    </div>
+  <div class="c-perfil__error">
+    <p class="c-perfil__error-text">{{ error }}</p>
+  </div>
   }
 </div>

@@ -8,16 +8,20 @@
     </label>
   </div>
 
-  <div *ngIf="loading" class="loading">Cargando reservas...</div>
+  @if (loading) {
+  <div class="loading">Cargando reservas...</div>
+  }
 
-  <ul *ngIf="!loading && reservas.length > 0" class="reservas-list">
-    <li *ngFor="let r of reservas" class="reserva">
+  @if (!loading && reservas.length > 0) {
+  <ul class="reservas-list">
+    @for (r of reservas; track r.id) {
+    <li class="reserva">
       <div class="reserva__row"><strong>Peluquería:</strong> {{ r.peluqueriaNombre }}</div>
       <div class="reserva__row"><strong>Fecha:</strong></div>
       <div class="reserva__row">{{ r.fechaReserva | date: 'd MMM yyyy' }}</div>
       <div class="reserva__row"><strong>Hora:</strong></div>
       <div class="reserva__row">
-        {{ r.horaInicio }} <span *ngIf="r.horaFinal">- {{ r.horaFinal }}</span>
+        {{ r.horaInicio }} @if (r.horaFinal) {<span>- {{ r.horaFinal }}</span>}
       </div>
 
       <div class="reserva__row">
@@ -25,28 +29,36 @@
       </div>
       <div class="reserva__row"><strong>Estado:</strong> {{ r.estado }}</div>
 
-      <div class="reserva__productos" *ngIf="r.productos && r.productos.length > 0">
+      @if (r.productos && r.productos.length > 0) {
+      <div class="reserva__productos">
         <strong>Servicios:</strong>
         <ul class="productos-list">
-          <li *ngFor="let p of r.productos" class="producto">
+          @for (p of r.productos; track $index) {
+          <li class="producto">
             <span class="producto-nombre">{{ p.nombreProducto }}</span>
           </li>
+          }
         </ul>
       </div>
+      }
 
-      <div class="reserva__actions" *ngIf="r.estado === 'Pendiente'">
+      @if (r.estado === 'Pendiente') {
+      <div class="reserva__actions">
         <button class="btn-cancel" (click)="onCancelarReserva(r.id)">Cancelar Reserva</button>
 
-        <button
-          class="btn-confirm"
-          *ngIf="isPeluqueria && r.estado === 'Pendiente'"
-          (click)="onConfirmarReserva(r.id)"
-        >
+        @if (isPeluqueria && r.estado === 'Pendiente') {
+        <button class="btn-confirm" (click)="onConfirmarReserva(r.id)">
           Confirmar Reserva
         </button>
+        }
       </div>
+      }
     </li>
+    }
   </ul>
+  }
 
-  <div *ngIf="!loading && reservas.length === 0" class="empty">No hay reservas.</div>
+  @if (!loading && reservas.length === 0) {
+  <div class="empty">No hay reservas.</div>
+  }
 </div>

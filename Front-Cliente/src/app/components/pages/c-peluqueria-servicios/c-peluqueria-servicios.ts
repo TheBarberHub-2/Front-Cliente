@@ -44,12 +44,10 @@ export class CPeluqueriaServicios implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // 1. Obtener email del usuario logueado
     this.loginService.email$
       .pipe(
         switchMap((email) => {
           if (!email) return of(null);
-          // 2. Obtener peluquería asociada al email
           return this.peluqueriasService.getByEmail(email);
         }),
       )
@@ -81,7 +79,6 @@ export class CPeluqueriaServicios implements OnInit {
       next: (page) => {
         const all = page.data || [];
 
-        // 3. Filtrar solo los servicios de esta peluquería
         this.servicios = all.filter((s) => s.peluqueria === this.peluqueriaNombre);
 
         this.loading = false;

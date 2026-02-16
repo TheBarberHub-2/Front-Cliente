@@ -47,10 +47,8 @@ export class CMisReservas implements OnInit, OnDestroy {
           }
 
           if (this.userRol === Rol.Peluqueria) {
-            // Para peluquerías: obtener por email
             return this.peluqueriasService.getByEmail(email);
           } else {
-            // Para clientes: obtener usuario por email
             return this.usuariosService.getUsuarios().pipe(
               switchMap((page) => {
                 const found = page.data ? page.data.find((u: any) => u.email === email) : null;
@@ -106,7 +104,6 @@ export class CMisReservas implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.error('Error al cancelar reserva:', err);
-          // Intentar obtener el mensaje detallado del backend
           let msg = 'Error al cancelar la reserva. Intenta de nuevo.';
           try {
             if (err && err.error) {
@@ -115,14 +112,12 @@ export class CMisReservas implements OnInit, OnDestroy {
               } else if (err.error.message) {
                 msg = err.error.message;
               } else {
-                // Si viene un objeto con errores múltiples, convertir a texto
                 msg = JSON.stringify(err.error);
               }
             } else if (err && err.message) {
               msg = err.message;
             }
           } catch (e) {
-            // en caso de cualquier problema, mantener el mensaje por defecto
             console.error('Error parsing backend error message', e);
           }
 

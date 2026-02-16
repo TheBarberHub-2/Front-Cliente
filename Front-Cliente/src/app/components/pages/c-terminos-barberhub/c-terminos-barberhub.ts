@@ -15,10 +15,8 @@ export class CTerminosBarberhub implements OnInit {
   acceptedTerms: boolean = false;
   loading: boolean = false;
   error: string = '';
-  // Visualización del formulario de pago
   showPaymentForm: boolean = false;
 
-  // Campos del formulario (visualización)
   numeroTarjeta: string = '';
   titular: string = '';
   fechaCaducidad: string = '';
@@ -30,7 +28,6 @@ export class CTerminosBarberhub implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Check if user has pending approval
     const hasApproval = localStorage.getItem('hasApproval');
     if (!hasApproval) {
       this.router.navigate(['/usuarios']);
@@ -43,12 +40,10 @@ export class CTerminosBarberhub implements OnInit {
       return;
     }
 
-    // Mostrar el formulario de pago para que el usuario introduzca los datos.
     this.showPaymentForm = true;
   }
 
   confirmarPago(): void {
-    // Validación básica de campos
     if (!this.numeroTarjeta || !this.titular || !this.fechaCaducidad || !this.cvc) {
       this.error = 'Por favor completa todos los campos del formulario de pago.';
       return;

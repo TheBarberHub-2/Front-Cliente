@@ -44,7 +44,6 @@ export class CPeluquerias implements OnInit {
         this.peluquerias = page.data || [];
         this.filteredPeluquerias = [...this.peluquerias];
 
-        // Fetch schedules for each hairdresser
         this.peluquerias.forEach((p) => {
           if (p.id) {
             this.peluqueriasService.getHorarios(p.id).subscribe((horarios) => {

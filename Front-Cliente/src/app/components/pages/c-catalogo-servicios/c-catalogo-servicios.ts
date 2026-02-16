@@ -27,7 +27,6 @@ export class CCatalogoServicios implements OnInit, OnDestroy {
   allBarberias: PeluqueriaSummary[] = [];
   loading: boolean = true;
 
-  // Paginación
   currentPage: number = 1;
   pageSize: number = 6;
   totalPages: number = 1;

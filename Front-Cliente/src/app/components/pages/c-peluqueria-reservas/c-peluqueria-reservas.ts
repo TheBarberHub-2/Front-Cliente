@@ -15,6 +15,5 @@ export class CPeluqueriaReservas implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-        // Para ahora esto es un placeholder
     }
 }

@@ -24,7 +24,6 @@ export class CCarrito implements OnInit, OnDestroy {
   userId: number = 0;
   loadingSlots: boolean = false;
 
-  // Datos de pago
   numeroTarjeta: string = '';
   titular: string = '';
   fechaCaducidad: string = '';
@@ -50,7 +49,6 @@ export class CCarrito implements OnInit, OnDestroy {
       this.updateSummary();
     });
 
-    // Cargar usuario actual de forma sincrónica
     this.usuariosService.getUsuarioActual().subscribe({
       next: (u) => {
         this.userId = u.id;
@@ -157,23 +155,18 @@ export class CCarrito implements OnInit, OnDestroy {
 
     this.isProcessing = true;
 
-    // Convertir selectedSlot a LocalTime format (HH:mm)
     let horaInicio = this.selectedSlot || '00:00';
     if (horaInicio.includes(':')) {
-      // Si ya tiene formato HH:mm, usarlo tal cual
     } else {
-      // Si es solo número, convertir
       const minutes = parseInt(horaInicio, 10);
       const hours = Math.floor(minutes / 60);
       const mins = minutes % 60;
       horaInicio = `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
     }
 
-    // Calcular día de semana (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
     const fecha = new Date(this.selectedDate);
     const diaSemana = fecha.getDay();
 
-    // Crear Reserva con datos de pago incluidos
     this.reservasService
       .crearReserva({
         reserva: {

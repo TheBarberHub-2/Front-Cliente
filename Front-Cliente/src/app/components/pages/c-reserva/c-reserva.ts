@@ -29,7 +29,6 @@ export class CReserva implements OnInit, OnDestroy {
   peluqueriaId: number = 0;
   isPeluqueria: boolean = false;
 
-  // Nuevas variables para reserva reactiva
   selectedServices: number[] = [];
   minDate: string = '';
 
@@ -56,7 +55,7 @@ export class CReserva implements OnInit, OnDestroy {
     private usuariosService: UsuariosService,
   ) {
     const today = new Date();
-    today.setDate(today.getDate() + 1); // No permitir el mismo día
+    today.setDate(today.getDate() + 1);
     this.minDate = today.toISOString().split('T')[0];
   }
 
@@ -155,7 +154,6 @@ export class CReserva implements OnInit, OnDestroy {
 
       const start = h.horaApertura ? String(h.horaApertura).substring(0, 5) : '00:00';
       const end = h.horaCierre ? String(h.horaCierre).substring(0, 5) : '00:00';
-      // Use non-breaking spaces around the dash so a single range doesn't break across lines
       grouped[day].push(`${start}\u00A0-\u00A0${end}`);
     });
 

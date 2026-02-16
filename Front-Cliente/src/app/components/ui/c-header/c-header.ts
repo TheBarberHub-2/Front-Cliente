@@ -56,15 +56,12 @@ export class CHeader implements OnInit, OnDestroy {
       this.unidadesCarrito = items.length;
     });
 
-    // React to login email changes so we can update userId and polling immediately
     this.emailSub = this.loginService.email$.subscribe((email) => {
       if (email) {
-        // update userId and restart polling for the new user
         this.usuariosService.getUsuarios().subscribe({
           next: (page) => {
             const found = page.data ? page.data.find((u) => u.email === email) : null;
             this.userId = found?.id ?? null;
-            // restart polling when userId changes
             this.startNotificationPolling();
           },
           error: () => {
@@ -73,7 +70,6 @@ export class CHeader implements OnInit, OnDestroy {
           },
         });
       } else {
-        // logged out
         this.userId = null;
         this.solicitudesPendientes = [];
         this.numeroPedidos = 0;
@@ -83,7 +79,6 @@ export class CHeader implements OnInit, OnDestroy {
 
     if (this.isLoggedIn) {
       this.loadUserAndStartPolling();
-      // Asegurar que el rol se refresque al iniciar el componente si ya está logueado
       if (!this.userRol) {
         this.loginService.refreshRol();
       }
@@ -108,12 +103,11 @@ export class CHeader implements OnInit, OnDestroy {
   startNotificationPolling() {
     if (this.notifSub) this.notifSub.unsubscribe();
 
-    this.notifSub = interval(30000) // Poll every 30s
+    this.notifSub = interval(30000)
       .pipe(
         startWith(0),
         switchMap(() => {
           if (this.isLoggedIn && this.userId) {
-            // Using the new paginated admin-style request filtered by user
             return this.solicitudesService.getSolicitudesAprobadas();
           }
           return of([]);
@@ -121,7 +115,6 @@ export class CHeader implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (notifs) => {
-          // Normalize response to an array and filter by the logged-in user's id
           const arr: SolicitudDto[] = Array.isArray(notifs)
             ? notifs
             : notifs && (notifs as any).data && Array.isArray((notifs as any).data)
@@ -134,7 +127,6 @@ export class CHeader implements OnInit, OnDestroy {
           });
 
           this.solicitudesPendientes = filtered;
-          // Badge must reflect the number of approved requests for this user
           this.numeroPedidos = filtered.length;
         },
       });
@@ -162,11 +154,8 @@ export class CHeader implements OnInit, OnDestroy {
   }
 
   LogOut() {
-    // Stop polling and clear notification state immediately
     this.stopPolling();
-    // Clear the carrito service so items are not persisted between users/sessions
     this.carritoService.clearCart();
-    // Keep subscriptions for role/email so they can emit updated values to the component.
     this.userRol = null;
     this.isLoggedIn = false;
     this.solicitudesPendientes = [];

@@ -28,7 +28,6 @@ export class CPerfil implements OnInit {
   loading: boolean = true;
   error: string = '';
 
-  // Schedule Modal/Form
   showHorarioForm: boolean = false;
   showEditarHorarioForm: boolean = false;
   horarioEnEdicion: PeluqueriaHorario | null = null;
@@ -38,8 +37,6 @@ export class CPerfil implements OnInit {
     horaCierre: '20:00',
   };
   diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-
-  // Peluqueria Request Form
   showSolicitudPeluqueriaForm: boolean = false;
   nuevaSolicitudPeluqueria = {
     municipio: '',
@@ -75,17 +72,14 @@ export class CPerfil implements OnInit {
           if (!found) return of(null);
           this.usuario = found;
 
-          // Build requests based on user role
           const requests: { [key: string]: any } = {};
 
-          // Only fetch solicitudesAprobadas for clientes
           if (found.rol.toUpperCase() === Rol.Cliente) {
             requests['solicitudesAprobadas'] = this.solicitudesService.getSolicitudesAprobadas();
           } else {
             requests['solicitudesAprobadas'] = of([]);
           }
 
-          // Fetch peluqueria info if user is a peluqueria
           if (found.rol.toUpperCase() === Rol.Peluqueria) {
             requests['peluqueria'] = this.peluqueriasService.getByEmail(found.email);
           } else {
@@ -132,7 +126,6 @@ export class CPerfil implements OnInit {
     this.router.navigate(['/terminos']);
   }
 
-  // Schedule Management
   abrirFormHorario() {
     this.showHorarioForm = true;
     this.nuevoHorario = {
@@ -164,7 +157,6 @@ export class CPerfil implements OnInit {
   }
 
   abrirEditarHorario(horario: PeluqueriaHorario) {
-    // Mapeo inverso: convertir "LUNES" a "Lunes", "MIERCOLES" a "Miércoles", etc.
     const diasMapInverso: { [key: string]: string } = {
       LUNES: 'Lunes',
       MARTES: 'Martes',
@@ -176,7 +168,6 @@ export class CPerfil implements OnInit {
     };
 
     this.horarioEnEdicion = { ...horario };
-    // Normalizar el diaSemana al formato del select
     if (this.horarioEnEdicion.diaSemana) {
       this.horarioEnEdicion.diaSemana =
         diasMapInverso[this.horarioEnEdicion.diaSemana.toUpperCase()] ||

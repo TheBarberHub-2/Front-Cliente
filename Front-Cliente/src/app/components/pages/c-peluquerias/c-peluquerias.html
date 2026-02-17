@@ -1,64 +1,65 @@
-<div class="peluquerias-container">
-  <header class="peluquerias-header">
-    <div class="title-section">
-      <h1>Explora nuestras Barberías</h1>
-      <p>Encuentra el estilo que mejor se adapta a ti</p>
+<div class="c-peluquerias">
+  <header class="c-peluquerias__header">
+    <div class="c-peluquerias__title-section">
+      <h1 class="c-peluquerias__title">Explora nuestras Barberías</h1>
+      <p class="c-peluquerias__subtitle">Encuentra el estilo que mejor se adapta a ti</p>
     </div>
 
-    <div class="search-section">
-      <div class="search-bar">
+    <div class="c-peluquerias__search-section">
+      <div class="c-peluquerias__search-bar">
         <input
+          class="c-peluquerias__search-input"
           type="text"
           [(ngModel)]="searchTerm"
           (input)="onSearch()"
           placeholder="Buscar por nombre, zona o dirección..."
         />
-        <button class="search-btn">
+        <button class="c-peluquerias__search-btn">
           <span>🔍</span>
         </button>
       </div>
     </div>
   </header>
 
-  <main class="peluquerias-grid">
+  <main class="c-peluquerias__grid">
     @if (loading) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Buscando las mejores tijeras...</p>
+      <div class="c-peluquerias__loading">
+        <div class="c-peluquerias__spinner"></div>
+        <p class="c-peluquerias__loading-text">Buscando las mejores tijeras...</p>
       </div>
     } @else {
       @for (item of filteredPeluquerias; track item.id) {
-        <div class="barber-card">
-          <div class="image-wrapper">
+        <div class="c-peluquerias__card">
+          <div class="c-peluquerias__card-image-wrapper">
             <div
-              class="barber-image"
+              class="c-peluquerias__card-image"
               [style.backgroundImage]="'url(' + getRandomImage(item.id) + ')'"
             >
-              <div class="overlay"></div>
+              <div class="c-peluquerias__card-overlay"></div>
             </div>
           </div>
-          <div class="barber-info">
-            <h3>{{ item.nombre }}</h3>
-            <p class="location"><span>📍</span> {{ item.municipio }} — {{ item.direccion }}</p>
+          <div class="c-peluquerias__card-info">
+            <h3 class="c-peluquerias__card-title">{{ item.nombre }}</h3>
+            <p class="c-peluquerias__card-location"><span>📍</span> {{ item.municipio }} — {{ item.direccion }}</p>
 
             @if (item.weeklySchedule) {
-              <div class="weekly-schedule">
-                <div class="schedule-grid">
+              <div class="c-peluquerias__card-schedule">
+                <div class="c-peluquerias__card-schedule-grid">
                   @for (day of getOrderedDays(item.weeklySchedule); track day) {
-                    <div class="schedule-day">
-                      <span class="day-name">{{ day | slice: 0 : 3 | titlecase }}</span>
-                      <span class="day-hours">{{ item.weeklySchedule[day] }}</span>
+                    <div class="c-peluquerias__card-schedule-day">
+                      <span class="c-peluquerias__card-day-name">{{ day | slice: 0 : 3 | titlecase }}</span>
+                      <span class="c-peluquerias__card-day-hours">{{ item.weeklySchedule[day] }}</span>
                     </div>
                   }
                 </div>
               </div>
             }
 
-            <button class="btn-book" [routerLink]="['/peluqueria', item.id]">Reservar ahora</button>
+            <button class="c-peluquerias__card-btn-book" [routerLink]="['/peluqueria', item.id]">Reservar ahora</button>
           </div>
         </div>
       } @empty {
-        <div class="empty-state">
+        <div class="c-peluquerias__empty">
           <p>No se encontraron barberías que coincidan con tu búsqueda.</p>
         </div>
       }

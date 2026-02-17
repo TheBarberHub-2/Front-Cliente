@@ -1,20 +1,20 @@
-<div class="terminos-container">
-  <div class="terminos-card">
+<div class="c-terminos">
+  <div class="c-terminos__card">
     <!-- Header -->
-    <div class="terminos-header">
-      <div class="success-icon">✓</div>
-      <h1>¡Solicitud Aprobada!</h1>
-      <p class="subtitle">
+    <div class="c-terminos__header">
+      <div class="c-terminos__icon">✓</div>
+      <h1 class="c-terminos__title">¡Solicitud Aprobada!</h1>
+      <p class="c-terminos__subtitle">
         Tu solicitud ha sido revisada y aprobada por el equipo administrativo de BarberHub
       </p>
     </div>
 
     <!-- Content -->
-    <div class="terminos-content">
+    <div class="c-terminos__content">
       <!-- Approval Message -->
-      <div class="approval-section">
-        <h2>Bienvenido a BarberHub</h2>
-        <p>
+      <div class="c-terminos__approval-section">
+        <h2 class="c-terminos__section-title">Bienvenido a BarberHub</h2>
+        <p class="c-terminos__text">
           Felicidades, tu solicitud de registro como barbería ha sido <strong>aprobada</strong>.
           Ahora puedes acceder a todas las funcionalidades de nuestra plataforma para gestionar tus
           servicios y reservas.
@@ -22,16 +22,16 @@
       </div>
 
       <!-- Terms Section -->
-      <div class="terms-section">
-        <h3>Términos y Condiciones</h3>
-        <p>Por favor lee cuidadosamente los siguientes términos antes de continuar:</p>
+      <div class="c-terminos__section">
+        <h3 class="c-terminos__section-subtitle">Términos y Condiciones</h3>
+        <p class="c-terminos__text">Por favor lee cuidadosamente los siguientes términos antes de continuar:</p>
 
         <!-- Commission Terms -->
-        <div class="term-item">
-          <div class="term-icon">💳</div>
-          <div class="term-content">
-            <h4>Comisión por Transacción</h4>
-            <p>
+        <div class="c-terminos__item">
+          <div class="c-terminos__item-icon">💳</div>
+          <div class="c-terminos__item-content">
+            <h4 class="c-terminos__item-title">Comisión por Transacción</h4>
+            <p class="c-terminos__item-text">
               BarberHub cobrará una comisión del <strong>5%</strong> sobre cada transacción
               realizada a través de nuestra plataforma. Esta comisión se deducirá automáticamente de
               los pagos recibidos por los servicios prestados.
@@ -40,11 +40,11 @@
         </div>
 
         <!-- Monthly Fee -->
-        <div class="term-item">
-          <div class="term-icon">📅</div>
-          <div class="term-content">
-            <h4>Costo de Suscripción</h4>
-            <p>
+        <div class="c-terminos__item">
+          <div class="c-terminos__item-icon">📅</div>
+          <div class="c-terminos__item-content">
+            <h4 class="c-terminos__item-title">Costo de Suscripción</h4>
+            <p class="c-terminos__item-text">
               El costo de suscripción a la plataforma BarberHub es de
               <strong>50€</strong> (pago único). Esta suscripción es <strong>permanente</strong>
               y te proporciona acceso completo a todas las herramientas de gestión, incluyendo
@@ -54,27 +54,27 @@
         </div>
 
         <!-- Platform Benefits -->
-        <div class="term-item">
-          <div class="term-icon">⭐</div>
-          <div class="term-content">
-            <h4>Beneficios Incluidos</h4>
-            <p>Tu suscripción incluye:</p>
-            <ul class="benefits-list">
-              <li>Gestión completa de horarios y disponibilidad</li>
-              <li>Sistema de reservas integrado</li>
-              <li>Perfil de barbería visible para clientes</li>
-              <li>Historial de transacciones y reportes</li>
-              <li>Soporte técnico prioritario</li>
+        <div class="c-terminos__item">
+          <div class="c-terminos__item-icon">⭐</div>
+          <div class="c-terminos__item-content">
+            <h4 class="c-terminos__item-title">Beneficios Incluidos</h4>
+            <p class="c-terminos__item-text">Tu suscripción incluye:</p>
+            <ul class="c-terminos__benefits-list">
+              <li class="c-terminos__benefit-item">Gestión completa de horarios y disponibilidad</li>
+              <li class="c-terminos__benefit-item">Sistema de reservas integrado</li>
+              <li class="c-terminos__benefit-item">Perfil de barbería visible para clientes</li>
+              <li class="c-terminos__benefit-item">Historial de transacciones y reportes</li>
+              <li class="c-terminos__benefit-item">Soporte técnico prioritario</li>
             </ul>
           </div>
         </div>
 
         <!-- Reservation Payment -->
-        <div class="term-item">
-          <div class="term-icon">💸</div>
-          <div class="term-content">
-            <h4>Pago de Reservas</h4>
-            <p>
+        <div class="c-terminos__item">
+          <div class="c-terminos__item-icon">💸</div>
+          <div class="c-terminos__item-content">
+            <h4 class="c-terminos__item-title">Pago de Reservas</h4>
+            <p class="c-terminos__item-text">
               El pago de una reserva se hará efectivo en el momento en el que se confirme que la
               reserva ha sido realizada y completada.
             </p>
@@ -83,10 +83,10 @@
       </div>
 
       <!-- Checkbox Section -->
-      <div class="agreement-section">
-        <label class="checkbox-label">
-          <input type="checkbox" [(ngModel)]="acceptedTerms" class="checkbox-input" />
-          <span class="checkbox-text">
+      <div class="c-terminos__agreement-section">
+        <label class="c-terminos__checkbox-label">
+          <input type="checkbox" [(ngModel)]="acceptedTerms" class="c-terminos__checkbox-input" />
+          <span class="c-terminos__checkbox-text">
             He leído y acepto los términos y condiciones de BarberHub. Entiendo que se me cobrará
             una comisión del 5% por transacción y 50€ (pago único) por la suscripción permanente.
           </span>
@@ -95,16 +95,16 @@
 
       <!-- Error Message -->
       @if (error) {
-      <div class="error-message">
+      <div class="c-terminos__error">
         {{ error }}
       </div>
       }
 
       <!-- Action Button -->
-      <div class="action-section">
+      <div class="c-terminos__actions">
         @if (!showPaymentForm) {
         <div>
-          <button class="btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
+          <button class="c-terminos__btn-proceed" (click)="proceedToPayment()" [disabled]="isSubmitDisabled">
             @if (!loading) {
             <span>Proceder a Pago</span>
             }
@@ -112,49 +112,49 @@
             <span>Procesando...</span>
             }
           </button>
-          <p class="payment-info">Se te redirigirá a la pasarela de pago segura</p>
+          <p class="c-terminos__payment-info">Se te redirigirá a la pasarela de pago segura</p>
         </div>
         }
 
         @if (showPaymentForm) {
-        <div class="modal-overlay" role="dialog" aria-modal="true">
-          <div class="modal-card" (click)="$event.stopPropagation()">
-            <div class="modal-header">
-              <h3>Pago con Tarjeta</h3>
+        <div class="c-terminos__modal-overlay" role="dialog" aria-modal="true">
+          <div class="c-terminos__modal-card" (click)="$event.stopPropagation()">
+            <div class="c-terminos__modal-header">
+              <h3 class="c-terminos__modal-title">Pago con Tarjeta</h3>
             </div>
 
-            <div class="bank-note">
+            <div class="c-terminos__note">
               <strong>Nota:</strong> La cuenta bancaria utilizada para realizar el pago será la
               misma cuenta a la que se ingresará el dinero de las reservas.
             </div>
 
-            <div class="payment-form">
-              <div class="form-group">
+            <div class="c-terminos__payment-form">
+              <div class="c-terminos__form-group">
                 <label>Número de Tarjeta:</label>
-                <input type="text" [(ngModel)]="numeroTarjeta" name="cardNumber" placeholder="0000 0000 0000 0000"
+                <input class="c-terminos__input" type="text" [(ngModel)]="numeroTarjeta" name="cardNumber" placeholder="0000 0000 0000 0000"
                   maxlength="19" (input)="formatearTarjeta()" />
               </div>
-              <div class="form-group">
+              <div class="c-terminos__form-group">
                 <label>Titular de la Tarjeta:</label>
-                <input type="text" [(ngModel)]="titular" name="cardHolder" placeholder="Nombre completo" />
+                <input class="c-terminos__input" type="text" [(ngModel)]="titular" name="cardHolder" placeholder="Nombre completo" />
               </div>
-              <div class="form-row">
-                <div class="form-group">
+              <div class="c-terminos__form-row">
+                <div class="c-terminos__form-group">
                   <label>Caducidad:</label>
-                  <input type="text" [(ngModel)]="fechaCaducidad" name="expiry" placeholder="YYYY-MM" maxlength="7"
+                  <input class="c-terminos__input" type="text" [(ngModel)]="fechaCaducidad" name="expiry" placeholder="YYYY-MM" maxlength="7"
                     (input)="formatearFecha()" />
                 </div>
-                <div class="form-group">
+                <div class="c-terminos__form-group">
                   <label>CVV:</label>
-                  <input type="password" [(ngModel)]="cvc" name="cvc" placeholder="123" maxlength="3" />
+                  <input class="c-terminos__input" type="password" [(ngModel)]="cvc" name="cvc" placeholder="123" maxlength="3" />
                 </div>
               </div>
 
-              <div class="form-actions">
-                <button class="btn-secondary" (click)="showPaymentForm = false" [disabled]="loading">
+              <div class="c-terminos__form-actions">
+                <button class="c-terminos__btn-secondary" (click)="showPaymentForm = false" [disabled]="loading">
                   Volver
                 </button>
-                <button class="btn-primary" (click)="confirmarPago()"
+                <button class="c-terminos__btn-primary" (click)="confirmarPago()"
                   [disabled]="!numeroTarjeta || !titular || !fechaCaducidad || !cvc || loading">
                   @if (!loading) {
                   <span>Pagar y Confirmar</span>

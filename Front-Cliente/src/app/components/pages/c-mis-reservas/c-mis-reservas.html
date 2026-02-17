@@ -1,41 +1,40 @@
-<div class="c-mis-reservas page">
-  <h2 class="page__title">Mis Reservas</h2>
+<div class="c-mis-reservas">
+  <h2 class="c-mis-reservas__title">Mis Reservas</h2>
 
-  <div class="filters">
-    <label class="filter-label">
+  <div class="c-mis-reservas__filters">
+    <label class="c-mis-reservas__filter-label">
       <input type="checkbox" (change)="onTogglePendientes($event.target.checked)" /> Mostrar sólo
       pendientes
     </label>
   </div>
 
   @if (loading) {
-  <div class="loading">Cargando reservas...</div>
+  <div class="c-mis-reservas__loading">Cargando reservas...</div>
   }
 
   @if (!loading && reservas.length > 0) {
-  <ul class="reservas-list">
+  <ul class="c-mis-reservas__list">
     @for (r of reservas; track r.id) {
-    <li class="reserva">
-      <div class="reserva__row"><strong>Peluquería:</strong> {{ r.peluqueriaNombre }}</div>
-      <div class="reserva__row"><strong>Fecha:</strong></div>
-      <div class="reserva__row">{{ r.fechaReserva | date: 'd MMM yyyy' }}</div>
-      <div class="reserva__row"><strong>Hora:</strong></div>
-      <div class="reserva__row">
+    <li class="c-mis-reservas__reserva">
+      <div class="c-mis-reservas__reserva-row"><strong>Peluquería:</strong> {{ r.peluqueriaNombre }}</div>
+      <div class="c-mis-reservas__reserva-row"><strong>Fecha:</strong> {{ r.fechaReserva | date: 'd MMM yyyy' }}</div>
+      <div class="c-mis-reservas__reserva-row">
+        <strong>Hora:</strong>
         {{ r.horaInicio }} @if (r.horaFinal) {<span>- {{ r.horaFinal }}</span>}
       </div>
 
-      <div class="reserva__row">
+      <div class="c-mis-reservas__reserva-row">
         <strong>Precio:</strong> {{ r.precioTotal | number: '1.2-2' }} €
       </div>
-      <div class="reserva__row"><strong>Estado:</strong> {{ r.estado }}</div>
+      <div class="c-mis-reservas__reserva-row"><strong>Estado:</strong> {{ r.estado }}</div>
 
       @if (r.productos && r.productos.length > 0) {
-      <div class="reserva__productos">
+      <div class="c-mis-reservas__reserva-productos">
         <strong>Servicios:</strong>
-        <ul class="productos-list">
+        <ul class="c-mis-reservas__productos-list">
           @for (p of r.productos; track $index) {
-          <li class="producto">
-            <span class="producto-nombre">{{ p.nombreProducto }}</span>
+          <li class="c-mis-reservas__producto">
+            <span class="c-mis-reservas__producto-nombre">{{ p.nombreProducto }}</span>
           </li>
           }
         </ul>
@@ -43,11 +42,11 @@
       }
 
       @if (r.estado === 'Pendiente') {
-      <div class="reserva__actions">
-        <button class="btn-cancel" (click)="onCancelarReserva(r.id)">Cancelar Reserva</button>
+      <div class="c-mis-reservas__actions">
+        <button class="c-mis-reservas__btn-cancel" (click)="onCancelarReserva(r.id)">Cancelar Reserva</button>
 
         @if (isPeluqueria && r.estado === 'Pendiente') {
-        <button class="btn-confirm" (click)="onConfirmarReserva(r.id)">
+        <button class="c-mis-reservas__btn-confirm" (click)="onConfirmarReserva(r.id)">
           Confirmar Reserva
         </button>
         }
@@ -59,6 +58,6 @@
   }
 
   @if (!loading && reservas.length === 0) {
-  <div class="empty">No hay reservas.</div>
+  <div class="c-mis-reservas__empty">No hay reservas.</div>
   }
 </div>

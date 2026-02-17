@@ -72,26 +72,26 @@
         <div class="c-perfil__modal">
           <h3 class="c-perfil__modal-title">Solicitar Alta como Peluquería</h3>
           <form (ngSubmit)="onSubmitSolicitudPeluqueria()">
-            <div class="c-perfil__form-group">
-              <label class="c-perfil__modal-label">Municipio</label>
-              <input class="c-perfil__modal-input" type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio"
+            <div class="form-group">
+              <label>Municipio</label>
+              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio"
                 name="municipio" required placeholder="Ej: Valencia" />
             </div>
-            <div class="c-perfil__form-group">
-              <label class="c-perfil__modal-label">Dirección</label>
-              <input class="c-perfil__modal-input" type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion"
+            <div class="form-group">
+              <label>Dirección</label>
+              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion"
                 name="direccion" required placeholder="Ej: Calle Mayor, 12" />
             </div>
-            <div class="c-perfil__form-group">
-              <label class="c-perfil__modal-label">Teléfono de Contacto</label>
-              <input class="c-perfil__modal-input" type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono"
+            <div class="form-group">
+              <label>Teléfono de Contacto</label>
+              <input type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono"
                 name="telefono" required placeholder="Ej: 600123456" />
             </div>
-            <div class="c-perfil__modal-actions">
-              <button type="button" class="c-perfil__btn-cancel" (click)="showSolicitudPeluqueriaForm = false">
+            <div class="modal-actions">
+              <button type="button" class="btn-cancel" (click)="showSolicitudPeluqueriaForm = false">
                 Cancelar
               </button>
-              <button type="submit" class="c-perfil__btn-save">Enviar Solicitud</button>
+              <button type="submit" class="btn-save">Enviar Solicitud</button>
             </div>
           </form>
         </div>
@@ -123,7 +123,7 @@
                 <td class="c-perfil__table-td">{{ h.diaSemana }}</td>
                 <td class="c-perfil__table-td">{{ h.horaApertura }}</td>
                 <td class="c-perfil__table-td">{{ h.horaCierre }}</td>
-                <td class="c-perfil__table-td c-perfil__table-actions">
+                <td class="c-perfil__table-td table-actions">
                   <button class="c-perfil__btn-edit" (click)="abrirEditarHorario(h)">✎ Editar</button>
                   <button class="c-perfil__btn-delete-small" (click)="h.id && eliminarHorario(h.id)">
                     ✕ Eliminar
@@ -143,31 +143,31 @@
           <div class="c-perfil__modal">
             <h3 class="c-perfil__modal-title">Añadir Nuevo Horario</h3>
             <form (ngSubmit)="guardarHorario()">
-              <div class="c-perfil__form-group">
-                <label class="c-perfil__modal-label">Día de la semana</label>
-                <select class="c-perfil__modal-select" [(ngModel)]="nuevoHorario.diaSemana" name="dia">
+              <div class="form-group">
+                <label>Día de la semana</label>
+                <select [(ngModel)]="nuevoHorario.diaSemana" name="dia">
                   @for (dia of diasSemana; track dia) {
                   <option [value]="dia">{{ dia }}</option>
                   }
                 </select>
               </div>
-              <div class="c-perfil__form-row">
-                <div class="c-perfil__form-group">
-                  <label class="c-perfil__modal-label">Apertura</label>
-                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape"
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Apertura</label>
+                  <input type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape"
                     required />
                 </div>
-                <div class="c-perfil__form-group">
-                  <label class="c-perfil__modal-label">Cierre</label>
-                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie"
+                <div class="form-group">
+                  <label>Cierre</label>
+                  <input type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie"
                     required />
                 </div>
               </div>
-              <div class="c-perfil__modal-actions">
-                <button type="button" class="c-perfil__btn-cancel" (click)="showHorarioForm = false">
+              <div class="modal-actions">
+                <button type="button" class="btn-cancel" (click)="showHorarioForm = false">
                   Cancelar
                 </button>
-                <button type="submit" class="c-perfil__btn-save">Guardar</button>
+                <button type="submit" class="btn-save">Guardar</button>
               </div>
             </form>
           </div>
@@ -179,31 +179,31 @@
           <div class="c-perfil__modal">
             <h3 class="c-perfil__modal-title">Editar Horario</h3>
             <form (ngSubmit)="guardarCambiosHorario()">
-              <div class="c-perfil__form-group">
-                <label class="c-perfil__modal-label">Día de la semana</label>
-                <select class="c-perfil__modal-select" [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
+              <div class="form-group">
+                <label>Día de la semana</label>
+                <select [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
                   @for (dia of diasSemana; track dia) {
                   <option [value]="dia">{{ dia }}</option>
                   }
                 </select>
               </div>
-              <div class="c-perfil__form-row">
-                <div class="c-perfil__form-group">
-                  <label class="c-perfil__modal-label">Apertura</label>
-                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="horarioEnEdicion.horaApertura"
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Apertura</label>
+                  <input type="time" [(ngModel)]="horarioEnEdicion.horaApertura"
                     name="ape" required />
                 </div>
-                <div class="c-perfil__form-group">
-                  <label class="c-perfil__modal-label">Cierre</label>
-                  <input class="c-perfil__modal-input" type="time" [(ngModel)]="horarioEnEdicion.horaCierre" name="cie"
+                <div class="form-group">
+                  <label>Cierre</label>
+                  <input type="time" [(ngModel)]="horarioEnEdicion.horaCierre" name="cie"
                     required />
                 </div>
               </div>
-              <div class="c-perfil__modal-actions">
-                <button type="button" class="c-perfil__btn-cancel" (click)="showEditarHorarioForm = false">
+              <div class="modal-actions">
+                <button type="button" class="btn-cancel" (click)="showEditarHorarioForm = false">
                   Cancelar
                 </button>
-                <button type="submit" class="c-perfil__btn-save">Guardar Cambios</button>
+                <button type="submit" class="btn-save">Guardar Cambios</button>
               </div>
             </form>
           </div>
@@ -218,13 +218,13 @@
   @if (loading) {
   <div class="c-perfil__loading">
     <div class="c-perfil__spinner"></div>
-    <p class="c-perfil__loading-text">Cargando información...</p>
+    <p>Cargando información...</p>
   </div>
   }
 
   @if (error) {
   <div class="c-perfil__error">
-    <p class="c-perfil__error-text">{{ error }}</p>
+    <p>{{ error }}</p>
   </div>
   }
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { CrearReservaRequest } from '../models/pagos/pago-tarjeta.request';
+import { CrearReservaRequest } from '../models/horarios/pagos/pago-tarjeta.request';
 
 @Injectable({
   providedIn: 'root',

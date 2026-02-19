@@ -1,143 +1,143 @@
-.reserva-container {
+.c-reserva {
     min-height: 100vh;
     background: #0c0c0c;
     color: white;
-}
 
-.reserva-hero {
-    height: 400px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    &__hero {
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 
-    .overlay {
+    &__overlay {
         position: absolute;
         inset: 0;
         background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(12, 12, 12, 1) 100%);
         backdrop-filter: blur(2px);
     }
 
-    .hero-content {
+    &__hero-content {
         position: relative;
         z-index: 2;
         padding: 0 20px;
+    }
 
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: #d4af37;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: transform 0.3s ease;
+    &__btn-back {
+        display: inline-block;
+        margin-bottom: 30px;
+        color: #d4af37;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: transform 0.3s ease;
 
-            &:hover {
-                transform: translateX(-5px);
-            }
-        }
-
-        h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            letter-spacing: -2px;
-            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .location {
-            font-size: 1.2rem;
-            color: #888;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-
-            span {
-                color: #d4af37;
-            }
+        &:hover {
+            transform: translateX(-5px);
         }
     }
-}
 
-.reserva-main {
-    max-width: 900px;
-    margin: -50px auto 100px;
-    position: relative;
-    z-index: 3;
-    padding: 0 20px;
-}
-
-.no-schedule-alert {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px dashed rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 40px;
-    text-align: center;
-    color: #aaa;
-    font-style: italic;
-}
-
-.services-header {
-    margin-bottom: 40px;
-    text-align: center;
-
-    h2 {
-        font-size: 2rem;
-        font-weight: 700;
+    &__title {
+        font-size: 4rem;
+        font-weight: 800;
         margin-bottom: 10px;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
-    p {
-        color: #666;
-        font-size: 1.1rem;
+    &__location {
+        font-size: 1.2rem;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        span {
+            color: #d4af37;
+        }
     }
-}
 
-.schedule-section {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 30px;
-    padding: 30px;
-    margin-bottom: 50px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    &__main {
+        max-width: 900px;
+        margin: -50px auto 100px;
+        position: relative;
+        z-index: 3;
+        padding: 0 20px;
+    }
 
-    .schedule-header {
+    &__no-schedule-alert {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 40px;
+        text-align: center;
+        color: #aaa;
+        font-style: italic;
+    }
+
+    &__services-header {
+        margin-bottom: 40px;
+        text-align: center;
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+    }
+
+    &__schedule-section {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
+        padding: 30px;
+        margin-bottom: 50px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    &__schedule-header {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 12px;
         margin-bottom: 25px;
-
-        .schedule-icon {
-            font-size: 1.8rem;
-        }
-
-        h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #d4af37;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
     }
 
-    .schedule-container-grid {
+    &__schedule-icon {
+        font-size: 1.8rem;
+    }
+
+    &__schedule-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #d4af37;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    &__schedule-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 15px;
     }
 
-    .schedule-card {
+    &__schedule-card {
         background: rgba(212, 175, 55, 0.05);
         border: 1px solid rgba(212, 175, 55, 0.1);
         padding: 15px;
@@ -150,69 +150,75 @@
             border-color: rgba(212, 175, 55, 0.3);
             transform: translateY(-5px);
         }
+    }
 
-        .day-label {
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #fff;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
+    &__day-label {
+        font-weight: 800;
+        font-size: 0.9rem;
+        color: #fff;
+        margin-bottom: 5px;
+        letter-spacing: 0.5px;
+    }
+
+    &__time-range {
+        font-size: 0.95rem;
+        color: #d4af37;
+        font-weight: 600;
+    }
+
+    &__services-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__service-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 25px 35px;
+        border-radius: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .time-range {
-            font-size: 0.95rem;
-            color: #d4af37;
-            font-weight: 600;
+        &--selected {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+
+            .c-reserva__btn-add-cart {
+                background: #d4af37;
+                color: black;
+                border-color: #d4af37;
+            }
         }
     }
-}
 
-.services-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.service-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 25px 35px;
-    border-radius: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(212, 175, 55, 0.3);
-        transform: scale(1.02);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    &.selected {
-        border-color: #d4af37;
-        background: rgba(212, 175, 55, 0.05);
-    }
-
-    .service-info {
+    &__service-info {
         h3 {
             font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 5px;
         }
-
-        .price {
-            font-size: 1.2rem;
-            color: #d4af37;
-            font-weight: 700;
-        }
     }
 
-    .btn-add-cart {
+    &__price {
+        font-size: 1.2rem;
+        color: #d4af37;
+        font-weight: 700;
+    }
+
+    &__btn-add-cart {
         background: rgba(212, 175, 55, 0.1);
         border: 2px solid rgba(212, 175, 55, 0.3);
         color: #d4af37;
@@ -230,34 +236,53 @@
         }
     }
 
-    &.selected {
-        border-color: #d4af37;
-        background: rgba(212, 175, 55, 0.05);
+    &__empty-services {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
 
-        .btn-add-cart {
-            background: #d4af37;
-            color: black;
-            border-color: #d4af37;
-        }
+    &__loading-state {
+        text-align: center;
+        padding: 100px 0;
+        color: #666;
+    }
+
+    &__spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(212, 175, 55, 0.1);
+        border-top: 3px solid #d4af37;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        animation: c-reserva-spin 1s linear infinite;
+    }
+}
+
+@keyframes c-reserva-spin {
+    to {
+        transform: rotate(360deg);
     }
 }
 
 @media (max-width: 768px) {
-    .reserva-hero {
-        height: 300px;
+    .c-reserva {
+        &__hero {
+            height: 300px;
+        }
 
-        h1 {
+        &__title {
             font-size: 2.5rem;
         }
-    }
 
-    .service-card {
-        padding: 20px;
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
+        &__service-card {
+            padding: 20px;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
 
-        .btn-add-cart {
+        &__btn-add-cart {
             width: 100%;
         }
     }

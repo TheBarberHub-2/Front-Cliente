@@ -1,12 +1,17 @@
-.search-container {
+.c-search {
+    display: flex;
     align-items: center;
+    gap: var(--bh-espacio-2);
 
-    .search-input {
+    &__input {
         background-color: var(--bh-color-gris-1);
         color: var(--bh-color-gris-9);
         border: 1px solid var(--bh-color-gris-3);
         outline: none;
         transition: border-color var(--bh-transicion-1);
+        padding: var(--bh-p-2);
+        border-radius: var(--bh-radio-2);
+        flex: 1;
 
         &:focus {
             border-color: var(--bh-color-acento);
@@ -17,7 +22,7 @@
         }
     }
 
-    .search-btn {
+    &__btn {
         background-color: var(--bh-color-gris-1);
         color: var(--bh-color-gris-9);
         padding: var(--bh-espacio-2) var(--bh-espacio-3);

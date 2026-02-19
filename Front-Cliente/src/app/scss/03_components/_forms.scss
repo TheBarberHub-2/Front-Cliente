@@ -128,7 +128,6 @@
     }
 }
 
-// Legacy class support for existing forms
 .form-wrapper {
     @extend .bh-form__wrapper;
 }
@@ -155,7 +154,6 @@
     @extend .bh-form__error;
 }
 
-// Additional form element styling
 input[type="text"],
 input[type="email"],
 input[type="tel"],

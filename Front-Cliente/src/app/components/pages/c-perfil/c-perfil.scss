@@ -318,7 +318,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .form-group {
+    &__modal-form-group {
       margin-bottom: 1.5rem;
 
       label {
@@ -343,13 +343,13 @@
       }
     }
 
-    .form-row {
+    &__modal-form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
 
-    .modal-actions {
+    &__modal-actions {
       display: flex;
       justify-content: flex-end;
       gap: 1rem;
@@ -361,21 +361,25 @@
         font-weight: 600;
         cursor: pointer;
       }
+    }
 
-      .btn-cancel {
-        background: #95a5a6;
-        color: white;
-        border: none;
+    &__btn-cancel {
+      background: #95a5a6;
+      color: white;
+      border: none;
 
-        &:hover {
-          background: #7f8c8d;
-        }
+      &:hover {
+        background: #7f8c8d;
       }
+    }
 
-      .btn-save {
-        background: #e67e22;
-        color: white;
-        border: none;
+    &__btn-save {
+      background: #e67e22;
+      color: white;
+      border: none;
+
+      &:hover {
+        background: #d35400;
       }
     }
   }

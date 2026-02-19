@@ -1,16 +1,18 @@
-<div class="c-cerrar-sesion-container">
-  <div class="form-wrapper">
-    <h2>Cerrar Sesión</h2>
+<div class="c-cerrar-sesion">
+  <div class="c-cerrar-sesion__form-wrapper">
+    <h2 class="c-cerrar-sesion__title">Cerrar Sesión</h2>
 
-    <div class="bh-p-4 bh-mb-4 bh-fondo-gris-3 bh-radio-2">
-      <p class="bh-texto-primario bh-text-lg bh-mb-2">
+    <div class="c-cerrar-sesion__content-box">
+      <p class="c-cerrar-sesion__text">
         ¿Estás seguro de que quieres cerrar sesión?
       </p>
     </div>
 
-    <div class="form-actions bh-flex bh-gap-2 bh-justify-end">
-      <button type="button" class="btn-cancel" routerLink="/inicio">Cancelar</button>
-      <button type="button" class="btn-submit bh-fondo-error" (click)="logout()">
+    <div class="c-cerrar-sesion__form-actions">
+      <button type="button" class="c-cerrar-sesion__btn c-cerrar-sesion__btn--cancel" routerLink="/inicio">
+        Cancelar
+      </button>
+      <button type="button" class="c-cerrar-sesion__btn c-cerrar-sesion__btn--submit" (click)="logout()">
         Cerrar Sesión
       </button>
     </div>

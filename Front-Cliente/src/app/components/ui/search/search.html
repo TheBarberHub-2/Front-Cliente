@@ -1,5 +1,5 @@
-<div class="search-container bh-d-flex bh-gap-2">
-    <input type="text" [placeholder]="placeholder" class="search-input bh--p-2 bh-rounded-md" [(ngModel)]="searchTerm"
+<div class="c-search">
+    <input type="text" [placeholder]="placeholder" class="c-search__input" [(ngModel)]="searchTerm"
         (keyup)="onSearch()" />
-    <button class="search-btn bh-panel__button" (click)="onSearch()">🔍</button>
+    <button class="c-search__btn bh-panel__button" (click)="onSearch()">🔍</button>
 </div>

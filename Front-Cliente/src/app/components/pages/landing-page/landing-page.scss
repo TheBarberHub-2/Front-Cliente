@@ -1,25 +1,25 @@
 @use '../../../scss/01_utilities/variables' as vars;
 
-.landing-container {
+.c-landing-page {
     min-height: 100vh;
     background-color: #0c0c0c;
     color: white;
     font-family: 'Inter', sans-serif;
-}
 
-.hero-section {
-    position: relative;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-image: url('/barber_hero_bg.png');
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
+    &__hero {
+        position: relative;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-image: url('/barber_hero_bg.png');
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+    }
 
-    .overlay {
+    &__overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -29,84 +29,84 @@
         z-index: 1;
     }
 
-    .hero-content {
+    &__hero-content {
         position: relative;
         z-index: 2;
         max-width: 800px;
         padding: 0 20px;
+    }
 
-        h1 {
-            font-size: 5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #d4af37, #f1c40f);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -2px;
+    &__title {
+        font-size: 5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #d4af37, #f1c40f);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -2px;
+    }
+
+    &__text {
+        font-size: 1.5rem;
+        color: #ccc;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    &__cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    &__btn {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+
+        &--primary {
+            background: #d4af37;
+            color: black;
+
+            &:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            }
         }
 
-        p {
-            font-size: 1.5rem;
-            color: #ccc;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
+        &--outline {
+            border: 2px solid #d4af37;
+            color: #d4af37;
 
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-
-            .btn {
-                padding: 15px 40px;
-                font-size: 1.1rem;
-                font-weight: 600;
-                border-radius: 50px;
-                transition: all 0.3s ease;
-                text-decoration: none;
-
-                &-primary {
-                    background: #d4af37;
-                    color: black;
-
-                    &:hover {
-                        transform: translateY(-3px);
-                        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-                    }
-                }
-
-                &-outline {
-                    border: 2px solid #d4af37;
-                    color: #d4af37;
-
-                    &:hover {
-                        background: rgba(212, 175, 55, 0.1);
-                    }
-                }
+            &:hover {
+                background: rgba(212, 175, 55, 0.1);
             }
         }
     }
-}
 
-.features-section {
-    padding: 100px 0;
-    background: #0c0c0c;
+    &__features {
+        padding: 100px 0;
+        background: #0c0c0c;
+    }
 
-    .section-title {
+    &__section-title {
         text-align: center;
         font-size: 2.5rem;
         margin-bottom: 60px;
         color: white;
     }
 
-    .features-grid {
+    &__features-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 40px;
         padding: 0 20px;
     }
 
-    .feature-card {
+    &__feature-card {
         background: rgba(255, 255, 255, 0.05);
         padding: 40px;
         border-radius: 20px;
@@ -119,17 +119,29 @@
             background: rgba(255, 255, 255, 0.08);
             border-color: #d4af37;
         }
+    }
 
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #d4af37;
-        }
+    &__feature-title {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #d4af37;
+    }
 
-        p {
-            color: #888;
-            line-height: 1.5;
-        }
+    &__feature-text {
+        color: #888;
+        line-height: 1.5;
+    }
+
+    &__fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    &__delay-1 {
+        animation-delay: 0.2s;
+    }
+
+    &__delay-2 {
+        animation-delay: 0.4s;
     }
 }
 
@@ -146,24 +158,14 @@
     }
 }
 
-.fade-in {
-    animation: fadeIn 0.8s ease forwards;
-}
-
-.delay-1 {
-    animation-delay: 0.2s;
-}
-
-.delay-2 {
-    animation-delay: 0.4s;
-}
-
 @media (max-width: 768px) {
-    .hero-section .hero-content h1 {
-        font-size: 3rem;
-    }
+    .c-landing-page {
+        &__title {
+            font-size: 3rem;
+        }
 
-    .features-grid {
-        grid-template-columns: 1fr;
+        &__features-grid {
+            grid-template-columns: 1fr;
+        }
     }
 }

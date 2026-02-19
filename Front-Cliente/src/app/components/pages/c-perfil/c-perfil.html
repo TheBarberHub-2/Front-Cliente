@@ -72,26 +72,26 @@
         <div class="c-perfil__modal">
           <h3 class="c-perfil__modal-title">Solicitar Alta como Peluquería</h3>
           <form (ngSubmit)="onSubmitSolicitudPeluqueria()">
-            <div class="form-group">
+            <div class="c-perfil__modal-form-group">
               <label>Municipio</label>
-              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio"
-                name="municipio" required placeholder="Ej: Valencia" />
+              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.municipio" name="municipio" required
+                placeholder="Ej: Valencia" />
             </div>
-            <div class="form-group">
+            <div class="c-perfil__modal-form-group">
               <label>Dirección</label>
-              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion"
-                name="direccion" required placeholder="Ej: Calle Mayor, 12" />
+              <input type="text" [(ngModel)]="nuevaSolicitudPeluqueria.direccion" name="direccion" required
+                placeholder="Ej: Calle Mayor, 12" />
             </div>
-            <div class="form-group">
+            <div class="c-perfil__modal-form-group">
               <label>Teléfono de Contacto</label>
-              <input type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono"
-                name="telefono" required placeholder="Ej: 600123456" />
+              <input type="tel" [(ngModel)]="nuevaSolicitudPeluqueria.telefono" name="telefono" required
+                placeholder="Ej: 600123456" />
             </div>
-            <div class="modal-actions">
-              <button type="button" class="btn-cancel" (click)="showSolicitudPeluqueriaForm = false">
+            <div class="c-perfil__modal-actions">
+              <button type="button" class="c-perfil__btn-cancel" (click)="showSolicitudPeluqueriaForm = false">
                 Cancelar
               </button>
-              <button type="submit" class="btn-save">Enviar Solicitud</button>
+              <button type="submit" class="c-perfil__btn-save">Enviar Solicitud</button>
             </div>
           </form>
         </div>
@@ -143,7 +143,7 @@
           <div class="c-perfil__modal">
             <h3 class="c-perfil__modal-title">Añadir Nuevo Horario</h3>
             <form (ngSubmit)="guardarHorario()">
-              <div class="form-group">
+              <div class="c-perfil__modal-form-group">
                 <label>Día de la semana</label>
                 <select [(ngModel)]="nuevoHorario.diaSemana" name="dia">
                   @for (dia of diasSemana; track dia) {
@@ -151,23 +151,21 @@
                   }
                 </select>
               </div>
-              <div class="form-row">
-                <div class="form-group">
+              <div class="c-perfil__modal-form-row">
+                <div class="c-perfil__modal-form-group">
                   <label>Apertura</label>
-                  <input type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape"
-                    required />
+                  <input type="time" [(ngModel)]="nuevoHorario.horaApertura" name="ape" required />
                 </div>
-                <div class="form-group">
+                <div class="c-perfil__modal-form-group">
                   <label>Cierre</label>
-                  <input type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie"
-                    required />
+                  <input type="time" [(ngModel)]="nuevoHorario.horaCierre" name="cie" required />
                 </div>
               </div>
-              <div class="modal-actions">
-                <button type="button" class="btn-cancel" (click)="showHorarioForm = false">
+              <div class="c-perfil__modal-actions">
+                <button type="button" class="c-perfil__btn-cancel" (click)="showHorarioForm = false">
                   Cancelar
                 </button>
-                <button type="submit" class="btn-save">Guardar</button>
+                <button type="submit" class="c-perfil__btn-save">Guardar</button>
               </div>
             </form>
           </div>
@@ -179,7 +177,7 @@
           <div class="c-perfil__modal">
             <h3 class="c-perfil__modal-title">Editar Horario</h3>
             <form (ngSubmit)="guardarCambiosHorario()">
-              <div class="form-group">
+              <div class="c-perfil__modal-form-group">
                 <label>Día de la semana</label>
                 <select [(ngModel)]="horarioEnEdicion.diaSemana" name="dia">
                   @for (dia of diasSemana; track dia) {
@@ -187,23 +185,21 @@
                   }
                 </select>
               </div>
-              <div class="form-row">
-                <div class="form-group">
+              <div class="c-perfil__modal-form-row">
+                <div class="c-perfil__modal-form-group">
                   <label>Apertura</label>
-                  <input type="time" [(ngModel)]="horarioEnEdicion.horaApertura"
-                    name="ape" required />
+                  <input type="time" [(ngModel)]="horarioEnEdicion.horaApertura" name="ape" required />
                 </div>
-                <div class="form-group">
+                <div class="c-perfil__modal-form-group">
                   <label>Cierre</label>
-                  <input type="time" [(ngModel)]="horarioEnEdicion.horaCierre" name="cie"
-                    required />
+                  <input type="time" [(ngModel)]="horarioEnEdicion.horaCierre" name="cie" required />
                 </div>
               </div>
-              <div class="modal-actions">
-                <button type="button" class="btn-cancel" (click)="showEditarHorarioForm = false">
+              <div class="c-perfil__modal-actions">
+                <button type="button" class="c-perfil__btn-cancel" (click)="showEditarHorarioForm = false">
                   Cancelar
                 </button>
-                <button type="submit" class="btn-save">Guardar Cambios</button>
+                <button type="submit" class="c-perfil__btn-save">Guardar Cambios</button>
               </div>
             </form>
           </div>

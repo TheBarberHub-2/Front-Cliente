@@ -1,10 +1,7 @@
-@use '../../../scss/01_utilities/variables' as vars;
-
 .c-landing-page {
-    min-height: 100vh;
-    background-color: #0c0c0c;
-    color: white;
-    font-family: 'Inter', sans-serif;
+    min-height: var(--bh-h-12);
+    background-color: var(--bh-color-gris-1);
+    color: var(--bh-color-gris-9);
 
     &__hero {
         position: relative;
@@ -25,51 +22,51 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(12, 12, 12, 1) 100%);
-        z-index: 1;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, var(--bh-color-gris-1) 100%);
+        z-index: var(--bh-z-1);
     }
 
     &__hero-content {
         position: relative;
-        z-index: 2;
+        z-index: var(--bh-z-2);
         max-width: 800px;
-        padding: 0 20px;
+        padding: 0 var(--bh-p-6);
     }
 
     &__title {
-        font-size: 5rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        background: linear-gradient(45deg, #d4af37, #f1c40f);
+        font-size: var(--bh-texto-9);
+        font-weight: var(--bh-peso-5);
+        margin-bottom: var(--bh-p-6);
+        background: linear-gradient(45deg, var(--bh-color-acento), #f1c40f);
         background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -2px;
     }
 
     &__text {
-        font-size: 1.5rem;
-        color: #ccc;
-        margin-bottom: 40px;
+        font-size: var(--bh-texto-6);
+        color: var(--bh-color-gris-7);
+        margin-bottom: var(--bh-p-11);
         line-height: 1.6;
     }
 
     &__cta-buttons {
         display: flex;
-        gap: 20px;
+        gap: var(--bh-p-6);
         justify-content: center;
     }
 
     &__btn {
-        padding: 15px 40px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        border-radius: 50px;
-        transition: all 0.3s ease;
+        padding: var(--bh-p-5) var(--bh-p-10);
+        font-size: var(--bh-texto-4);
+        font-weight: var(--bh-peso-4);
+        border-radius: var(--bh-radio-9);
+        transition: all var(--bh-transicion-2) ease;
         text-decoration: none;
 
         &--primary {
-            background: #d4af37;
-            color: black;
+            background: var(--bh-color-acento);
+            color: var(--bh-color-gris-1);
 
             &:hover {
                 transform: translateY(-3px);
@@ -78,8 +75,8 @@
         }
 
         &--outline {
-            border: 2px solid #d4af37;
-            color: #d4af37;
+            border: 2px solid var(--bh-color-acento);
+            color: var(--bh-color-acento);
 
             &:hover {
                 background: rgba(212, 175, 55, 0.1);
@@ -88,47 +85,47 @@
     }
 
     &__features {
-        padding: 100px 0;
-        background: #0c0c0c;
+        padding: var(--bh-p-14) 0;
+        background: var(--bh-color-gris-1);
     }
 
     &__section-title {
         text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 60px;
-        color: white;
+        font-size: var(--bh-texto-7);
+        margin-bottom: var(--bh-p-13);
+        color: var(--bh-color-gris-9);
     }
 
     &__features-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        padding: 0 20px;
+        gap: var(--bh-p-11);
+        padding: 0 var(--bh-p-6);
     }
 
     &__feature-card {
         background: rgba(255, 255, 255, 0.05);
-        padding: 40px;
-        border-radius: 20px;
+        padding: var(--bh-p-11);
+        border-radius: var(--bh-radio-5);
         text-align: center;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
+        transition: all var(--bh-transicion-2) ease;
 
         &:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.08);
-            border-color: #d4af37;
+            border-color: var(--bh-color-acento);
         }
     }
 
     &__feature-title {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        color: #d4af37;
+        font-size: var(--bh-texto-6);
+        margin-bottom: var(--bh-p-5);
+        color: var(--bh-color-acento);
     }
 
     &__feature-text {
-        color: #888;
+        color: var(--bh-color-gris-6);
         line-height: 1.5;
     }
 
@@ -161,7 +158,7 @@
 @media (max-width: 768px) {
     .c-landing-page {
         &__title {
-            font-size: 3rem;
+            font-size: var(--bh-texto-7);
         }
 
         &__features-grid {

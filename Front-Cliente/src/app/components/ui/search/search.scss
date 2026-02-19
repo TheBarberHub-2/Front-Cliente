@@ -1,7 +1,7 @@
 .c-search {
     display: flex;
     align-items: center;
-    gap: var(--bh-espacio-2);
+    gap: var(--bh-p-2);
 
     &__input {
         background-color: var(--bh-color-gris-1);
@@ -9,27 +9,30 @@
         border: 1px solid var(--bh-color-gris-3);
         outline: none;
         transition: border-color var(--bh-transicion-1);
-        padding: var(--bh-p-2);
+        padding: var(--bh-p-2) var(--bh-p-4);
         border-radius: var(--bh-radio-2);
         flex: 1;
+        font-size: var(--bh-texto-3);
 
         &:focus {
             border-color: var(--bh-color-acento);
         }
 
         &::placeholder {
-            color: var(--bh-color-gris-3);
+            color: var(--bh-color-gris-4);
         }
     }
 
     &__btn {
         background-color: var(--bh-color-gris-1);
         color: var(--bh-color-gris-9);
-        padding: var(--bh-espacio-2) var(--bh-espacio-3);
+        padding: var(--bh-p-2) var(--bh-p-4);
         border: 1px solid var(--bh-color-gris-3);
         border-radius: var(--bh-radio-2);
         cursor: pointer;
         transition: all var(--bh-transicion-1);
+        font-size: var(--bh-texto-3);
+        font-weight: var(--bh-peso-4);
 
         &:hover {
             background-color: var(--bh-color-gris-3);

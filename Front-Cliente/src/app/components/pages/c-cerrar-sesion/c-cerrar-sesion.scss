@@ -21,9 +21,9 @@
 
     &__title {
         margin-bottom: var(--bh-p-4);
-        color: var(--c-mod-container-color-texto-primprimary);
-        font-size: var(--bh-texto-2);
-        border-bottom: 2px solid var(--bh-color-primario);
+        color: var(--c-mod-container-color-texto-primario);
+        font-size: var(--bh-texto-4);
+        border-bottom: 2px solid var(--bh-color-acento);
         padding-bottom: var(--bh-p-2);
         margin-top: 0;
     }
@@ -37,7 +37,7 @@
 
     &__text {
         color: var(--c-mod-container-color-texto-primario);
-        font-size: var(--bh-texto-lg);
+        font-size: var(--bh-texto-3);
         margin-bottom: var(--bh-p-2);
     }
 
@@ -51,14 +51,14 @@
     &__btn {
         padding: var(--bh-p-2) var(--bh-p-4);
         border-radius: var(--bh-radio-1);
-        font-weight: 600;
+        font-weight: var(--bh-peso-5);
         cursor: pointer;
         border: none;
-        transition: all 0.2s ease;
+        transition: all var(--bh-transicion-1) ease;
 
         &--submit {
             background-color: var(--bh-color-error);
-            color: white;
+            color: var(--bh-color-gris-9);
 
             &:hover {
                 background-color: color-mix(in srgb, var(--bh-color-error), black 10%);
